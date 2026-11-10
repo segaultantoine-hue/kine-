@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!-- Essai hors de l'appli KINÉ : le « lecteur », la page du téléphone du patient. Elle est vide : ni patient, ni questionnaire,
+     ni programme. Tout arrive par le lien, après le « # », que le navigateur n'envoie jamais à un serveur. Aucun appel réseau. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mon kiné">
+<title>Mon kiné</title>
+<style>
+:root{--encre:#1A1D22;--accent:#1B314E;--ok:#1A4F35;--vig:#90652E;--alerte:#9D3B34;--fond:#F6F5F2;--carte:#fff;--filet:#DDD9D0;--gris:#5C6470}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fond);color:var(--encre);font:17px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Source Sans 3",sans-serif}
+main{max-width:560px;margin:0 auto;padding:18px 16px calc(28px + env(safe-area-inset-bottom))}
+h1{font-size:22px;line-height:1.2;margin:4px 0 10px}
+h2{font-size:18px;margin:22px 0 8px}
+p{margin:8px 0}
+.petit{font-size:14px;color:var(--gris)}
+.tete{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--gris);margin-bottom:6px}
+.carte{background:var(--carte);border:1px solid var(--filet);border-radius:14px;padding:14px;margin:10px 0}
+.btn{display:block;width:100%;min-height:52px;border-radius:12px;border:1px solid var(--accent);background:var(--accent);color:#fff;font:inherit;font-weight:600;padding:12px 14px;margin:10px 0;text-align:center;text-decoration:none}
+.btn.sec{background:var(--carte);color:var(--accent)}
+.btn.lien{border:0;background:none;color:var(--accent);min-height:44px;font-weight:500;text-decoration:underline}
+.btn:disabled{opacity:.4}
+.barre{height:6px;border-radius:3px;background:var(--filet);overflow:hidden;margin:6px 0 16px}
+.barre i{display:block;height:100%;background:var(--accent)}
+.q{font-size:20px;line-height:1.3;font-weight:600;margin:10px 0 14px}
+.ancres{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--gris);margin:0 2px 6px}
+.ancres span:last-child{text-align:right}
+.ech{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.ech button,.choix button,.puce{min-height:52px;border-radius:12px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:18px}
+.choix{display:grid;gap:8px}
+.choix button{text-align:left;padding:10px 14px;font-size:17px}
+[aria-pressed=true]{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+textarea{width:100%;border:1px solid var(--filet);border-radius:12px;padding:12px;font:inherit;background:var(--carte);color:var(--encre)}
+.err{color:var(--alerte);font-weight:600}
+.exo{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}
+.exo svg{width:92px;height:92px;background:#F1EFEA;border-radius:10px}
+.exo b{font-size:18px}
+.exo .dose{color:var(--accent);font-weight:600}
+.exo .fait{grid-column:1 / -1;min-height:46px;margin:2px 0 0}
+.puces{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.qr{background:#fff;border-radius:14px;padding:6px;border:1px solid var(--filet)}
+.qr svg{display:block;width:100%;height:auto}
+.journal{list-style:none;padding:0;margin:0}
+.journal li{padding:8px 0;border-bottom:1px solid var(--filet);font-size:15px}
+details{margin-top:26px;font-size:14px;color:var(--gris)}
+details pre{white-space:pre-wrap;word-break:break-all;background:var(--carte);border:1px solid var(--filet);border-radius:10px;padding:10px;font-size:12.5px}
+.ok{color:var(--ok);font-weight:600}
+</style>
+</head>
+<body>
+<main id="app"><p>Ouverture…</p><noscript><p>Cette page a besoin de JavaScript.</p></noscript></main>
+<script src="commun.js"></script>
+<script>
+(function () {
+'use strict';
+var app = document.getElementById('app');
+var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); };
+var auj = function () { var d = new Date(), z = function (n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); };
+var dCourte = function (d) { return d.slice(8, 10) + '/' + d.slice(5, 7); };
+var lire = function (k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+var garder = function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
+
+/* Trois dessins de la bibliothèque de KINÉ, simplifiés pour l'essai. Dans la vraie page : toute la bibliothèque, dessinée comme dans l'appli. */
+var PICTOS = {"squat":{"corps":[[48,88.5,58.1,72.4],[58.1,72.4,38.9,69],[38.9,69,50.8,54.8],[50.8,55.5,80,55.5]],"tete":[59.8,44.1],"fantome":{"corps":[[48,88.5,48.5,69.5],[48.5,69.5,47.5,50],[47.5,50,48,31.5],[48,32.5,76,33]],"tete":[48,17.5]},"fleches":[[[30,40],[20,56],[27,72]]]},
+"pont-fessier":{"corps":[[30.5,87,47,78.6],[47,78.6,65,69.5],[65,69.5,66,88.5],[30.5,88.5,45,89.3]],"tete":[16.5,86.5],"fantome":{"corps":[[30.5,87,48.5,87],[48.5,87,59.3,70.8],[59.3,70.8,66,88.5],[30.5,88.5,58,89.5]],"tete":[16.5,86.5]},"fleches":[[[47,67],[43,56],[47,45]]]},
+"gainage-ventral":{"corps":[[10,88.5,28.5,84],[28.5,84,47.4,79.4],[49.3,78.9,67.3,74.5],[66.3,74.8,66.3,89.2],[66.3,89.2,79.8,89.2]],"tete":[80.9,71.2]}};
+function picto(id) { var p = PICTOS[id]; if (!p) return '<svg viewBox="0 0 100 100" aria-hidden="true"></svg>';
+  var corps = function (c, op) { return (c.corps || []).map(function (s) { return '<line x1="' + s[0] + '" y1="' + s[1] + '" x2="' + s[2] + '" y2="' + s[3] + '"/>'; }).join('') + (c.tete ? '<circle cx="' + c.tete[0] + '" cy="' + c.tete[1] + '" r="6.2" fill="#1A1D22" stroke="none"/>' : ''); };
+  var fl = (p.fleches || []).map(function (f) { return '<path d="M' + f[0].join(' ') + ' Q' + f[1].join(' ') + ' ' + f[2].join(' ') + '" fill="none" stroke="#1B314E" stroke-width="2.2" marker-end="url(#fl)"/>'; }).join('');
+  return '<svg viewBox="0 0 100 100" role="img" aria-label="Dessin de l’exercice"><defs><marker id="fl" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1B314E"/></marker></defs>'
+    + '<line x1="6" y1="93" x2="94" y2="93" stroke="#C9C4B8" stroke-width="1.5"/>'
+    + (p.fantome ? '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round" opacity=".2">' + corps(p.fantome) + '</g>' : '')
+    + '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round">' + corps(p) + '</g>' + fl + '</svg>'; }
+
+var E = null, ETAT = null, V = {ecran: '', i: 0, j: 0, err: '', lien: '', source: ''};
+var cleEtat = function () { return 'lecteur:' + E.id; };
+var sauver = function () { garder(cleEtat(), ETAT); };
+
+function ouvrir() {
+  var h = location.hash.replace(/^#/, ''), source = 'lien';
+  if (!h) { h = (lire('lecteur:dernier') || {}).h || ''; source = h ? 'telephone' : ''; }
+  V.lien = h; V.source = source;
+  if (!h) { V.ecran = 'vide'; rendre(); return; }
+  Codec.lireAller(h).then(function (o) {
+    if (!o || o.v !== 1 || !o.id || (o.t !== 'q' && o.t !== 's')) throw new Error('lien');
+    E = o; garder('lecteur:dernier', {h: h, le: auj()});
+    ETAT = lire(cleEtat()) || {rep: [], fini: false, journal: [], montre: ''};
+    if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else V.ecran = 'seance';
+    rendre();
+  }).catch(function (e) { V.ecran = e && e.message === 'ancien' ? 'ancien' : 'illisible'; rendre(); });
+}
+
+/* ---------- questionnaire : une question par écran ---------- */
+var quest = function () { return E.q[V.i]; }, item = function () { return quest().it[V.j]; };
+var repDe = function () { ETAT.rep[V.i] = ETAT.rep[V.i] || []; return ETAT.rep[V.i]; };
+function total() { var n = 0; E.q.forEach(function (q) { n += q.it.length; }); return n; }
+function rang() { var n = 0; for (var i = 0; i < V.i; i++) n += E.q[i].it.length; return n + V.j; }
+function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '';
+  h += '<div class="tete"><span>' + esc(q.n) + '</span><span>' + (rang() + 1) + ' sur ' + total() + '</span></div><div class="barre"><i style="width:' + Math.round(100 * rang() / total()) + '%"></i></div>';
+  h += '<p class="q">' + esc(it.q) + '</p>';
+  if (it.t === 'echelle') { h += '<div class="ancres"><span>0 · ' + esc((it.a || [])[0] || '') + '</span><span>' + esc((it.a || [])[1] || '') + ' · 10</span></div><div class="ech">';
+    for (var n = 0; n <= 10; n++) h += '<button data-act="rep" data-v="' + n + '" aria-pressed="' + (v === n) + '">' + n + '</button>';
+    h += '</div>' + (it.na ? '<div class="choix" style="margin-top:8px"><button data-act="rep" data-v="na" aria-pressed="' + (v === 'na') + '">' + esc(it.na) + '</button></div>' : ''); }
+  else if (it.t === 'choix') h += '<div class="choix">' + it.o.map(function (o) { return '<button data-act="rep" data-v="' + esc(o[0]) + '" aria-pressed="' + (String(v) === String(o[0])) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+  else h += '<textarea id="texte" rows="4" maxlength="240" placeholder="Quelques mots' + (it.f ? ' (facultatif)' : '') + '">' + esc(v || '') + '</textarea>';
+  h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="suivant">' + (rang() + 1 === total() ? 'Terminer' : 'Suivant') + '</button>';
+  if (rang() > 0) h += '<button class="btn lien" data-act="precedent">Question précédente</button>';
+  return h; }
+function prendreTexte() { var t = document.getElementById('texte'); if (t) { var r = repDe(); if (t.value.trim()) r[V.j] = t.value.trim(); else r[V.j] = null; } }
+
+/* ---------- séance à la maison ---------- */
+var EFFORTS = ['Facile', 'Moyen', 'Dur'];
+function brouillon() { ETAT.b = ETAT.b && ETAT.b.d === auj() ? ETAT.b : {d: auj(), f: E.ex.map(function () { return 0; }), p: null, e: null, m: ''}; return ETAT.b; }
+function ecranSeance() { var b = brouillon(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(auj()) + '</span></div><h1>' + esc(E.nom || 'Votre séance') + '</h1>';
+  if (E.mot) h += '<p>' + esc(E.mot) + '</p>';
+  E.ex.forEach(function (x, i) { h += '<div class="carte exo">' + picto(x.p) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + (x.c ? '<br><span class="petit">' + esc(x.c) + '</span>' : '') + '</div><button class="btn sec fait" data-act="fait" data-i="' + i + '" aria-pressed="' + (b.f[i] === 1) + '">' + (b.f[i] === 1 ? 'Fait ✓' : 'Fait') + '</button></div>'; });
+  h += '<h2>Douleur pendant la séance</h2><div class="ancres"><span>0 · aucune</span><span>la pire · 10</span></div><div class="ech">';
+  for (var n = 0; n <= 10; n++) h += '<button data-act="douleur" data-v="' + n + '" aria-pressed="' + (b.p === n) + '">' + n + '</button>';
+  h += '</div><h2>Effort</h2><div class="puces">' + EFFORTS.map(function (t, i) { return '<button class="puce" data-act="effort" data-v="' + (i + 1) + '" aria-pressed="' + (b.e === i + 1) + '">' + t + '</button>'; }).join('') + '</div>';
+  h += '<h2>Un mot pour votre kiné <span class="petit">(facultatif)</span></h2><textarea id="mot" rows="2" maxlength="140">' + esc(b.m || '') + '</textarea>';
+  h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="noter">Enregistrer ma séance du jour</button>';
+  if (ETAT.journal.length) h += '<button class="btn sec" data-act="journal">Mes séances notées (' + ETAT.journal.length + ')</button>';
+  return h; }
+function ligneJournal(x) { var n = x[1].split('').filter(function (c) { return c === '1'; }).length; return dCourte(x[0]) + ' · ' + n + ' exercice' + (n > 1 ? 's' : '') + ' sur ' + x[1].length + (x[2] != null ? ' · douleur ' + x[2] + '/10' : '') + (x[3] ? ' · ' + EFFORTS[x[3] - 1].toLowerCase() : '') + (x[4] ? ' · « ' + x[4] + ' »' : ''); }
+function ecranJournal() { return '<h1>Mes séances notées</h1><div class="carte"><ul class="journal">' + ETAT.journal.map(function (x) { return '<li>' + esc(ligneJournal(x)) + '</li>'; }).join('') + '</ul></div>'
+  + '<button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn sec" data-act="retour-seance">Revenir à la séance</button>'; }
+
+/* ---------- l'envoi : un QR code à montrer, ou un message ---------- */
+function objetRetour() { if (E.t === 'q') return {e: E.e, t: 'q', d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
+  return {e: E.e, t: 's', j: ETAT.journal}; }
+function preparerEnvoi() { V.ecran = 'envoi'; V.code = null; rendre();
+  Codec.retour(E.id, E.k, objetRetour()).then(function (r) { V.code = r; rendre(); }).catch(function () { Codec.retour(E.id, '', objetRetour()).then(function (r) { V.code = r; rendre(); }); }); }
+var texteMessage = function () { return 'Mes réponses pour mon kiné (à ne pas modifier) : ' + V.code.code; };
+function ecranEnvoi() { if (!V.code) return '<p>Préparation…</p>';
+  var q = QR.svg(V.code.code, 'M'), t = encodeURIComponent(texteMessage()), tel = String(E.tel || '').replace(/[^\d+]/g, ''), ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  var h = '<h1>Envoyer à mon kiné</h1><p><b>Au cabinet :</b> montrez ce code à la caméra de son ordinateur. Mettez la luminosité de l’écran au maximum.</p><div class="qr">' + q.svg + '</div>';
+  h += '<p class="petit">' + (V.code.chiffre ? 'Vos réponses sont chiffrées : seul l’ordinateur de votre kiné peut les lire.' : 'Dans cet essai, la page n’est pas en https : le code n’est pas chiffré.') + '</p>';
+  h += '<h2>De chez vous</h2>';
+  if (E.mel) h += '<a class="btn" href="mailto:' + encodeURIComponent(E.mel).replace(/%40/g, '@') + '?subject=' + encodeURIComponent('Mes réponses pour mon kiné') + '&body=' + encodeURIComponent('Bonjour,\r\n\r\nVoici mes réponses. Merci de ne pas modifier la ligne ci-dessous.\r\n\r\n' + V.code.code + '\r\n') + '">Par mail</a><p class="petit">Votre messagerie s’ouvre avec le message déjà écrit : il reste à toucher « Envoyer ».</p>';
+  if (navigator.share) h += '<button class="btn" data-act="partager">Envoyer par message</button>';
+  h += '<a class="btn sec" href="sms:' + tel + (ios ? '&' : '?') + 'body=' + t + '">Par SMS ou iMessage</a><a class="btn sec" href="https://wa.me/' + tel.replace('+', '') + '?text=' + t + '">Par WhatsApp</a><button class="btn sec" data-act="copier">Copier le code</button>';
+  h += '<p class="petit">Le message ne contient ni votre nom ni le nom de l’exercice ou du questionnaire : seulement ce code.</p>';
+  h += '<button class="btn lien" data-act="' + (E.t === 'q' ? 'fin' : 'retour-seance') + '">Revenir</button>';
+  return h; }
+
+function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essai', '1'); st = localStorage.getItem('lecteur:essai') === '1'; } catch (e) { st = false; }
+  var app = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  return ['Ouverte depuis : ' + (V.source === 'lien' ? 'le lien (le programme est dans l’adresse)' : V.source === 'telephone' ? 'la mémoire de ce téléphone (pas de lien)' : 'rien'),
+    'En app de l’écran d’accueil : ' + (app ? 'oui' : 'non'),
+    'Page sûre (https) : ' + (window.isSecureContext ? 'oui' : 'non'),
+    'Mémoire du téléphone : ' + (st ? 'oui' : 'non'),
+    'Compression : ' + (Codec.peutCompresser() ? 'oui' : 'non'),
+    'Chiffrement : ' + (Codec.peutChiffrer() ? 'oui' : 'non'),
+    'Bouton de partage : ' + (navigator.share ? 'oui' : 'non'),
+    'Adresse mail du kiné dans le lien : ' + (E && E.mel ? 'oui' : 'non'),
+    'Longueur du lien reçu : ' + V.lien.length + ' caractères',
+    navigator.userAgent].join('\n'); }
+
+function rendre() { var h = '';
+  if (V.ecran === 'vide') h = '<h1>Mon kiné</h1><p>Cette page s’ouvre avec le QR code ou le lien donné par votre kiné.</p><p class="petit">Elle ne contient rien par elle-même et n’envoie rien.</p>';
+  else if (V.ecran === 'ancien') h = '<h1>Téléphone trop ancien pour ce lien</h1><p>Demandez à votre kiné le « lien pour ancien téléphone ».</p>';
+  else if (V.ecran === 'illisible') h = '<h1>Lien incomplet</h1><p>Le lien a été coupé en route. Demandez-le de nouveau à votre kiné, ou scannez le QR code au cabinet.</p>';
+  else if (V.ecran === 'accueil') h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.q.map(function (q) { return q.n; }).join(' et ')) + '</h1><div class="carte"><p>' + esc(E.q[0].c || 'Répondez à chaque question, puis montrez ou envoyez vos réponses à votre kiné.') + '</p></div><p class="petit">' + total() + ' questions, environ ' + Math.max(1, Math.round(total() / 5)) + ' min. Vos réponses restent sur ce téléphone jusqu’à ce que vous les montriez ou les envoyiez.</p><button class="btn" data-act="commencer">' + ((ETAT.rep[0] || []).length ? 'Reprendre' : 'Commencer') + '</button>';
+  else if (V.ecran === 'question') h = ecranQuestion();
+  else if (V.ecran === 'fin') h = '<h1>Merci, c’est terminé</h1><p class="ok">Vos réponses sont notées sur ce téléphone.</p><p>Il reste à les donner à votre kiné : au cabinet en montrant un code, ou de chez vous par message.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">Revoir mes réponses</button>';
+  else if (V.ecran === 'seance') h = ecranSeance();
+  else if (V.ecran === 'journal') h = ecranJournal();
+  else if (V.ecran === 'envoi') h = ecranEnvoi();
+  h += '<details><summary>Essai : ce que ce téléphone sait faire</summary><pre>' + esc(diagnostic()) + '</pre></details>';
+  app.innerHTML = h; window.scrollTo(0, 0); }
+
+var A = {
+  commencer: function () { V.i = 0; V.j = 0; V.ecran = 'question'; },
+  revoir: function () { V.i = 0; V.j = 0; V.ecran = 'question'; },
+  rep: function (el) { var v = el.dataset.v, it = item(); repDe()[V.j] = it.t === 'echelle' && v !== 'na' ? +v : v; V.err = ''; sauver(); },
+  suivant: function () { var it = item(); if (it.t === 'texte') prendreTexte(); var v = repDe()[V.j];
+    if ((v === undefined || v === null || v === '') && !it.f) { V.err = it.t === 'texte' ? 'Écrivez quelques mots, s’il vous plaît.' : 'Choisissez une réponse, s’il vous plaît.'; return; }
+    V.err = ''; sauver();
+    if (V.j + 1 < quest().it.length) V.j++; else if (V.i + 1 < E.q.length) { V.i++; V.j = 0; } else { ETAT.fini = true; ETAT.finLe = auj(); sauver(); V.ecran = 'fin'; } },
+  precedent: function () { if (item().t === 'texte') prendreTexte(); V.err = ''; if (V.j > 0) V.j--; else if (V.i > 0) { V.i--; V.j = quest().it.length - 1; } },
+  fin: function () { V.ecran = 'fin'; },
+  fait: function (el) { var b = brouillon(), i = +el.dataset.i; garderMot(); b.f[i] = b.f[i] === 1 ? 0 : 1; sauver(); },
+  douleur: function (el) { garderMot(); brouillon().p = +el.dataset.v; V.err = ''; sauver(); },
+  effort: function (el) { garderMot(); brouillon().e = +el.dataset.v; sauver(); },
+  noter: function () { garderMot(); var b = brouillon(); if (b.p == null) { V.err = 'Notez votre douleur de 0 à 10, s’il vous plaît.'; return; }
+    V.err = ''; ETAT.journal = ETAT.journal.filter(function (x) { return x[0] !== b.d; }).concat([[b.d, b.f.join(''), b.p, b.e || 0, b.m || '']]).sort(); sauver(); V.ecran = 'journal'; },
+  journal: function () { garderMot(); V.ecran = 'journal'; },
+  'retour-seance': function () { V.ecran = 'seance'; },
+  envoi: function () { preparerEnvoi(); return true; },
+  partager: function () { navigator.share({text: texteMessage()}).catch(function () {}); return true; },
+  copier: function (el) { var t = V.code.code, fini = function () { el.textContent = 'Code copié ✓'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fini, function () { copieAncienne(t); fini(); }); else { copieAncienne(t); fini(); } return true; }
+};
+function garderMot() { var t = document.getElementById('mot'); if (t && ETAT) brouillon().m = t.value.trim(); }
+function copieAncienne(t) { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); } catch (e) {} a.remove(); }
+app.addEventListener('click', function (ev) { var el = ev.target.closest('[data-act]'); if (!el || !A[el.dataset.act]) return; if (A[el.dataset.act](el) !== true) rendre(); });
+window.addEventListener('hashchange', ouvrir);
+ouvrir();
+})();
+</script>
+</body>
+</html>
