@@ -134,11 +134,15 @@ var Codec = (function () {
   function trouverRetour(texte) { texte = String(texte || ''); var m = MOTIF_FIN.exec(texte);
     if (m) { var d = m[3].replace(/[\s>=]/g, ''); return {id: m[1], mode: m[2], donnees: d, code: 'KINE1.' + m[1] + '.' + m[2] + d + '.FIN'}; }
     m = MOTIF.exec(texte); return m ? {id: m[1], mode: m[2], donnees: m[3], code: m[0]} : null; }
+  /* tous les codes d'un texte, sans doublon : plusieurs mails collés d'un coup */
+  function trouverTous(texte) { var l = [], vus = {}, r, reste = String(texte || ''), i;
+    while ((r = trouverRetour(reste))) { if (!vus[r.code]) { vus[r.code] = 1; l.push(r); } i = reste.indexOf('KINE1.' + r.id + '.'); reste = reste.slice(i + 6); if (l.length > 200) break; }
+    return l; }
   function lireRetour(r, k) { var u8 = unb64u(r.donnees);
     if (r.mode === 'p') return Promise.resolve(JSON.parse(versTexte(u8)));
     if (!k || !peutChiffrer()) return Promise.reject(new Error('cle'));
     return cle(k).then(function (c) { return crypto.subtle.decrypt({name: 'AES-GCM', iv: u8.slice(0, 12)}, c, u8.slice(12)); }).then(function (b) { return JSON.parse(versTexte(new Uint8Array(b))); }); }
 
-  return {b64u: b64u, unb64u: unb64u, aller: aller, lireAller: lireAller, retour: retour, trouverRetour: trouverRetour, lireRetour: lireRetour,
+  return {b64u: b64u, unb64u: unb64u, aller: aller, lireAller: lireAller, retour: retour, trouverRetour: trouverRetour, trouverTous: trouverTous, lireRetour: lireRetour,
     alea: alea, peutCompresser: peutCompresser, peutChiffrer: peutChiffrer};
 })();

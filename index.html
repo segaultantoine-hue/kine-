@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Essai hors de l'appli KINÉ : le « lecteur », la page du téléphone du patient. Elle est vide : ni patient, ni questionnaire,
+<!-- Version 2 (11 novembre 2026). Hors de l'appli KINÉ : le « lecteur », la page du téléphone du patient. Elle est vide : ni patient, ni questionnaire,
      ni programme. Tout arrive par le lien, après le « # », que le navigateur n'envoie jamais à un serveur. Aucun appel réseau. -->
 <html lang="fr">
 <head>
@@ -50,6 +50,16 @@ textarea{width:100%;border:1px solid var(--filet);border-radius:12px;padding:12p
 details{margin-top:26px;font-size:14px;color:var(--gris)}
 details pre{white-space:pre-wrap;word-break:break-all;background:var(--carte);border:1px solid var(--filet);border-radius:10px;padding:10px;font-size:12.5px}
 .ok{color:var(--ok);font-weight:600}
+.intro{font-size:15px;color:var(--gris);margin:0 0 6px;white-space:pre-line}
+.nb{display:flex;align-items:center;gap:12px;margin:8px 0}
+.nb input[type=range]{flex:1;min-height:44px;accent-color:var(--accent)}
+.nb output{min-width:64px;text-align:center;font-size:22px;font-weight:700;border:1px solid var(--filet);border-radius:10px;padding:6px 4px;background:var(--carte)}
+input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:10px;padding:8px 6px;font:inherit;background:var(--carte);color:var(--encre);width:100%;min-height:44px;text-align:center}
+.series{grid-column:1 / -1;display:grid;gap:6px;margin-top:4px}
+.serie{display:grid;grid-template-columns:52px 1fr 1fr;gap:6px;align-items:center}
+.serie button{min-height:44px;border-radius:10px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-weight:600}
+.serie label{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--gris)}
+.hors{font-size:13px;color:var(--gris);text-align:center;margin-top:18px}
 </style>
 </head>
 <body>
@@ -65,19 +75,18 @@ var dCourte = function (d) { return d.slice(8, 10) + '/' + d.slice(5, 7); };
 var lire = function (k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
 var garder = function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
 
-/* Trois dessins de la bibliothèque de KINÉ, simplifiés pour l'essai. Dans la vraie page : toute la bibliothèque, dessinée comme dans l'appli. */
-var PICTOS = {"squat":{"corps":[[48,88.5,58.1,72.4],[58.1,72.4,38.9,69],[38.9,69,50.8,54.8],[50.8,55.5,80,55.5]],"tete":[59.8,44.1],"fantome":{"corps":[[48,88.5,48.5,69.5],[48.5,69.5,47.5,50],[47.5,50,48,31.5],[48,32.5,76,33]],"tete":[48,17.5]},"fleches":[[[30,40],[20,56],[27,72]]]},
-"pont-fessier":{"corps":[[30.5,87,47,78.6],[47,78.6,65,69.5],[65,69.5,66,88.5],[30.5,88.5,45,89.3]],"tete":[16.5,86.5],"fantome":{"corps":[[30.5,87,48.5,87],[48.5,87,59.3,70.8],[59.3,70.8,66,88.5],[30.5,88.5,58,89.5]],"tete":[16.5,86.5]},"fleches":[[[47,67],[43,56],[47,45]]]},
-"gainage-ventral":{"corps":[[10,88.5,28.5,84],[28.5,84,47.4,79.4],[49.3,78.9,67.3,74.5],[66.3,74.8,66.3,89.2],[66.3,89.2,79.8,89.2]],"tete":[80.9,71.2]}};
-function picto(id) { var p = PICTOS[id]; if (!p) return '<svg viewBox="0 0 100 100" aria-hidden="true"></svg>';
-  var corps = function (c, op) { return (c.corps || []).map(function (s) { return '<line x1="' + s[0] + '" y1="' + s[1] + '" x2="' + s[2] + '" y2="' + s[3] + '"/>'; }).join('') + (c.tete ? '<circle cx="' + c.tete[0] + '" cy="' + c.tete[1] + '" r="6.2" fill="#1A1D22" stroke="none"/>' : ''); };
-  var fl = (p.fleches || []).map(function (f) { return '<path d="M' + f[0].join(' ') + ' Q' + f[1].join(' ') + ' ' + f[2].join(' ') + '" fill="none" stroke="#1B314E" stroke-width="2.2" marker-end="url(#fl)"/>'; }).join('');
-  return '<svg viewBox="0 0 100 100" role="img" aria-label="Dessin de l’exercice"><defs><marker id="fl" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1B314E"/></marker></defs>'
+/* Le dessin d'un exercice arrive dans le lien : g = {c: segments [x1,y1,x2,y2], t: tête [x,y], f: {c, t} position de départ, fl: flèches}.
+   La page n'a aucune bibliothèque : sans « g », la carte s'affiche sans dessin. */
+var nPicto = 0;
+function picto(g) { if (!g || !Array.isArray(g.c)) return '';
+  var id = 'fl' + (++nPicto), corps = function (c) { return (c.c || []).filter(function (s) { return Array.isArray(s) && s.length >= 4; }).map(function (s) { return '<line x1="' + (+s[0]) + '" y1="' + (+s[1]) + '" x2="' + (+s[2]) + '" y2="' + (+s[3]) + '"/>'; }).join('') + (Array.isArray(c.t) ? '<circle cx="' + (+c.t[0]) + '" cy="' + (+c.t[1]) + '" r="6.2" fill="#1A1D22" stroke="none"/>' : ''); };
+  var fl = (g.fl || []).filter(function (f) { return Array.isArray(f) && f.length === 3; }).map(function (f) { return '<path d="M' + (+f[0][0]) + ' ' + (+f[0][1]) + ' Q' + (+f[1][0]) + ' ' + (+f[1][1]) + ' ' + (+f[2][0]) + ' ' + (+f[2][1]) + '" fill="none" stroke="#1B314E" stroke-width="2.2" marker-end="url(#' + id + ')"/>'; }).join('');
+  return '<svg viewBox="0 0 100 100" role="img" aria-label="Dessin de l’exercice"><defs><marker id="' + id + '" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1B314E"/></marker></defs>'
     + '<line x1="6" y1="93" x2="94" y2="93" stroke="#C9C4B8" stroke-width="1.5"/>'
-    + (p.fantome ? '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round" opacity=".2">' + corps(p.fantome) + '</g>' : '')
-    + '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round">' + corps(p) + '</g>' + fl + '</svg>'; }
+    + (g.f ? '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round" opacity=".2">' + corps(g.f) + '</g>' : '')
+    + '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round">' + corps(g) + '</g>' + fl + '</svg>'; }
 
-var E = null, ETAT = null, V = {ecran: '', i: 0, j: 0, err: '', lien: '', source: ''};
+var E = null, ETAT = null, V = {ecran: '', i: 0, j: 0, err: '', lien: '', source: '', touche: false, garde: false};
 var cleEtat = function () { return 'lecteur:' + E.id; };
 var sauver = function () { garder(cleEtat(), ETAT); };
 
@@ -87,10 +96,10 @@ function ouvrir() {
   V.lien = h; V.source = source;
   if (!h) { V.ecran = 'vide'; rendre(); return; }
   Codec.lireAller(h).then(function (o) {
-    if (!o || o.v !== 1 || !o.id || (o.t !== 'q' && o.t !== 's')) throw new Error('lien');
+    if (!o || o.v !== 1 || !o.id || ['q', 's', 'g'].indexOf(o.t) < 0 || (o.t === 'q' ? !Array.isArray(o.q) || !o.q.length : !Array.isArray(o.ex) || !o.ex.length)) throw new Error('lien');
     E = o; garder('lecteur:dernier', {h: h, le: auj()});
     ETAT = lire(cleEtat()) || {rep: [], fini: false, journal: [], montre: ''};
-    if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else V.ecran = 'seance';
+    if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else if (E.t === 'g') V.ecran = ETAT.fini ? 'fin' : 'salle'; else V.ecran = 'seance';
     rendre();
   }).catch(function (e) { V.ecran = e && e.message === 'ancien' ? 'ancien' : 'illisible'; rendre(); });
 }
@@ -102,23 +111,35 @@ function total() { var n = 0; E.q.forEach(function (q) { n += q.it.length; }); r
 function rang() { var n = 0; for (var i = 0; i < V.i; i++) n += E.q[i].it.length; return n + V.j; }
 function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '';
   h += '<div class="tete"><span>' + esc(q.n) + '</span><span>' + (rang() + 1) + ' sur ' + total() + '</span></div><div class="barre"><i style="width:' + Math.round(100 * rang() / total()) + '%"></i></div>';
-  h += '<p class="q">' + esc(it.q) + '</p>';
+  if (it.intro) h += '<p class="intro">' + esc(it.intro) + '</p>';
+  h += '<p class="q">' + esc(it.q) + '</p>' + (it.f && it.t !== 'texte' ? '<p class="petit">Facultatif : « Suivant » passe la question.</p>' : '');
   if (it.t === 'echelle') { h += '<div class="ancres"><span>0 · ' + esc((it.a || [])[0] || '') + '</span><span>' + esc((it.a || [])[1] || '') + ' · 10</span></div><div class="ech">';
     for (var n = 0; n <= 10; n++) h += '<button data-act="rep" data-v="' + n + '" aria-pressed="' + (v === n) + '">' + n + '</button>';
     h += '</div>' + (it.na ? '<div class="choix" style="margin-top:8px"><button data-act="rep" data-v="na" aria-pressed="' + (v === 'na') + '">' + esc(it.na) + '</button></div>' : ''); }
-  else if (it.t === 'choix') h += '<div class="choix">' + it.o.map(function (o) { return '<button data-act="rep" data-v="' + esc(o[0]) + '" aria-pressed="' + (String(v) === String(o[0])) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+  else if (it.t === 'choix') h += '<div class="choix">' + (it.o || []).map(function (o) { return '<button data-act="rep" data-v="' + esc(o[0]) + '" aria-pressed="' + (v != null && String(v) === String(o[0])) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+  else if (it.t === 'nombre') { var mi = it.min != null ? +it.min : 0, ma = it.max != null ? +it.max : 100, cur = ma - mi >= 50;   /* un curseur pour les échelles de 0 à 100, un champ pour un petit nombre (des jours) */
+    if (Array.isArray(it.a) && it.a.length === 2) h += '<div class="ancres"><span>' + mi + ' · ' + esc(it.a[0]) + '</span><span>' + esc(it.a[1]) + ' · ' + ma + '</span></div>';
+    if (cur) h += '<div class="nb"><input type="range" id="nombre" min="' + mi + '" max="' + ma + '" step="1" value="' + (typeof v === 'number' ? v : Math.round((mi + ma) / 2)) + '" aria-label="' + esc(it.q) + '"><output id="nombre-v">' + (typeof v === 'number' ? v : '–') + '</output></div><p class="petit">Faites glisser le curseur' + (it.unite ? ' (' + esc(it.unite) + ')' : '') + '.</p>';
+    else h += '<input type="number" id="nombre" inputmode="numeric" min="' + mi + '" max="' + ma + '" value="' + (typeof v === 'number' ? v : '') + '" aria-label="' + esc(it.q) + '"><p class="petit">De ' + mi + ' à ' + ma + (it.unite ? ' ' + esc(it.unite) : '') + '.</p>'; }
+  else if (it.t === 'visa8') { var br = it.br || [], vb = Array.isArray(v) ? v : [], b = br.filter(function (x) { return x.k === vb[0]; })[0];
+    h += '<div class="choix">' + br.map(function (x) { return '<button data-act="branche" data-v="' + esc(x.k) + '" aria-pressed="' + (vb[0] === x.k) + '">' + esc(x.k + '. ' + x.cond) + '</button>'; }).join('') + '</div>';
+    if (b) h += '<p class="q" style="font-size:18px;margin-top:18px">' + esc(b.q) + '</p><div class="choix">' + (b.temps || it.temps || []).map(function (t, i) { return '<button data-act="rep8" data-v="' + esc(b.v[i]) + '" aria-pressed="' + (vb[1] != null && String(vb[1]) === String(b.v[i])) + '">' + esc(t) + '</button>'; }).join('') + '</div>'; }
   else h += '<textarea id="texte" rows="4" maxlength="240" placeholder="Quelques mots' + (it.f ? ' (facultatif)' : '') + '">' + esc(v || '') + '</textarea>';
   h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="suivant">' + (rang() + 1 === total() ? 'Terminer' : 'Suivant') + '</button>';
   if (rang() > 0) h += '<button class="btn lien" data-act="precedent">Question précédente</button>';
   return h; }
 function prendreTexte() { var t = document.getElementById('texte'); if (t) { var r = repDe(); if (t.value.trim()) r[V.j] = t.value.trim(); else r[V.j] = null; } }
+/* un nombre : le curseur ne compte que s'il a été touché (V.touche), le champ que s'il est rempli et dans les bornes */
+function prendreNombre() { var n = document.getElementById('nombre'), it = item(); if (!n || it.t !== 'nombre') return; var r = repDe();
+  if (n.type === 'range') { if (V.touche) r[V.j] = +n.value; return; }
+  var x = n.value.trim() === '' ? NaN : +n.value.replace(',', '.'), mi = it.min != null ? +it.min : 0, ma = it.max != null ? +it.max : 100; r[V.j] = isFinite(x) && x >= mi && x <= ma ? x : null; }
 
 /* ---------- séance à la maison ---------- */
 var EFFORTS = ['Facile', 'Moyen', 'Dur'];
 function brouillon() { ETAT.b = ETAT.b && ETAT.b.d === auj() ? ETAT.b : {d: auj(), f: E.ex.map(function () { return 0; }), p: null, e: null, m: ''}; return ETAT.b; }
 function ecranSeance() { var b = brouillon(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(auj()) + '</span></div><h1>' + esc(E.nom || 'Votre séance') + '</h1>';
   if (E.mot) h += '<p>' + esc(E.mot) + '</p>';
-  E.ex.forEach(function (x, i) { h += '<div class="carte exo">' + picto(x.p) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + (x.c ? '<br><span class="petit">' + esc(x.c) + '</span>' : '') + '</div><button class="btn sec fait" data-act="fait" data-i="' + i + '" aria-pressed="' + (b.f[i] === 1) + '">' + (b.f[i] === 1 ? 'Fait ✓' : 'Fait') + '</button></div>'; });
+  E.ex.forEach(function (x, i) { h += '<div class="carte exo"' + (x.g ? '' : ' style="grid-template-columns:1fr"') + '>' + picto(x.g) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + (x.c ? '<br><span class="petit">' + esc(x.c) + '</span>' : '') + '</div><button class="btn sec fait" data-act="fait" data-i="' + i + '" aria-pressed="' + (b.f[i] === 1) + '">' + (b.f[i] === 1 ? 'Fait ✓' : 'Fait') + '</button></div>'; });
   h += '<h2>Douleur pendant la séance</h2><div class="ancres"><span>0 · aucune</span><span>la pire · 10</span></div><div class="ech">';
   for (var n = 0; n <= 10; n++) h += '<button data-act="douleur" data-v="' + n + '" aria-pressed="' + (b.p === n) + '">' + n + '</button>';
   h += '</div><h2>Effort</h2><div class="puces">' + EFFORTS.map(function (t, i) { return '<button class="puce" data-act="effort" data-v="' + (i + 1) + '" aria-pressed="' + (b.e === i + 1) + '">' + t + '</button>'; }).join('') + '</div>';
@@ -130,22 +151,43 @@ function ligneJournal(x) { var n = x[1].split('').filter(function (c) { return c
 function ecranJournal() { return '<h1>Mes séances notées</h1><div class="carte"><ul class="journal">' + ETAT.journal.map(function (x) { return '<li>' + esc(ligneJournal(x)) + '</li>'; }).join('') + '</ul></div>'
   + '<button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn sec" data-act="retour-seance">Revenir à la séance</button>'; }
 
+/* ---------- séance faite en salle, sur le téléphone du patient ---------- */
+/* E.ex[i] = {n, d, c, g, s: nombre de séries, r: répétitions prévues, kg: charge prévue, u: unité à la place des répétitions (« s » pour des secondes)}
+   ETAT.sal = {d, x: [[ [faite 0/1, répétitions, charge], … ], …], p: douleur, e: effort 1 à 3, m: mot} */
+function salle() { if (!ETAT.sal) ETAT.sal = {d: auj(), x: E.ex.map(function (x) { var l = []; for (var j = 0; j < Math.max(1, Math.min(12, +x.s || 1)); j++) l.push([0, x.r != null ? String(x.r) : '', x.kg != null ? String(x.kg) : '']); return l; }), p: null, e: null, m: ''}; return ETAT.sal; }
+function prendreSalle() { var b = salle(); [].forEach.call(document.querySelectorAll('[data-ch]'), function (el) { var p = el.dataset.ch.split('.'), l = (b.x[+p[0]] || [])[+p[1]]; if (l) l[+p[2]] = el.value.trim().replace(',', '.').slice(0, 6); }); var m = document.getElementById('mot'); if (m) b.m = m.value.trim(); }
+function ecranSalle() { var b = salle(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(b.d) + '</span></div><h1>' + esc(E.nom || 'Votre séance') + '</h1>';
+  if (E.mot) h += '<p>' + esc(E.mot) + '</p>';
+  E.ex.forEach(function (x, i) { var u = x.u || 'rép.', kg = x.kg != null && x.kg !== '';
+    h += '<div class="carte exo"' + (x.g ? '' : ' style="grid-template-columns:1fr"') + '>' + picto(x.g) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + (x.c ? '<br><span class="petit">' + esc(x.c) + '</span>' : '') + '</div><div class="series">';
+    b.x[i].forEach(function (l, j) { h += '<div class="serie"' + (kg ? '' : ' style="grid-template-columns:52px 1fr"') + '><button data-act="serie" data-i="' + i + '" data-j="' + j + '" aria-pressed="' + (l[0] === 1) + '" aria-label="Série ' + (j + 1) + (l[0] === 1 ? ', faite' : '') + '">' + (l[0] === 1 ? '✓' : j + 1) + '</button>'
+        + '<label><input type="text" inputmode="decimal" data-ch="' + i + '.' + j + '.1" value="' + esc(l[1]) + '" aria-label="Série ' + (j + 1) + ', ' + esc(u) + '">' + esc(u) + '</label>'
+        + (kg ? '<label><input type="text" inputmode="decimal" data-ch="' + i + '.' + j + '.2" value="' + esc(l[2]) + '" aria-label="Série ' + (j + 1) + ', charge en kilos">kg</label>' : '') + '</div>'; });
+    h += '</div></div>'; });
+  h += '<h2>Douleur pendant la séance</h2><div class="ancres"><span>0 · aucune</span><span>la pire · 10</span></div><div class="ech">';
+  for (var n = 0; n <= 10; n++) h += '<button data-act="s-douleur" data-v="' + n + '" aria-pressed="' + (b.p === n) + '">' + n + '</button>';
+  h += '</div><h2>Effort</h2><div class="puces">' + EFFORTS.map(function (t, i) { return '<button class="puce" data-act="s-effort" data-v="' + (i + 1) + '" aria-pressed="' + (b.e === i + 1) + '">' + t + '</button>'; }).join('') + '</div>';
+  h += '<h2>Un mot pour votre kiné <span class="petit">(facultatif)</span></h2><textarea id="mot" rows="2" maxlength="140">' + esc(b.m || '') + '</textarea>';
+  h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="s-finir">J’ai fini ma séance</button>';
+  return h; }
+
 /* ---------- l'envoi : un QR code à montrer, ou un message ---------- */
 function objetRetour() { if (E.t === 'q') return {e: E.e, t: 'q', d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
+  if (E.t === 'g') { var b = salle(); return {e: E.e, t: 'g', d: b.d, x: b.x, p: b.p, r: b.e || 0, m: b.m || ''}; }
   return {e: E.e, t: 's', j: ETAT.journal}; }
 function preparerEnvoi() { V.ecran = 'envoi'; V.code = null; rendre();
   Codec.retour(E.id, E.k, objetRetour()).then(function (r) { V.code = r; rendre(); }).catch(function () { Codec.retour(E.id, '', objetRetour()).then(function (r) { V.code = r; rendre(); }); }); }
 var texteMessage = function () { return 'Mes réponses pour mon kiné (à ne pas modifier) : ' + V.code.code; };
 function ecranEnvoi() { if (!V.code) return '<p>Préparation…</p>';
   var q = QR.svg(V.code.code, 'M'), t = encodeURIComponent(texteMessage()), tel = String(E.tel || '').replace(/[^\d+]/g, ''), ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  var h = '<h1>Envoyer à mon kiné</h1><p><b>Au cabinet :</b> montrez ce code à la caméra de son ordinateur. Mettez la luminosité de l’écran au maximum.</p><div class="qr">' + q.svg + '</div>';
-  h += '<p class="petit">' + (V.code.chiffre ? 'Vos réponses sont chiffrées : seul l’ordinateur de votre kiné peut les lire.' : 'Dans cet essai, la page n’est pas en https : le code n’est pas chiffré.') + '</p>';
-  h += '<h2>De chez vous</h2>';
-  if (E.mel) h += '<a class="btn" href="mailto:' + encodeURIComponent(E.mel).replace(/%40/g, '@') + '?subject=' + encodeURIComponent('Mes réponses pour mon kiné') + '&body=' + encodeURIComponent('Bonjour,\r\n\r\nVoici mes réponses. Merci de ne pas modifier la ligne ci-dessous.\r\n\r\n' + V.code.code + '\r\n') + '">Par mail</a><p class="petit">Votre messagerie s’ouvre avec le message déjà écrit : il reste à toucher « Envoyer ».</p>';
+  var h = '<h1>Envoyer à mon kiné</h1>';
+  if (E.mel) h += '<a class="btn" href="mailto:' + encodeURIComponent(E.mel).replace(/%40/g, '@') + '?subject=' + encodeURIComponent(E.t === 'q' ? 'Mes réponses pour mon kiné' : 'Ma séance pour mon kiné') + '&body=' + encodeURIComponent('Bonjour,\r\n\r\n' + (E.t === 'q' ? 'Voici mes réponses.' : 'Voici ma séance.') + ' Merci de ne pas modifier la ligne ci-dessous.\r\n\r\n' + V.code.code + '\r\n') + '">Par mail</a><p class="petit">Votre messagerie s’ouvre avec le message déjà écrit : il reste à toucher « Envoyer ».</p>';
+  h += '<p class="petit">' + (V.code.chiffre ? 'Vos réponses sont chiffrées : seul l’ordinateur de votre kiné peut les lire.' : 'Cette page n’est pas en https : le code n’est pas chiffré.') + '</p>';
+  h += '<h2>Au cabinet, sans mail</h2><p>Montrez ce code à la caméra de son ordinateur, luminosité de l’écran au maximum.</p><div class="qr">' + q.svg + '</div><h2>Autrement</h2>';
   if (navigator.share) h += '<button class="btn" data-act="partager">Envoyer par message</button>';
   h += '<a class="btn sec" href="sms:' + tel + (ios ? '&' : '?') + 'body=' + t + '">Par SMS ou iMessage</a><a class="btn sec" href="https://wa.me/' + tel.replace('+', '') + '?text=' + t + '">Par WhatsApp</a><button class="btn sec" data-act="copier">Copier le code</button>';
   h += '<p class="petit">Le message ne contient ni votre nom ni le nom de l’exercice ou du questionnaire : seulement ce code.</p>';
-  h += '<button class="btn lien" data-act="' + (E.t === 'q' ? 'fin' : 'retour-seance') + '">Revenir</button>';
+  h += '<button class="btn lien" data-act="' + (E.t === 's' ? 'retour-seance' : 'fin') + '">Revenir</button>';
   return h; }
 
 function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essai', '1'); st = localStorage.getItem('lecteur:essai') === '1'; } catch (e) { st = false; }
@@ -157,6 +199,7 @@ function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essa
     'Compression : ' + (Codec.peutCompresser() ? 'oui' : 'non'),
     'Chiffrement : ' + (Codec.peutChiffrer() ? 'oui' : 'non'),
     'Bouton de partage : ' + (navigator.share ? 'oui' : 'non'),
+    'Hors connexion : ' + ('serviceWorker' in navigator && window.isSecureContext ? (navigator.serviceWorker.controller ? 'oui, page gardée' : 'possible, pas encore gardée') : 'non'),
     'Adresse mail du kiné dans le lien : ' + (E && E.mel ? 'oui' : 'non'),
     'Longueur du lien reçu : ' + V.lien.length + ' caractères',
     navigator.userAgent].join('\n'); }
@@ -167,26 +210,35 @@ function rendre() { var h = '';
   else if (V.ecran === 'illisible') h = '<h1>Lien incomplet</h1><p>Le lien a été coupé en route. Demandez-le de nouveau à votre kiné, ou scannez le QR code au cabinet.</p>';
   else if (V.ecran === 'accueil') h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.q.map(function (q) { return q.n; }).join(' et ')) + '</h1><div class="carte"><p>' + esc(E.q[0].c || 'Répondez à chaque question, puis montrez ou envoyez vos réponses à votre kiné.') + '</p></div><p class="petit">' + total() + ' questions, environ ' + Math.max(1, Math.round(total() / 5)) + ' min. Vos réponses restent sur ce téléphone jusqu’à ce que vous les montriez ou les envoyiez.</p><button class="btn" data-act="commencer">' + ((ETAT.rep[0] || []).length ? 'Reprendre' : 'Commencer') + '</button>';
   else if (V.ecran === 'question') h = ecranQuestion();
-  else if (V.ecran === 'fin') h = '<h1>Merci, c’est terminé</h1><p class="ok">Vos réponses sont notées sur ce téléphone.</p><p>Il reste à les donner à votre kiné : au cabinet en montrant un code, ou de chez vous par message.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">Revoir mes réponses</button>';
+  else if (V.ecran === 'fin') h = '<h1>Merci, c’est terminé</h1><p class="ok">' + (E.t === 'g' ? 'Votre séance est notée sur ce téléphone.' : 'Vos réponses sont notées sur ce téléphone.') + '</p><p>Il reste à ' + (E.t === 'g' ? 'la' : 'les') + ' donner à votre kiné : par mail, ou en montrant un code à son ordinateur.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">' + (E.t === 'g' ? 'Revoir ma séance' : 'Revoir mes réponses') + '</button>';
+  else if (V.ecran === 'salle') h = ecranSalle();
   else if (V.ecran === 'seance') h = ecranSeance();
   else if (V.ecran === 'journal') h = ecranJournal();
   else if (V.ecran === 'envoi') h = ecranEnvoi();
   h += '<details><summary>Essai : ce que ce téléphone sait faire</summary><pre>' + esc(diagnostic()) + '</pre></details>';
-  app.innerHTML = h; window.scrollTo(0, 0); }
+  var y = V.garde ? window.scrollY : 0; V.garde = false; app.innerHTML = h; window.scrollTo(0, y);
+  var n = document.querySelector('#nombre[type=range]'), o = document.getElementById('nombre-v'); if (n && o) n.addEventListener('input', function () { V.touche = true; o.textContent = n.value; }); }
 
 var A = {
   commencer: function () { V.i = 0; V.j = 0; V.ecran = 'question'; },
-  revoir: function () { V.i = 0; V.j = 0; V.ecran = 'question'; },
+  revoir: function () { if (E.t === 'g') { V.ecran = 'salle'; return; } V.i = 0; V.j = 0; V.ecran = 'question'; },
+  serie: function (el) { prendreSalle(); var l = salle().x[+el.dataset.i][+el.dataset.j]; l[0] = l[0] === 1 ? 0 : 1; sauver(); V.garde = true; },
+  's-douleur': function (el) { prendreSalle(); salle().p = +el.dataset.v; V.err = ''; sauver(); V.garde = true; },
+  's-effort': function (el) { prendreSalle(); salle().e = +el.dataset.v; sauver(); V.garde = true; },
+  's-finir': function () { prendreSalle(); var b = salle(); if (b.p == null) { V.err = 'Notez votre douleur de 0 à 10, s’il vous plaît.'; sauver(); V.garde = true; return; } V.err = ''; ETAT.fini = true; sauver(); V.ecran = 'fin'; },
   rep: function (el) { var v = el.dataset.v, it = item(); repDe()[V.j] = it.t === 'echelle' && v !== 'na' ? +v : v; V.err = ''; sauver(); },
-  suivant: function () { var it = item(); if (it.t === 'texte') prendreTexte(); var v = repDe()[V.j];
-    if ((v === undefined || v === null || v === '') && !it.f) { V.err = it.t === 'texte' ? 'Écrivez quelques mots, s’il vous plaît.' : 'Choisissez une réponse, s’il vous plaît.'; return; }
-    V.err = ''; sauver();
+  branche: function (el) { repDe()[V.j] = [el.dataset.v, null]; V.err = ''; sauver(); },
+  rep8: function (el) { var v = repDe()[V.j]; if (Array.isArray(v)) { v[1] = el.dataset.v; V.err = ''; sauver(); } },
+  suivant: function () { var it = item(); if (it.t === 'texte') prendreTexte(); if (it.t === 'nombre') prendreNombre(); var v = repDe()[V.j];
+    if (it.t === 'visa8' && !(Array.isArray(v) && v[0] && v[1] != null)) v = null;
+    if ((v === undefined || v === null || v === '') && !it.f) { V.err = it.t === 'texte' ? 'Écrivez quelques mots, s’il vous plaît.' : it.t === 'nombre' ? (document.querySelector('#nombre[type=range]') ? 'Placez le curseur, s’il vous plaît.' : 'Écrivez un nombre dans les bornes, s’il vous plaît.') : 'Choisissez une réponse, s’il vous plaît.'; return; }
+    V.err = ''; V.touche = false; sauver();
     if (V.j + 1 < quest().it.length) V.j++; else if (V.i + 1 < E.q.length) { V.i++; V.j = 0; } else { ETAT.fini = true; ETAT.finLe = auj(); sauver(); V.ecran = 'fin'; } },
-  precedent: function () { if (item().t === 'texte') prendreTexte(); V.err = ''; if (V.j > 0) V.j--; else if (V.i > 0) { V.i--; V.j = quest().it.length - 1; } },
+  precedent: function () { if (item().t === 'texte') prendreTexte(); if (item().t === 'nombre') prendreNombre(); V.err = ''; V.touche = false; if (V.j > 0) V.j--; else if (V.i > 0) { V.i--; V.j = quest().it.length - 1; } },
   fin: function () { V.ecran = 'fin'; },
-  fait: function (el) { var b = brouillon(), i = +el.dataset.i; garderMot(); b.f[i] = b.f[i] === 1 ? 0 : 1; sauver(); },
-  douleur: function (el) { garderMot(); brouillon().p = +el.dataset.v; V.err = ''; sauver(); },
-  effort: function (el) { garderMot(); brouillon().e = +el.dataset.v; sauver(); },
+  fait: function (el) { var b = brouillon(), i = +el.dataset.i; garderMot(); b.f[i] = b.f[i] === 1 ? 0 : 1; sauver(); V.garde = true; },
+  douleur: function (el) { garderMot(); brouillon().p = +el.dataset.v; V.err = ''; sauver(); V.garde = true; },
+  effort: function (el) { garderMot(); brouillon().e = +el.dataset.v; sauver(); V.garde = true; },
   noter: function () { garderMot(); var b = brouillon(); if (b.p == null) { V.err = 'Notez votre douleur de 0 à 10, s’il vous plaît.'; return; }
     V.err = ''; ETAT.journal = ETAT.journal.filter(function (x) { return x[0] !== b.d; }).concat([[b.d, b.f.join(''), b.p, b.e || 0, b.m || '']]).sort(); sauver(); V.ecran = 'journal'; },
   journal: function () { garderMot(); V.ecran = 'journal'; },
@@ -196,10 +248,13 @@ var A = {
   copier: function (el) { var t = V.code.code, fini = function () { el.textContent = 'Code copié ✓'; };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fini, function () { copieAncienne(t); fini(); }); else { copieAncienne(t); fini(); } return true; }
 };
-function garderMot() { var t = document.getElementById('mot'); if (t && ETAT) brouillon().m = t.value.trim(); }
+function garderMot() { var t = document.getElementById('mot'); if (t && ETAT && E.t === 's') brouillon().m = t.value.trim(); }
 function copieAncienne(t) { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); } catch (e) {} a.remove(); }
 app.addEventListener('click', function (ev) { var el = ev.target.closest('[data-act]'); if (!el || !A[el.dataset.act]) return; if (A[el.dataset.act](el) !== true) rendre(); });
+app.addEventListener('change', function () { if (V.ecran === 'salle') { prendreSalle(); sauver(); } });
 window.addEventListener('hashchange', ouvrir);
+/* hors connexion : la page se garde elle-même (ses propres fichiers seulement), le réseau d'abord quand il est là */
+if ('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWorker.register('sw.js').catch(function () {});
 ouvrir();
 })();
 </script>
