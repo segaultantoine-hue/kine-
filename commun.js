@@ -122,15 +122,16 @@ var Codec = (function () {
     if (mode === 'z') { if (!peutCompresser()) return Promise.reject(new Error('ancien')); return flux(u8, DecompressionStream).then(function (b) { return JSON.parse(versTexte(b)); }); }
     return Promise.reject(new Error('lien')); }
 
-  /* le retour : « KINE1.<envoi>.<mode><données> ». « c » chiffré (AES-GCM, la clé venue par l'aller), « p » en clair. */
-  function retour(id, k, objet) { var u8 = versOctets(JSON.stringify(objet));
+  /* le retour : « KINE1.<envoi>.<mode><données> ». « c » chiffré (AES-GCM, la clé venue par l'aller), « p » en clair ; version 3 (1.29-test6) : « d »,
+     compressé puis chiffré, quand le billet le permet (z : il vient d'une appli qui sait le lire) et que le navigateur sait compresser ; sinon « c ». */
+  function retour(id, k, objet, z) { var u8 = versOctets(JSON.stringify(objet));
     if (!k || !peutChiffrer()) return Promise.resolve({code: 'KINE1.' + id + '.p' + b64u(u8) + '.FIN', chiffre: false});
-    var iv = alea(12);
-    return cle(k).then(function (c) { return crypto.subtle.encrypt({name: 'AES-GCM', iv: iv}, c, u8); }).then(function (b) { var c = new Uint8Array(b), o = new Uint8Array(12 + c.length); o.set(iv); o.set(c, 12);
-      return {code: 'KINE1.' + id + '.c' + b64u(o) + '.FIN', chiffre: true}; }); }
-  var MOTIF = /KINE1\.([A-Za-z0-9]{4,12})\.([cp])([A-Za-z0-9_-]{8,})/;
+    var iv = alea(12), d = !!z && peutCompresser();
+    return (d ? flux(u8, CompressionStream) : Promise.resolve(u8)).then(function (v) { return cle(k).then(function (c) { return crypto.subtle.encrypt({name: 'AES-GCM', iv: iv}, c, v); }); }).then(function (b) { var c = new Uint8Array(b), o = new Uint8Array(12 + c.length); o.set(iv); o.set(c, 12);
+      return {code: 'KINE1.' + id + '.' + (d ? 'd' : 'c') + b64u(o) + '.FIN', chiffre: true}; }); }
+  var MOTIF = /KINE1\.([A-Za-z0-9]{4,12})\.([cpd])([A-Za-z0-9_-]{8,})/;
   /* avec « .FIN », le code supporte d'être coupé par un mail (retours à la ligne, espaces, « > » d'une citation, « = » de fin de ligne) */
-  var MOTIF_FIN = /KINE1\.([A-Za-z0-9]{4,12})\.([cp])([A-Za-z0-9_\-\s>=]{8,}?)\.FIN/;
+  var MOTIF_FIN = /KINE1\.([A-Za-z0-9]{4,12})\.([cpd])([A-Za-z0-9_\-\s>=]{8,}?)\.FIN/;
   function trouverRetour(texte) { texte = String(texte || ''); var m = MOTIF_FIN.exec(texte);
     if (m) { var d = m[3].replace(/[\s>=]/g, ''); return {id: m[1], mode: m[2], donnees: d, code: 'KINE1.' + m[1] + '.' + m[2] + d + '.FIN'}; }
     m = MOTIF.exec(texte); return m ? {id: m[1], mode: m[2], donnees: m[3], code: m[0]} : null; }
@@ -141,7 +142,8 @@ var Codec = (function () {
   function lireRetour(r, k) { var u8 = unb64u(r.donnees);
     if (r.mode === 'p') return Promise.resolve(JSON.parse(versTexte(u8)));
     if (!k || !peutChiffrer()) return Promise.reject(new Error('cle'));
-    return cle(k).then(function (c) { return crypto.subtle.decrypt({name: 'AES-GCM', iv: u8.slice(0, 12)}, c, u8.slice(12)); }).then(function (b) { return JSON.parse(versTexte(new Uint8Array(b))); }); }
+    return cle(k).then(function (c) { return crypto.subtle.decrypt({name: 'AES-GCM', iv: u8.slice(0, 12)}, c, u8.slice(12)); }).then(function (b) { var v = new Uint8Array(b);
+      if (r.mode !== 'd') return JSON.parse(versTexte(v)); if (!peutCompresser()) throw new Error('ancien'); return flux(v, DecompressionStream).then(function (x) { return JSON.parse(versTexte(x)); }); }); }
 
   return {b64u: b64u, unb64u: unb64u, aller: aller, lireAller: lireAller, retour: retour, trouverRetour: trouverRetour, trouverTous: trouverTous, lireRetour: lireRetour,
     alea: alea, peutCompresser: peutCompresser, peutChiffrer: peutChiffrer};

@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<!-- Version 2 (11 novembre 2026). Hors de l'appli KINÉ : le « lecteur », la page du téléphone du patient. Elle est vide : ni patient, ni questionnaire,
+<!-- Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
+     Revue avec la 1.30-test1 (lot 1 de la 1.30, 13 novembre) : le billet contrôlé champ par champ (AME-157), l'heure de chaque séance à la maison (AME-160),
+     « Effacer mes données de ce téléphone » (AME-166), « − Une série » (AME-138), Repos · Chrono (ERG-184), la gêne sur la carte de la série (ERG-190),
+     les kilos changés par le patient (AME-168), le bilan des séries avant l'envoi et l'ordre d'un circuit. Puis avec la 1.30-test3 (lot 3, l'audit du téléphone) :
+     l'envoi qui ne se bloque plus sur un long journal (GT-1), « pas encore envoyées » et la garde des données (GT-2), une politique de sécurité (GT-5), les mots
+     du chiffrement (GT-6), « Effacer » après l'envoi (GT-7), « Vos réponses partent à » (GT-8), « − » et « + » (V130-1-9). Hors de l'appli KINÉ : le « lecteur », la page du téléphone du patient. Elle est vide : ni patient, ni questionnaire,
      ni programme. Tout arrive par le lien, après le « # », que le navigateur n'envoie jamais à un serveur. Aucun appel réseau. -->
 <html lang="fr">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-CyPBdM14PMkE/GOqAkeLPBdxaphjyDkycDTgrkGSREE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
@@ -60,20 +66,142 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .serie button{min-height:44px;border-radius:10px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-weight:600}
 .serie label{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--gris)}
 .hors{font-size:13px;color:var(--gris);text-align:center;margin-top:18px}
+/* version 3 : la salle, un exercice à la fois */
+.s3-tete{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.s3-tete .btn.lien{width:auto;min-height:40px;margin:0;padding:6px 0;text-align:left;text-decoration:none;font-weight:600}
+.s3-liste{list-style:none;padding:0;margin:0}
+.s3-liste button{display:flex;justify-content:space-between;width:100%;min-height:46px;border:0;border-bottom:1px solid var(--filet);background:none;font:inherit;color:var(--encre);text-align:left;padding:8px 2px}
+#s3-dessin{display:flex;justify-content:center;background:#F1EFEA;border-radius:12px;padding:6px;margin:4px 0 8px}
+#s3-dessin svg{width:100%;max-width:300px;height:auto}
+.s3-series{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}
+.s3-series li{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--filet);border-radius:10px;background:var(--carte);font-size:15px}
+.s3-series li.cur{border-color:var(--accent);border-width:2px}
+.s3-series li span:first-child{white-space:nowrap}.s3-series li span:last-child{text-align:right}
+.s3-series li.faite{color:var(--ok)}.s3-series li.sautee{color:var(--gris);text-decoration:line-through}
+.s3-champs{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px 8px;align-items:center;margin:8px 0}
+.s3-champs label{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--gris)}
+.s3-repos{text-align:center;border-color:var(--accent)}
+.s3-repos b{display:block;font-size:44px;line-height:1.1;color:var(--accent)}
+.s3-n{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.s3-n button,.s3-o button{min-height:48px;border-radius:12px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit}
+.s3-o{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.s3-eff{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.s3-eff button{min-height:44px;border-radius:8px;border:1px solid var(--filet);background:var(--carte);font:inherit;font-size:14px}
+.s3-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s3-nav .btn{margin:6px 0}
+/* le pré-bilan de l'athlète : plusieurs petits champs, des lignes, des cases */
+.g-l{display:grid;gap:4px;margin:8px 0;font-size:14px;color:var(--gris)}
+.g-l input,.g-l select{border:1px solid var(--filet);border-radius:10px;padding:8px;font:inherit;font-size:16px;background:var(--carte);color:var(--encre);min-height:44px;width:100%}
+.ligne{border:1px solid var(--filet);border-radius:12px;padding:8px 10px;margin:8px 0;background:var(--carte)}
+.ligne .btn.lien{min-height:36px;margin:0}
+.manque{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--filet);background:none;font:inherit;padding:10px 0;color:var(--accent)}
+/* 1.30-test1 : Repos · Chrono (ERG-184), la gêne sur la carte (ERG-190), « + Une série · − Une série » (AME-138), le bilan avant l'envoi, effacer (AME-166) */
+.s3-mode{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 0 10px}
+.s3-mode button{min-height:44px;border-radius:10px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-weight:600}
+.s3-q{font-weight:600;margin:14px 0 6px}
+.s3-g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.s3-g4 button{min-height:64px;border-radius:12px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px 2px}
+.s3-g4 button[aria-pressed=true]{background:#E9EDF3!important;color:var(--encre)!important;border:2px solid var(--accent)!important}
+.pg{display:block;width:20px;height:20px;border-radius:50%;border:2px solid #9AA0A8;background:transparent}
+.pg-legere{border-color:var(--vig)}
+.pg-moyenne{border-color:var(--vig);background:linear-gradient(90deg,var(--vig) 50%,transparent 50%)}
+.pg-forte{border-color:var(--alerte);background:var(--alerte)}
+.s3-duo,.s3-pm{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s3-duo .btn,.s3-pm .btn{margin:4px 0}
+.s3-pm .btn{font-size:26px;line-height:1;padding:8px 14px}
+.envoi-detail{font-size:14px;color:var(--gris);margin:10px 0}.envoi-detail summary{cursor:pointer}
+.non-envoye{border-left:3px solid var(--vig);padding:6px 10px;background:#FBF7EF;border-radius:6px}
+.s3-rg{position:relative;width:156px;height:156px;margin:4px auto}
+.s3-rg svg{width:156px;height:156px;transform:rotate(-90deg)}
+.s3-rg circle{fill:none;stroke-width:9}
+.s3-rg .fd{stroke:var(--filet)}.s3-rg .av{stroke:var(--accent);stroke-linecap:round}
+.s3-rg b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px!important;font-variant-numeric:tabular-nums}
+.s3-repos p{margin:2px 0}
+.s3-chrono{text-align:center}
+.s3-chrono b{display:block;font-size:64px;line-height:1.05;font-variant-numeric:tabular-nums}
+.s3-rond{display:block;width:118px;height:118px;border-radius:50%;border:0;background:var(--accent);color:#fff;font:inherit;font-size:20px;font-weight:700;margin:8px auto}
+.s3-rond[aria-pressed=true]{background:var(--alerte)!important;border-color:var(--alerte)!important}
+.s3-ordre{color:var(--accent);font-weight:600;font-size:15px;margin:4px 0}
+.s3-meme{display:block;width:100%;min-height:40px;border-radius:10px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:14px;margin:2px 0 6px}
+.s3-series .btn.lien{width:auto;min-height:28px;margin:0;padding:0;font-size:14px}
+.effacer{margin-top:28px;font-size:15px}
 </style>
 </head>
 <body>
 <main id="app"><p>Ouverture…</p><noscript><p>Cette page a besoin de JavaScript.</p></noscript></main>
 <script src="commun.js"></script>
+<script src="pictos.js"></script>
 <script>
 (function () {
 'use strict';
+var VERSION_LECTEUR = 3;   /* le retour la renvoie (lv) : l'appli sait quelle page est en ligne, sans appel réseau */
 var app = document.getElementById('app');
 var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); };
 var auj = function () { var d = new Date(), z = function (n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); };
 var dCourte = function (d) { return d.slice(8, 10) + '/' + d.slice(5, 7); };
 var lire = function (k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
 var garder = function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
+
+/* 1.30-test1, AME-157 (audit B de Codex) : le billet est contrôlé champ par champ avant tout affichage. La page garde une copie neuve, faite des seuls
+   champs qu'elle connaît, chacun à sa forme (texte, nombre, liste) et dans ses bornes ; un champ inconnu est laissé de côté ; un champ connu de travers
+   (une longueur en texte, un nombre hors bornes, une liste trop longue, un texte démesuré) fait refuser tout le billet : « Lien refusé », rien n'en est
+   montré. Les textes passent ensuite par esc() à l'affichage, les nombres sont des nombres : rien du billet ne peut s'écrire en HTML. */
+var LIEN_MAX = 120000;   /* au-delà, le lien n'est même pas décodé */
+var Billet = (function () {
+  function non(m) { var e = new Error('refus'); e.refus = m; throw e; }
+  function objet(v) { if (!v || typeof v !== 'object' || Array.isArray(v)) non('objet'); return v; }
+  function txt(v, max) { if (v == null) return ''; if (typeof v === 'number' && isFinite(v)) v = String(v); if (typeof v !== 'string') non('texte'); if (v.length > max) non('texte trop long'); return v; }
+  function nb(v, mi, ma, entier) { if (v == null || v === '') return null; var n = typeof v === 'number' ? v : typeof v === 'string' && /^\s*-?\d+([.,]\d+)?\s*$/.test(v) ? +v.trim().replace(',', '.') : NaN;
+    if (!isFinite(n) || n < mi || n > ma) non('nombre'); return entier ? Math.round(n) : n; }
+  function liste(v, max) { if (v == null) return []; if (!Array.isArray(v) || v.length > max) non('liste'); return v; }
+  function textes(v, max, lg) { return liste(v, max).map(function (x) { return txt(x, lg); }); }
+  function options(v) { return liste(v, 60).map(function (o) { if (!Array.isArray(o) || o.length < 2) non('choix'); return [txt(o[0], 60), txt(o[1], 400)]; }); }
+  var SORTES = ['echelle', 'choix', 'nombre', 'visa8', 'texte', 'groupe', 'lignes', 'multi'], CHAMPS = ['texte', 'nombre', 'date', 'choix'];
+  function champ(c) { objet(c); var t = c.t == null ? 'texte' : c.t; if (CHAMPS.indexOf(t) < 0) non('champ'); var o = {t: t, l: txt(c.l, 300)};
+    if (t === 'choix') o.o = options(c.o); if (c.lg != null) o.lg = nb(c.lg, 1, 2000, true); return o; }
+  function item(it) { objet(it); if (SORTES.indexOf(it.t) < 0) non('question'); var o = {t: it.t, q: txt(it.q, 1000)};
+    if (it.f) o.f = 1; if (it.autre) o.autre = 1;
+    if (it.intro != null) o.intro = txt(it.intro, 4000); if (it.na != null) o.na = txt(it.na, 200); if (it.unite != null) o.unite = txt(it.unite, 30);
+    if (it.a != null) o.a = textes(it.a, 2, 200); if (it.o != null) o.o = options(it.o);
+    if (it.min != null) o.min = nb(it.min, -100000, 100000); if (it.max != null) o.max = nb(it.max, -100000, 100000);
+    if (o.min != null && o.max != null && o.min > o.max) non('bornes'); if (it.t === 'lignes' && o.max != null) o.max = Math.max(1, Math.min(20, Math.round(o.max)));
+    if (it.lg != null) o.lg = nb(it.lg, 1, 2000, true);
+    if (it.t === 'visa8') { o.br = liste(it.br, 6).map(function (b) { objet(b); var r = {k: txt(b.k, 8), cond: txt(b.cond, 600), q: txt(b.q, 1000), v: textes(b.v, 20, 20)}; if (b.temps != null) r.temps = textes(b.temps, 20, 200); return r; });
+      if (it.temps != null) o.temps = textes(it.temps, 20, 200); }
+    if (it.t === 'groupe' || it.t === 'lignes') { o.ch = liste(it.ch, 12).map(champ); if (!o.ch.length) non('champs'); }
+    return o; }
+  function quest(q) { objet(q); var o = {n: txt(q.n, 300), c: txt(q.c, 4000), it: liste(q.it, 150).map(item)}; if (!o.it.length) non('vide'); return o; }
+  function pt(v, n) { if (!Array.isArray(v) || v.length < n) non('dessin'); return v.slice(0, n).map(function (z) { var x = nb(z, -200, 300); if (x == null) non('dessin'); return x; }); }
+  function corps(c) { objet(c); var o = {c: liste(c.c, 80).map(function (s) { return pt(s, 4); })}; if (c.t != null) o.t = pt(c.t, 2); return o; }
+  function dessin(g) { var o = corps(g); if (g.f != null) o.f = corps(g.f);
+    if (g.fl != null) o.fl = liste(g.fl, 20).map(function (f) { if (!Array.isArray(f) || f.length < 3) non('dessin'); return f.slice(0, 3).map(function (p) { return pt(p, 2); }); }); return o; }
+  function exo(x) { objet(x); var o = {n: txt(x.n, 300)}, r, kg, s, rp; if (!o.n.trim()) non('exercice');
+    if (x.d != null) o.d = txt(x.d, 300); if (x.c != null) o.c = txt(x.c, 2000); if (x.cs != null) o.cs = textes(x.cs, 20, 600);
+    if (x.p != null) { o.p = txt(x.p, 80); if (!/^[a-z0-9-]+$/.test(o.p)) non('dessin'); }
+    if (x.g != null) o.g = dessin(x.g);
+    if ((s = nb(x.s, 1, 12, true)) != null) o.s = s; if ((r = nb(x.r, 0, 9999)) != null) o.r = r; if ((kg = nb(x.kg, 0, 999)) != null) o.kg = kg;
+    if (x.u != null) { if (x.u !== 's') non('unité'); o.u = 's'; }
+    if (x.q != null && x.q !== '') { if (x.q !== 'r' && x.q !== 'e') non('question'); o.q = x.q; }
+    if (x.co != null) { if (x.co !== 1 && x.co !== 'G' && x.co !== 'D') non('côté'); o.co = x.co; }
+    if ((rp = nb(x.rp, 0, 600, true)) != null) o.rp = rp; if (x.ss) o.ss = 1; if (x.kc) o.kc = 1;
+    return o; }
+  function lire(o) { objet(o); if (o.v !== 1) non('version'); var b = {v: 1, id: txt(o.id, 12), t: o.t};
+    if (!/^[A-Za-z0-9]{4,12}$/.test(b.id)) non('envoi'); if (['q', 's', 'g'].indexOf(o.t) < 0) non('sorte');
+    if (o.k != null && o.k !== '') { b.k = txt(o.k, 64); if (!/^[A-Za-z0-9_-]{16,64}$/.test(b.k)) non('clé'); }
+    if (o.e != null) { b.e = txt(o.e, 40); if (!/^[A-Za-z0-9-]*$/.test(b.e)) non('repère'); }
+    if (o.cab != null) b.cab = txt(o.cab, 200);
+    if (o.mel != null && o.mel !== '') { b.mel = txt(o.mel, 200); if (!/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(b.mel)) non('adresse'); }   /* la forme que l'appli accepte (telMelOk) */
+    if (o.tel != null && o.tel !== '') b.tel = txt(o.tel, 40);
+    if (o.lv != null) b.lv = nb(o.lv, 1, 99, true); if (o.nom != null) b.nom = txt(o.nom, 300); if (o.mot != null) b.mot = txt(o.mot, 2000);
+    if (o.t === 'q') { b.q = liste(o.q, 12).map(quest); if (!b.q.length) non('vide'); }
+    else { b.ex = liste(o.ex, 60).map(exo); if (!b.ex.length) non('vide');
+      if (o.mo != null) { if (o.mo !== 'c') non('mode'); b.mo = 'c'; } if (o.to != null) b.to = nb(o.to, 1, 12, true);
+      if (o.ec != null) b.ec = liste(o.ec, 30).map(exo); if (o.ect != null) b.ect = txt(o.ect, 4000);
+      if (o.go != null) b.go = textes(o.go, 12, 80).filter(function (z) { return z.trim(); }); }
+    if (o.z === 1) b.z = 1;   /* 1.30-test3, GT-1 : l'appli qui a fait ce billet sait lire un retour compressé (mode d) */
+    return b; }
+  return {lire: lire};
+})();
 
 /* Le dessin d'un exercice arrive dans le lien : g = {c: segments [x1,y1,x2,y2], t: tête [x,y], f: {c, t} position de départ, fl: flèches}.
    La page n'a aucune bibliothèque : sans « g », la carte s'affiche sans dessin. */
@@ -88,21 +216,27 @@ function picto(g) { if (!g || !Array.isArray(g.c)) return '';
 
 var E = null, ETAT = null, V = {ecran: '', i: 0, j: 0, err: '', lien: '', source: '', touche: false, garde: false};
 var cleEtat = function () { return 'lecteur:' + E.id; };
-var sauver = function () { garder(cleEtat(), ETAT); };
+var sauver = function () { garder(cleEtat(), ETAT); gardeDonnees(); };
+/* 1.30-test3, GT-2 : sur iPhone, une page restée fermée sept jours peut perdre ce qu'elle garde ; la page demande une fois au navigateur de garder ses données */
+function gardeDonnees() { if (V.persiste) return; V.persiste = true; try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {}); } catch (e) {} }
 
 function ouvrir() {
   var h = location.hash.replace(/^#/, ''), source = 'lien';
   if (!h) { h = (lire('lecteur:dernier') || {}).h || ''; source = h ? 'telephone' : ''; }
-  V.lien = h; V.source = source;
+  V.lien = h; V.source = source; E = null; ETAT = null;
   if (!h) { V.ecran = 'vide'; rendre(); return; }
+  if (h.length > LIEN_MAX) { refuser(); return; }   /* AME-157 : un billet démesuré n'est pas décodé */
   Codec.lireAller(h).then(function (o) {
-    if (!o || o.v !== 1 || !o.id || ['q', 's', 'g'].indexOf(o.t) < 0 || (o.t === 'q' ? !Array.isArray(o.q) || !o.q.length : !Array.isArray(o.ex) || !o.ex.length)) throw new Error('lien');
-    E = o; garder('lecteur:dernier', {h: h, le: auj()});
-    ETAT = lire(cleEtat()) || {rep: [], fini: false, journal: [], montre: ''};
-    if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else if (E.t === 'g') V.ecran = ETAT.fini ? 'fin' : 'salle'; else V.ecran = 'seance';
+    if (!o || typeof o !== 'object' || Array.isArray(o)) throw new Error('lien');
+    if (+o.lv > VERSION_LECTEUR) { V.ecran = 'maj'; rendre(); return; }   /* un billet fait pour une page plus récente (avant le contrôle : ses champs peuvent être nouveaux) */
+    E = Billet.lire(o); garder('lecteur:dernier', {h: h, le: auj()});
+    ETAT = lire(cleEtat()); if (!ETAT || typeof ETAT !== 'object' || !Array.isArray(ETAT.rep) || !Array.isArray(ETAT.journal)) ETAT = {rep: [], fini: false, journal: [], montre: ''};
+    if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else if (E.t === 'g') V.ecran = ETAT.fini ? 'fin' : E.lv >= 3 ? 'salle3' : 'salle'; else V.ecran = 'seance';
     rendre();
-  }).catch(function (e) { V.ecran = e && e.message === 'ancien' ? 'ancien' : 'illisible'; rendre(); });
+  }).catch(function (e) { E = null; ETAT = null; if (e && e.refus) { refuser(); return; } V.ecran = e && e.message === 'ancien' ? 'ancien' : 'illisible'; rendre(); });
 }
+/* le billet refusé : rien n'en est montré ; s'il venait de la mémoire du téléphone, il n'y revient plus */
+function refuser() { if (V.source === 'telephone') { try { localStorage.removeItem('lecteur:dernier'); } catch (e) {} } E = null; ETAT = null; V.ecran = 'refuse'; rendre(); }
 
 /* ---------- questionnaire : une question par écran ---------- */
 var quest = function () { return E.q[V.i]; }, item = function () { return quest().it[V.j]; };
@@ -112,7 +246,7 @@ function rang() { var n = 0; for (var i = 0; i < V.i; i++) n += E.q[i].it.length
 function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '';
   h += '<div class="tete"><span>' + esc(q.n) + '</span><span>' + (rang() + 1) + ' sur ' + total() + '</span></div><div class="barre"><i style="width:' + Math.round(100 * rang() / total()) + '%"></i></div>';
   if (it.intro) h += '<p class="intro">' + esc(it.intro) + '</p>';
-  h += '<p class="q">' + esc(it.q) + '</p>' + (it.f && it.t !== 'texte' ? '<p class="petit">Facultatif : « Suivant » passe la question.</p>' : '');
+  h += '<p class="q">' + esc(it.q) + '</p>' + (it.f && it.t !== 'texte' ? '<p class="petit">Facultatif : « Suivant » passe la question.</p>' : '') + (!it.f && E.q[0].it.some(function (x) { return x.f; }) ? '<p class="petit">Nécessaire.</p>' : '');
   if (it.t === 'echelle') { h += '<div class="ancres"><span>0 · ' + esc((it.a || [])[0] || '') + '</span><span>' + esc((it.a || [])[1] || '') + ' · 10</span></div><div class="ech">';
     for (var n = 0; n <= 10; n++) h += '<button data-act="rep" data-v="' + n + '" aria-pressed="' + (v === n) + '">' + n + '</button>';
     h += '</div>' + (it.na ? '<div class="choix" style="margin-top:8px"><button data-act="rep" data-v="na" aria-pressed="' + (v === 'na') + '">' + esc(it.na) + '</button></div>' : ''); }
@@ -124,7 +258,8 @@ function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '
   else if (it.t === 'visa8') { var br = it.br || [], vb = Array.isArray(v) ? v : [], b = br.filter(function (x) { return x.k === vb[0]; })[0];
     h += '<div class="choix">' + br.map(function (x) { return '<button data-act="branche" data-v="' + esc(x.k) + '" aria-pressed="' + (vb[0] === x.k) + '">' + esc(x.k + '. ' + x.cond) + '</button>'; }).join('') + '</div>';
     if (b) h += '<p class="q" style="font-size:18px;margin-top:18px">' + esc(b.q) + '</p><div class="choix">' + (b.temps || it.temps || []).map(function (t, i) { return '<button data-act="rep8" data-v="' + esc(b.v[i]) + '" aria-pressed="' + (vb[1] != null && String(vb[1]) === String(b.v[i])) + '">' + esc(t) + '</button>'; }).join('') + '</div>'; }
-  else h += '<textarea id="texte" rows="4" maxlength="240" placeholder="Quelques mots' + (it.f ? ' (facultatif)' : '') + '">' + esc(v || '') + '</textarea>';
+  else if (SORTES_CHAMPS.indexOf(it.t) >= 0) h += ecranChamps(it, v);
+  else h += '<textarea id="texte" rows="4" maxlength="' + borneLg(it.lg, 240) + '" placeholder="Quelques mots' + (it.f ? ' (facultatif)' : '') + '">' + esc(v || '') + '</textarea>';
   h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="suivant">' + (rang() + 1 === total() ? 'Terminer' : 'Suivant') + '</button>';
   if (rang() > 0) h += '<button class="btn lien" data-act="precedent">Question précédente</button>';
   return h; }
@@ -133,6 +268,36 @@ function prendreTexte() { var t = document.getElementById('texte'); if (t) { var
 function prendreNombre() { var n = document.getElementById('nombre'), it = item(); if (!n || it.t !== 'nombre') return; var r = repDe();
   if (n.type === 'range') { if (V.touche) r[V.j] = +n.value; return; }
   var x = n.value.trim() === '' ? NaN : +n.value.replace(',', '.'), mi = it.min != null ? +it.min : 0, ma = it.max != null ? +it.max : 100; r[V.j] = isFinite(x) && x >= mi && x <= ma ? x : null; }
+
+
+/* ---------- le pré-bilan de l'athlète : groupe (plusieurs petits champs), lignes (le même groupe, répété), multi (des cases), le champ date ---------- */
+function champG(c, val, nom) { var v = val == null ? '' : String(val);
+  if (c.t === 'choix') return '<label class="g-l"><span>' + esc(c.l) + '</span><select ' + nom + '><option value=""></option>' + (c.o || []).map(function (o) { return '<option value="' + esc(o[0]) + '"' + (v === String(o[0]) ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select></label>';
+  var ty = c.t === 'nombre' ? 'text" inputmode="decimal' : c.t === 'date' ? 'date' : 'text';
+  return '<label class="g-l"><span>' + esc(c.l) + '</span><input type="' + ty + '" ' + nom + ' value="' + esc(v) + '"' + (c.t === 'texte' ? ' maxlength="' + borneLg(c.lg, 120) + '"' : '') + '></label>'; }
+/* AME-157 : une longueur est toujours un nombre entier borné, même si le billet (déjà contrôlé) en portait une autre */
+function borneLg(v, d) { var n = Math.round(+v); return isFinite(n) && n >= 1 ? Math.min(n, 2000) : d; }
+function valG(el, c) { if (!el) return null; var v = String(el.value || '').trim(); if (!v) return null;
+  if (c.t === 'nombre') { var x = +v.replace(',', '.'); return isFinite(x) && x >= 0 ? x : null; }
+  if (c.t === 'date') return /^\d{4}-\d\d-\d\d$/.test(v) ? v : null; return v.slice(0, borneLg(c.lg, 120)); }
+function vide1(v) { return v == null || v === '' || (Array.isArray(v) && !v.some(function (z) { return !vide1(z); })); }
+function lignesDe(it, v) { var l = Array.isArray(v) ? v.slice() : []; if (!l.length) l.push(it.ch.map(function () { return null; })); return l; }
+function prendreChamps() { var it = item(), r = repDe(), q = function (s) { return document.querySelector(s); };
+  if (it.t === 'groupe') { var g = it.ch.map(function (c, k) { return valG(q('[data-g="' + k + '"]'), c); }); r[V.j] = vide1(g) ? null : g; }
+  else if (it.t === 'lignes') { var l = lignesDe(it, r[V.j]).map(function (row, i) { return it.ch.map(function (c, k) { return valG(q('[data-l="' + i + '.' + k + '"]'), c); }); }); r[V.j] = vide1(l) ? null : l; }
+  else if (it.t === 'multi') { var m = (Array.isArray(r[V.j]) ? r[V.j] : []).filter(function (x) { return typeof x === 'string'; }), a = q('#autre'); if (a && a.value.trim()) m.push(['autre', a.value.trim().slice(0, 120)]); r[V.j] = m.length ? m : null; }
+  else if (it.t === 'texte') { var tx = q('#texte'); if (tx) r[V.j] = tx.value.trim() ? tx.value.trim().slice(0, borneLg(it.lg, 240)) : null; } }
+function ecranChamps(it, v) { var h = '';
+  if (it.t === 'groupe') h += it.ch.map(function (c, k) { return champG(c, (v || [])[k], 'data-g="' + k + '"'); }).join('');
+  else if (it.t === 'lignes') { var l = lignesDe(it, v); h += l.map(function (row, i) { return '<div class="ligne" data-ligne="' + i + '">' + it.ch.map(function (c, k) { return champG(c, row[k], 'data-l="' + i + '.' + k + '"'); }).join('') + (l.length > 1 ? '<button class="btn lien" data-act="ligne-moins" data-r="' + i + '">Retirer cette ligne</button>' : '') + '</div>'; }).join('');
+    if (l.length < (it.max || 5)) h += '<button class="btn sec" data-act="ligne-plus">Ajouter une ligne</button>'; }
+  else if (it.t === 'multi') { var m = Array.isArray(v) ? v : [], au = m.filter(function (x) { return Array.isArray(x); })[0];
+    h += '<div class="choix">' + (it.o || []).map(function (o) { return '<button data-act="multi" data-v="' + esc(o[0]) + '" aria-pressed="' + (m.indexOf(o[0]) >= 0) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
+    if (it.autre) h += '<label class="g-l"><span>Autre</span><input type="text" id="autre" maxlength="120" value="' + esc(au ? au[1] : '') + '"></label>'; }
+  return h; }
+var SORTES_CHAMPS = ['groupe', 'lignes', 'multi'];
+function manquant(req) { if (!E || E.t !== 'q') return null; for (var i = 0; i < E.q.length; i++) { var r = ETAT.rep[i] || []; for (var j = 0; j < E.q[i].it.length; j++) { var it = E.q[i].it[j], v = r[j]; if ((req ? !it.f : true) && vide1(Array.isArray(v) && it.t === 'visa8' ? (v[0] && v[1] != null ? v : null) : v)) return {i: i, j: j}; } } return null; }
+function sansReponse() { var l = []; if (!E || E.t !== 'q') return l; E.q.forEach(function (q, i) { var r = ETAT.rep[i] || []; q.it.forEach(function (it, j) { if (vide1(r[j])) l.push({i: i, j: j, q: it.q, f: !!it.f}); }); }); return l; }
 
 /* ---------- séance à la maison ---------- */
 var EFFORTS = ['Facile', 'Moyen', 'Dur'];
@@ -145,11 +310,11 @@ function ecranSeance() { var b = brouillon(), h = '<div class="tete"><span>' + e
   h += '</div><h2>Effort</h2><div class="puces">' + EFFORTS.map(function (t, i) { return '<button class="puce" data-act="effort" data-v="' + (i + 1) + '" aria-pressed="' + (b.e === i + 1) + '">' + t + '</button>'; }).join('') + '</div>';
   h += '<h2>Un mot pour votre kiné <span class="petit">(facultatif)</span></h2><textarea id="mot" rows="2" maxlength="140">' + esc(b.m || '') + '</textarea>';
   h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="noter">Enregistrer ma séance du jour</button>';
-  if (ETAT.journal.length) h += '<button class="btn sec" data-act="journal">Mes séances notées (' + ETAT.journal.length + ')</button>';
+  if (ETAT.journal.length) h += '<button class="btn sec" data-act="journal">Mes séances notées (' + ETAT.journal.length + ')</button>' + texteNonEnvoyees();
   return h; }
 function ligneJournal(x) { var n = x[1].split('').filter(function (c) { return c === '1'; }).length; return dCourte(x[0]) + ' · ' + n + ' exercice' + (n > 1 ? 's' : '') + ' sur ' + x[1].length + (x[2] != null ? ' · douleur ' + x[2] + '/10' : '') + (x[3] ? ' · ' + EFFORTS[x[3] - 1].toLowerCase() : '') + (x[4] ? ' · « ' + x[4] + ' »' : ''); }
 function ecranJournal() { return '<h1>Mes séances notées</h1><div class="carte"><ul class="journal">' + ETAT.journal.map(function (x) { return '<li>' + esc(ligneJournal(x)) + '</li>'; }).join('') + '</ul></div>'
-  + '<button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn sec" data-act="retour-seance">Revenir à la séance</button>'; }
+  + texteNonEnvoyees() + '<button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn sec" data-act="retour-seance">Revenir à la séance</button>'; }
 
 /* ---------- séance faite en salle, sur le téléphone du patient ---------- */
 /* E.ex[i] = {n, d, c, g, s: nombre de séries, r: répétitions prévues, kg: charge prévue, u: unité à la place des répétitions (« s » pour des secondes)}
@@ -171,26 +336,195 @@ function ecranSalle() { var b = salle(), h = '<div class="tete"><span>' + esc(E.
   h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="s-finir">J’ai fini ma séance</button>';
   return h; }
 
+
+/* ---------- version 3 : la séance de salle, un exercice à la fois (billet lv ≥ 3) ----------
+   E.ex[i] : n, d, c, cs (les consignes en liste), s (séries), r (répétitions ou secondes), kg, u (« s »), p (l'id du dessin, dans pictos.js),
+   q (« r » : RIR après la série ; « e » : effort ; absent : rien), co (1 : gauche et droite ; « G » ou « D » : un seul côté), rp (repos en secondes).
+   E.go : les endroits notés au bilan, pour « Où ? ».
+   ETAT.s3 = {d, i, x: [[série…]…], v: {le brouillon de la série en cours}, rep: {fin, duree, bip}, ten: {fin}, p, e, m}
+   une série (la forme 2 du retour) : f (1 faite, 2 sautée), r, k, i (RIR), e (effort), g (legere, moyenne, forte), o (où), rG, kG, rD, kD
+   1.30-test1 : le brouillon porte aussi la gêne (g, o), le RIR (ir) et l'effort (ef), choisis sur la carte avant « Série faite » (ERG-190) ; ETAT.s3.mode
+   (« r » Repos, d'office, ou « c » Chrono, ERG-184), chr {dep, t} (le chrono libre, qui suit l'heure), mc [1 par exercice : la même charge, AME-168] */
+var GENES = [['', 'Aucune'], ['legere', 'Légère'], ['moyenne', 'Moyenne'], ['forte', 'Forte']];
+function nSer(x) { return Math.max(1, Math.min(12, +x.s || 1)); }
+function s3() { if (!ETAT.s3) ETAT.s3 = {d: auj(), i: 0, x: E.ex.map(function (x) { var l = []; for (var j = 0; j < nSer(x); j++) l.push({}); return l; }), v: null, rep: null, ten: null, p: null, e: null, m: '',
+    ef: [], ech: undefined}; var b = ETAT.s3;
+  if (!Array.isArray(b.ef)) b.ef = []; (Array.isArray(E.ec) ? E.ec : []).forEach(function (x, k) { if (b.ef[k] !== 1) b.ef[k] = 0; }); if (b.ech === undefined) b.ech = !(Array.isArray(E.ec) && E.ec.length) && !E.ect; return b; }
+/* lot 4 b : les supersets (ss : lié au précédent) et le circuit (mo « c », to tours). Les étapes, dans l'ordre où elles se jouent : un superset alterne ses
+   exercices série par série (A1, A2, repos, A1, A2…) ; un circuit fait un tour de tous les exercices, le repos en fin de tour ; sinon, exercice par exercice. */
+function groupes3() { var gr = []; E.ex.forEach(function (x, i) { if (i && x.ss && gr.length) gr[gr.length - 1].push(i); else gr.push([i]); }); return gr; }
+function etapes3() { var b = s3(), l = [], tours = function (g) { return Math.max.apply(null, g.map(function (i) { return b.x[i].length; })); };
+  var blocs = E.mo === 'c' ? [E.ex.map(function (x, i) { return i; })] : groupes3();
+  blocs.forEach(function (g) { for (var k = 0, T = tours(g); k < T; k++) { var dern = null; g.forEach(function (i) { if (k < b.x[i].length) { l.push({i: i, j: k}); dern = l[l.length - 1]; } }); if (dern) dern.repos = true; } });
+  return l; }
+function lie3(i) { return E.mo === 'c' || groupes3().some(function (g) { return g.length > 1 && g.indexOf(i) >= 0; }); }
+function lettre3(i) { var gr = groupes3().filter(function (g) { return g.length > 1; }); for (var k = 0; k < gr.length; k++) { var p = gr[k].indexOf(i); if (p >= 0) return String.fromCharCode(65 + k) + (p + 1); } return ''; }
+/* après une série faite ou sautée : le repos si l'étape le veut ; dans un superset ou un circuit, l'exercice de l'étape suivante */
+function avancer3(i, j, repos) { var b = s3(), st = etapes3(), k = -1; for (var n = 0; n < st.length; n++) if (st[n].i === i && st[n].j === j) { k = n; break; }
+  var cur = st[k], x = E.ex[i]; b.rep = repos && (!cur || cur.repos) ? {fin: Date.now() + Math.max(15, +x.rp || 30) * 1000, duree: Math.max(15, +x.rp || 30), bip: 0} : null;
+  if (lie3(i)) { for (var m = k + 1; m < st.length; m++) if (!b.x[st[m].i][st[m].j].f) { b.i = st[m].i; break; } } }
+function ecranEch() { var b = s3(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(b.d) + '</span></div><h1>Échauffement</h1>';
+  if (Array.isArray(E.ec) && E.ec.length) h += '<div class="carte"><ul class="s3-liste" id="s3-ech">' + E.ec.map(function (x, k) { return '<li><button data-act="s3-ech" data-i="' + k + '" aria-pressed="' + (b.ef[k] === 1) + '"><span>' + (b.ef[k] === 1 ? '✓ ' : '') + esc(x.n) + '</span><span class="petit">' + esc(x.d || '') + '</span></button></li>'; }).join('') + '</ul></div>';
+  if (E.ect) h += '<div class="carte"><p id="s3-ect" style="white-space:pre-line">' + esc(E.ect) + '</p></div>';
+  return h + '<button class="btn" data-act="s3-commencer">Commencer la séance</button>'; }
+function curJ(l) { for (var j = 0; j < l.length; j++) if (!l[j].f) return j; return -1; }
+/* 1.30-test1 (le défaut « fait ✓ » relevé le 13/11) : « terminé » (plus rien à noter, la navigation) n'est plus « fait » ; un exercice tout sauté se dit sauté */
+function termine(l) { return curJ(l) < 0; }
+function fini(l) { return l.length > 0 && l.every(function (s) { return s.f === 1; }); }
+function pl(n, mot) { return n + ' ' + mot + (n > 1 ? 's' : ''); }
+function etatExo(l) { var a = l.filter(function (s) { return s.f === 1; }).length, c = l.filter(function (s) { return s.f === 2; }).length;
+  if (termine(l)) return fini(l) ? 'fait ✓' : !a ? 'sauté' : pl(a, 'faite') + ' · ' + pl(c, 'sautée');
+  return a ? pl(a, 'série') + ' ' + pl(a, 'faite').replace(/^\d+ /, '') : ''; }
+function brouillon3() { var b = s3(), x = E.ex[b.i], j = curJ(b.x[b.i]); if (j < 0) return null;
+  if (!b.v || b.v.i !== b.i || b.v.j !== j) { var r = x.r != null ? String(x.r) : '', k = x.kg != null ? String(x.kg) : '', kG = k, kD = k, av = chargeAvant3(b.i);
+    if (av) { if (av.k) k = av.k; if (av.kG) kG = av.kG; if (av.kD) kD = av.kD; }
+    b.v = {i: b.i, j: j, r: r, k: k, rG: r, kG: kG, rD: r, kD: kD, g: '', o: '', ir: '', ef: ''}; }
+  return b.v; }
+/* AME-168 : « Même charge pour toutes les séries » reprend la charge de la dernière série faite de l'exercice ; chaque série reste modifiable */
+function chargeAvant3(i) { var b = s3(); if (!b.mc || !b.mc[i]) return null; return b.x[i].filter(function (s) { return s.f === 1 && (s.k || s.kG || s.kD); }).pop() || null; }
+function prendre3() { var v = s3().v; if (v) { ['r', 'k', 'rG', 'kG', 'rD', 'kD'].forEach(function (c) { var el = document.getElementById('s3-' + c); if (el) v[c] = el.value.trim().replace(',', '.').slice(0, 6); });
+    var a = document.getElementById('s3-ailleurs'); if (a && v.g) { if (a.value.trim()) v.o = a.value.trim().slice(0, 60); else if (v.o && (E.go || []).indexOf(v.o) < 0) v.o = ''; } }
+  var m = document.getElementById('mot'); if (m) s3().m = m.value.trim().slice(0, 140); }
+function champ3(c, val, lab, unite) { return '<label><input type="text" inputmode="decimal" id="s3-' + c + '" value="' + esc(val) + '" aria-label="' + esc(lab) + '">' + esc(unite) + '</label>'; }
+function texteSerie(x, s) { var u = x.u === 's' ? ' s' : ' rép.', kg = function (k) { return k ? ' · ' + k + ' kg' : ''; };
+  if (s.f === 2) return 'sautée'; if (s.f !== 1) return '';
+  var t = x.co === 1 ? 'G ' + (s.rG || '—') + u + kg(s.kG) + ' · D ' + (s.rD || '—') + u + kg(s.kD) : (s.r || '—') + u + kg(s.k);
+  if (s.i != null && s.i !== '') t += ' · RIR ' + s.i; if (s.e) t += ' · effort ' + s.e + '/10'; if (s.g) t += ' · gêne ' + {legere: 'légère', moyenne: 'moyenne', forte: 'forte'}[s.g] + (s.o ? ', ' + s.o : '');
+  return t; }
+function reste(fin) { return Math.max(0, Math.ceil((fin - Date.now()) / 1000)); }
+function mmss(s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + s % 60; }
+var audio = null;
+function bip() { try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch (e) {}
+  try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); var o = audio.createOscillator(), g = audio.createGain(); o.frequency.value = 880; g.gain.value = 0.15; o.connect(g); g.connect(audio.destination); o.start(); o.stop(audio.currentTime + 0.3); } catch (e) {} }
+function eveil() { try { if (navigator.wakeLock && !V.wl) navigator.wakeLock.request('screen').then(function (w) { V.wl = w; w.addEventListener('release', function () { V.wl = null; }); }).catch(function () {}); } catch (e) {} }
+/* l'ordre d'un superset ou d'un circuit, en une phrase calculée depuis les groupes (Codex, pistes 7 et 9 ; P130-11) */
+function nomBas(k) { var s = String(E.ex[k].n || '').trim(); return /^[A-ZÀ-Ý][a-zà-ÿ]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+function enMots(l) { return l.length > 1 ? l.slice(0, -1).join(', ') + ' et ' + l[l.length - 1] : l[0] || ''; }
+function ordre3(i) { var b = s3(), tours = function (g) { return Math.max.apply(null, g.map(function (k) { return b.x[k].length; })); };
+  if (E.mo === 'c') { var tous = E.ex.map(function (y, k) { return k; }), T = tours(tous); return 'Enchaînez ' + enMots(tous.map(nomBas)) + ', ' + pl(T, 'tour') + ', repos après le tour'; }
+  var g = groupes3().filter(function (z) { return z.length > 1 && z.indexOf(i) >= 0; })[0]; if (!g) return '';
+  return 'Alternez ' + enMots(g.map(nomBas)) + ', ' + pl(tours(g), 'tour') + ', repos après le groupe'; }
+/* ERG-184 : le repos (un anneau, « 0:45 sur 1:00 », « + 15 s », « Passer › ») ; le décompte suit l'heure (fin), il tient si l'écran se verrouille */
+var TOUR = 2 * Math.PI * 70;
+function anneau(r, d) { return (TOUR * (1 - (d > 0 ? Math.min(1, r / d) : 0))).toFixed(1); }
+function repos3(b) { var r = reste(b.rep.fin), d = b.rep.duree;
+  return '<div class="carte s3-repos" id="s3-repos" aria-live="polite">' + (r > 0 ? '<p>Repos</p>' : '<p class="ok">Repos fini : à vous !</p>')
+    + '<div class="s3-rg"><svg viewBox="0 0 160 160" aria-hidden="true"><circle class="fd" cx="80" cy="80" r="70"/><circle class="av" id="s3-anneau" cx="80" cy="80" r="70" stroke-dasharray="' + TOUR.toFixed(1) + '" stroke-dashoffset="' + anneau(r, d) + '"/></svg><b id="s3-repos-n">' + mmss(r) + '</b></div>'
+    + '<p class="petit" id="s3-repos-sur">sur ' + mmss(d) + '</p>'
+    + (r > 0 ? '<div class="s3-duo"><button class="btn sec" data-act="s3-plus15">+ 15 s</button><button class="btn sec" data-act="s3-passer">Passer ›</button></div>' : '<button class="btn sec" data-act="s3-passer">Continuer</button>') + '</div>'; }
+/* ERG-184 : le chrono libre, une grande touche ronde ; arrêté, le temps tenu s'écrit dans la série d'un exercice en secondes (il revient au kiné) */
+function ecoule(c) { return c && c.dep ? Math.max(0, Math.floor((Date.now() - c.dep) / 1000)) : c && +c.t || 0; }
+function chrono3(x) { var c = s3().chr || {}, t = ecoule(c);
+  return '<div class="carte s3-chrono" id="s3-chrono"><b id="s3-chr-n" aria-live="off">' + mmss(t) + '</b><button class="s3-rond" data-act="s3-chrono" aria-pressed="' + !!c.dep + '">' + (c.dep ? 'Arrêter' : t ? 'Repartir' : 'Partir') + '</button>'
+    + (x.u === 's' ? '<p class="petit" id="s3-chr-aide">' + (x.r ? 'Tenue prévue : ' + esc(x.r) + ' s. ' : '') + 'À l’arrêt, le temps s’écrit dans la série.</p>' : '') + '</div>'; }
+function ecrireTemps3(t) { var b = s3(), x = E.ex[b.i], v = brouillon3(); if (!v || x.u !== 's' || !t) return;
+  if (x.co === 1) { if (!v.chG) { v.rG = String(t); v.chG = 1; } else v.rD = String(t); } else v.r = String(t); }
+/* ERG-190 : la gêne sur la carte, avant « Série faite » : quatre pastilles (un signe et un mot), « Aucune » d'office ; « Où ? » si une gêne est choisie */
+function gene3(v) { var zs = Array.isArray(E.go) ? E.go : [], h = '<div id="s3-gene"><p class="s3-q">Une gêne pendant cette série ? <span class="petit">(facultatif)</span></p><div class="s3-g4">'
+    + GENES.map(function (g) { return '<button data-act="s3-gene" data-v="' + g[0] + '" aria-pressed="' + (v.g === g[0]) + '"><i class="pg pg-' + (g[0] || 'aucune') + '" aria-hidden="true"></i>' + g[1] + '</button>'; }).join('') + '</div>';
+  if (v.g === 'forte') h += '<p class="petit" id="s3-forte">Une gêne forte est signalée à votre kiné.</p>';
+  if (v.g) h += '<p class="s3-q">Où ?</p><div class="s3-o">' + zs.map(function (z) { return '<button data-act="s3-ou" data-v="' + esc(z) + '" aria-pressed="' + (v.o === z) + '">' + esc(z) + '</button>'; }).join('')
+    + '</div><input type="text" id="s3-ailleurs" placeholder="Ailleurs…" aria-label="Ailleurs : l’endroit de la gêne" value="' + esc(v.o && zs.indexOf(v.o) < 0 ? v.o : '') + '">';
+  return h + '</div>'; }
+/* le RIR ou l'effort, quand le kiné les demande (x.q), sur la carte aussi, sous la gêne */
+function demande3(x, v) { var h = '';
+  if (x.q === 'r') h += '<p class="s3-q">Répétitions en réserve <span class="petit">: combien auriez-vous pu en faire encore ?</span></p><div class="s3-n" id="s3-rir">' + ['5', '4', '3', '2', '1', '0'].map(function (r) { return '<button data-act="s3-rir" data-v="' + r + '" aria-pressed="' + (v.ir === r) + '">' + r + '</button>'; }).join('') + '</div>';
+  else if (x.q === 'e') { h += '<p class="s3-q">Effort <span class="petit">: de très facile (1) à maximal (10)</span></p><div class="s3-eff" id="s3-effort">'; for (var k = 1; k <= 10; k++) h += '<button data-act="s3-eff" data-v="' + k + '" aria-pressed="' + (v.ef === k) + '">' + k + '</button>'; h += '</div>'; }
+  return h; }
+function ecranSalle3() { var b = s3(); if (!b.ech) return ecranEch(); var i = b.i, x = E.ex[i], l = b.x[i], j = curJ(l), n = E.ex.length, v = brouillon3(), h = '', lt = lettre3(i), chr = b.mode === 'c';
+  var T = E.mo === 'c' ? Math.max.apply(null, b.x.map(function (s) { return s.length; })) : 0, tour = E.mo === 'c' ? 'Tour ' + Math.min(T, (j < 0 ? l.length : j + 1)) + ' sur ' + T + ' · ' : '';
+  var finis = E.ex.filter(function (y, k) { return termine(b.x[k]); }).length;
+  h += '<div class="tete s3-tete"><button class="btn lien" id="s3-tete" data-act="s3-liste" aria-expanded="' + !!V.liste + '">' + (tour ? tour + 'exercice ' : 'Exercice ') + (i + 1) + ' sur ' + n + ' ›</button><span>' + dCourte(b.d) + '</span></div>';
+  h += '<div class="barre" role="img" aria-label="' + finis + ' exercices terminés sur ' + n + '"><i style="width:' + Math.round(100 * finis / n) + '%"></i></div>';
+  if (V.liste) h += '<div class="carte"><ul class="s3-liste" id="s3-liste">' + E.ex.map(function (y, k) { return '<li><button data-act="s3-aller" data-i="' + k + '"><span>' + (k + 1) + '. ' + esc(y.n) + '</span><span class="petit">' + esc(etatExo(b.x[k])) + '</span></button></li>'; }).join('') + '</ul></div>';
+  var dessin = x.p && window.PictosTel && PictosTel.connu(x.p) ? PictosTel.svg(x.p, 264) : '', ordre = ordre3(i);
+  h += '<div class="carte s3"><div class="s3-mode" role="group" aria-label="Repos ou chrono"><button data-act="s3-mode" data-v="r" aria-pressed="' + !chr + '">Repos</button><button data-act="s3-mode" data-v="c" aria-pressed="' + chr + '">Chrono</button></div>';
+  h += (dessin ? '<div id="s3-dessin" data-act="s3-jouer" data-p="' + esc(x.p) + '">' + dessin + '</div>' : '');
+  h += '<h1 id="s3-nom">' + (lt ? '<span class="petit" id="s3-lettre">' + lt + ' · </span>' : '') + esc(x.n) + '</h1><p class="dose">' + esc(x.d || '') + (x.co === 'G' ? ' · côté gauche' : x.co === 'D' ? ' · côté droit' : '') + '</p>';
+  if (ordre) h += '<p class="s3-ordre" id="s3-ordre">' + esc(ordre) + '</p>';
+  if (Array.isArray(x.cs) && x.cs.length > 1) h += '<ul class="petit" id="s3-cons">' + x.cs.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>'; else if (x.c) h += '<p class="petit" id="s3-cons">' + esc(x.c) + '</p>';
+  h += '<ol class="s3-series" id="s3-series">' + l.map(function (s, k) { return '<li class="' + (s.f === 1 ? 'faite' : s.f === 2 ? 'sautee' : k === j ? 'cur' : '') + '" data-j="' + k + '"><span>Série ' + (k + 1) + '</span><span>' + esc(texteSerie(x, s) || (k === j ? 'en cours' : 'à faire'))
+    + (s.f === 2 ? ' <button class="btn lien" data-act="s3-rouvrir" data-j="' + k + '">Reprendre</button>' : '') + '</span></li>'; }).join('') + '</ol>';
+  if (b.rep && !chr) h += repos3(b);
+  else if (j >= 0) { var u = x.u === 's' ? 's' : 'rép.', avecKg = x.kg != null || !!x.kc || !!(v.k || v.kG || v.kD);   /* AME-168 : les kilos offerts même sans charge prévue, quand l'exercice s'y prête (kc) */
+    if (chr) h += chrono3(x);
+    h += '<div class="s3-champs">' + (x.co === 1 ? '<span>Gauche</span>' + champ3('rG', v.rG, 'Gauche, ' + u, u) + (avecKg ? champ3('kG', v.kG, 'Gauche, charge en kilos', 'kg') : '<span></span>') + '<span>Droite</span>' + champ3('rD', v.rD, 'Droite, ' + u, u) + (avecKg ? champ3('kD', v.kD, 'Droite, charge en kilos', 'kg') : '<span></span>')
+      : '<span>Série ' + (j + 1) + '</span>' + champ3('r', v.r, u === 's' ? 'Secondes' : 'Répétitions', u) + (avecKg ? champ3('k', v.k, 'Charge en kilos', 'kg') : '<span></span>')) + '</div>';
+    if (avecKg && l.length > 1) h += '<button class="s3-meme" data-act="s3-meme" aria-pressed="' + !!(b.mc && b.mc[i]) + '">Même charge pour toutes les séries</button>';
+    if (x.u === 's' && !chr) { var tr = b.ten ? reste(b.ten.fin) : 0; h += b.ten && tr > 0 ? '<p class="ok" id="s3-tenue" aria-live="polite">Tenez : <b id="s3-tenue-n">' + tr + '</b> s</p>' : '<button class="btn sec" data-act="s3-tenue">Lancer le décompte (' + esc(v.r || x.r || 30) + ' s)</button>'; }
+    h += gene3(v) + demande3(x, v);
+    h += '<button class="btn" data-act="s3-faite">Série faite</button><button class="btn lien" data-act="s3-sauter">Sauter cette série</button>'; }
+  else h += '<p class="ok" id="s3-fini">' + (fini(l) ? 'Exercice terminé.' : l.some(function (s) { return s.f === 1; }) ? 'Exercice terminé, avec des séries sautées.' : 'Exercice sauté.') + '</p>';
+  if (E.mo !== 'c') { var moins = l.length > 1 && l.some(function (s) { return !s.f; });   /* AME-138 : « − Une série » retire la dernière série ni faite ni sautée ; il en reste au moins une */
+    h += '<div class="s3-pm"><button class="btn sec" data-act="s3-plus" aria-label="Une série de plus"' + (l.length < 12 ? '' : ' disabled') + '>+</button><button class="btn sec" data-act="s3-moins" aria-label="Une série de moins"' + (moins ? '' : ' disabled') + '>−</button></div>'; }   /* 1.30-test3, V130-1-9 (Antoine : « si c'est des boutons - et + devrais suffire ») */
+  h += '</div><div class="s3-nav"><button class="btn sec" data-act="s3-revenir"' + (i > 0 ? '' : ' disabled') + '>Revenir</button><button class="btn' + (j < 0 ? '' : ' sec') + '" data-act="s3-suivant">' + (i < n - 1 ? 'Exercice suivant' : 'Fin de la séance') + '</button></div>';
+  return h; }
+/* le retour lisible (Codex, piste 7 ; P130-11) : avant l'envoi, « 6 faites · 2 sautées · 1 non notée », et un accès direct à chaque exercice à corriger */
+function compte3() { var b = s3(), c = {f: 0, s: 0, n: 0, l: []}; E.ex.forEach(function (x, i) { var a = 0, z = 0, d = 0; b.x[i].forEach(function (s) { if (s.f === 1) a++; else if (s.f === 2) z++; else d++; }); c.f += a; c.s += z; c.n += d;
+    if (z || d) c.l.push({i: i, t: [z ? pl(z, 'sautée') : '', d ? d + ' non notée' + (d > 1 ? 's' : '') : ''].filter(Boolean).join(' · ')}); }); return c; }
+function bilan3() { var c = compte3(), mots = [pl(c.f, 'faite')].concat(c.s ? [pl(c.s, 'sautée')] : [], c.n ? [c.n + ' non notée' + (c.n > 1 ? 's' : '')] : []).join(' · ');
+  return '<div class="carte" id="s3-bilan"><p class="s3-q" style="margin-top:0">Vos séries : <span id="s3-bilan-l">' + mots + '</span></p>'
+    + (c.l.length ? '<p class="petit">Pour corriger, touchez l’exercice :</p>' + c.l.map(function (y) { return '<button class="manque" data-act="s3-corriger" data-i="' + y.i + '">' + (y.i + 1) + '. ' + esc(E.ex[y.i].n) + ' : ' + y.t + ' ›</button>'; }).join('') : '') + '</div>'; }
+function finSalle3() { var b = s3(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(b.d) + '</span></div><h1>Fin de la séance</h1>' + bilan3();
+  h += '<h2>Douleur pendant la séance</h2><div class="ancres"><span>0 · aucune</span><span>la pire · 10</span></div><div class="ech">';
+  for (var n = 0; n <= 10; n++) h += '<button data-act="s3-douleur" data-v="' + n + '" aria-pressed="' + (b.p === n) + '">' + n + '</button>';
+  h += '</div><h2>Effort</h2><div class="puces">' + EFFORTS.map(function (t, i) { return '<button class="puce" data-act="s3-effort" data-v="' + (i + 1) + '" aria-pressed="' + (b.e === i + 1) + '">' + t + '</button>'; }).join('') + '</div>';
+  h += '<h2>Un mot pour votre kiné <span class="petit">(facultatif)</span></h2><textarea id="mot" rows="2" maxlength="140">' + esc(b.m || '') + '</textarea>';
+  return h + (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="s3-finir">Envoyer à mon kiné</button><button class="btn lien" data-act="s3-retour">Revenir à la séance</button>'; }
+function propre(s) { var o = {}; ['f', 'r', 'k', 'i', 'e', 'g', 'o', 'rG', 'kG', 'rD', 'kD'].forEach(function (k) { if (s[k] !== '' && s[k] != null) o[k] = s[k]; }); return o; }   /* la forme 2, rien d'autre */
+setInterval(function () { if (!E || V.ecran !== 'salle3' || !ETAT || !ETAT.s3) return; var b = ETAT.s3;
+  if (b.rep) { var r = reste(b.rep.fin), el = document.getElementById('s3-repos-n'); if (el && el.textContent !== mmss(r)) { if (r === 0) { if (!b.rep.bip) { b.rep.bip = 1; sauver(); bip(); } V.garde = true; prendre3(); rendre(); }
+    else { el.textContent = mmss(r); var an = document.getElementById('s3-anneau'); if (an) an.setAttribute('stroke-dashoffset', anneau(r, b.rep.duree)); } } }
+  if (b.ten) { var t2 = reste(b.ten.fin), e2 = document.getElementById('s3-tenue-n'); if (e2 && +e2.textContent !== t2) { if (t2 === 0) { b.ten = null; sauver(); bip(); V.garde = true; prendre3(); rendre(); } else e2.textContent = t2; } }
+  if (b.chr && b.chr.dep) { var e3 = document.getElementById('s3-chr-n'), t3 = mmss(ecoule(b.chr)); if (e3 && e3.textContent !== t3) e3.textContent = t3; } }, 250);
+
 /* ---------- l'envoi : un QR code à montrer, ou un message ---------- */
-function objetRetour() { if (E.t === 'q') return {e: E.e, t: 'q', d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
-  if (E.t === 'g') { var b = salle(); return {e: E.e, t: 'g', d: b.d, x: b.x, p: b.p, r: b.e || 0, m: b.m || ''}; }
-  return {e: E.e, t: 's', j: ETAT.journal}; }
+function objetRetour() { if (E.t === 'q') return {e: E.e, t: 'q', lv: VERSION_LECTEUR, d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
+  if (E.t === 'g' && E.lv >= 3) { var b3 = s3(), o3 = {e: E.e, t: 'g', lv: VERSION_LECTEUR, f: 2, d: b3.d, x: b3.x.map(function (l) { return l.map(propre); }), p: b3.p, r: b3.e || 0, m: b3.m || ''}; if (b3.ef.length) o3.ef = b3.ef; return o3; }
+  if (E.t === 'g') { var b = salle(); return {e: E.e, t: 'g', lv: VERSION_LECTEUR, d: b.d, x: b.x, p: b.p, r: b.e || 0, m: b.m || ''}; }
+  return {e: E.e, t: 's', lv: VERSION_LECTEUR, j: ETAT.journal}; }
 function preparerEnvoi() { V.ecran = 'envoi'; V.code = null; rendre();
-  Codec.retour(E.id, E.k, objetRetour()).then(function (r) { V.code = r; rendre(); }).catch(function () { Codec.retour(E.id, '', objetRetour()).then(function (r) { V.code = r; rendre(); }); }); }
+  var o = objetRetour(), hMax = E.t === 's' ? ETAT.journal.reduce(function (m, x) { return Math.max(m, +x[5] || 0); }, 0) : 0;
+  Codec.retour(E.id, E.k, o, E.lv >= 3 || E.z === 1).then(function (r) { V.code = r; envoye(hMax); rendre(); })
+    .catch(function () { Codec.retour(E.id, '', o).then(function (r) { r.echec = true; V.code = r; envoye(hMax); rendre(); }); }); }
+/* GT-2 : ce qui a été préparé pour l'envoi ne compte plus comme « pas encore envoyé » (l'heure de la ligne la plus récente) */
+function envoye(h) { if (E.t === 's' && h > (+ETAT.envoyeH || 0)) { ETAT.envoyeH = h; sauver(); } }
+function nonEnvoyees() { var h0 = +ETAT.envoyeH || 0; return E && E.t === 's' ? ETAT.journal.filter(function (x) { return (+x[5] || 0) > h0 || (!x[5] && !h0); }).length : 0; }
+function texteNonEnvoyees() { var n = nonEnvoyees(); return n ? '<p class="petit non-envoye" id="non-envoye">' + n + ' séance' + (n > 1 ? 's' : '') + ' notée' + (n > 1 ? 's' : '') + ', pas encore envoyée' + (n > 1 ? 's' : '') + ' à votre kiné. Envoyez-les chaque semaine : sur iPhone, une page restée fermée sept jours peut perdre ce qu’elle garde. La mettre sur l’écran d’accueil (Partager › Sur l’écran d’accueil) l’évite.</p>' : ''; }
+/* GT-1 : un code trop long pour un QR code (un long journal) garde le mail, le message et la copie */
+function qrDe(code) { try { return QR.svg(code, 'M'); } catch (e) { return null; } }
 var texteMessage = function () { return 'Mes réponses pour mon kiné (à ne pas modifier) : ' + V.code.code; };
 function ecranEnvoi() { if (!V.code) return '<p>Préparation…</p>';
-  var q = QR.svg(V.code.code, 'M'), t = encodeURIComponent(texteMessage()), tel = String(E.tel || '').replace(/[^\d+]/g, ''), ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  var q = qrDe(V.code.code), t = encodeURIComponent(texteMessage()), tel = String(E.tel || '').replace(/[^\d+]/g, ''), ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
   var h = '<h1>Envoyer à mon kiné</h1>';
+  /* GT-8 : où partent les réponses, dans un petit volet */
+  h += '<details class="envoi-detail" id="envoi-adresse"><summary>' + (E.mel ? 'Vos réponses partent à : ' + esc(E.mel) : 'Ce lien ne donne pas d’adresse mail : montrez ou copiez le code') + '</summary><p>' + (E.mel ? 'C’est l’adresse que votre kiné a mise dans ce lien. Si ce n’est pas la sienne, n’envoyez rien et prévenez-le.' : 'Votre kiné le lit au cabinet, sur son ordinateur.') + ' Un lien de votre kiné vient toujours de son adresse ou du QR code montré au cabinet.</p></details>';
   if (E.mel) h += '<a class="btn" href="mailto:' + encodeURIComponent(E.mel).replace(/%40/g, '@') + '?subject=' + encodeURIComponent(E.t === 'q' ? 'Mes réponses pour mon kiné' : 'Ma séance pour mon kiné') + '&body=' + encodeURIComponent('Bonjour,\r\n\r\n' + (E.t === 'q' ? 'Voici mes réponses.' : 'Voici ma séance.') + ' Merci de ne pas modifier la ligne ci-dessous.\r\n\r\n' + V.code.code + '\r\n') + '">Par mail</a><p class="petit">Votre messagerie s’ouvre avec le message déjà écrit : il reste à toucher « Envoyer ».</p>';
-  h += '<p class="petit">' + (V.code.chiffre ? 'Vos réponses sont chiffrées : seul l’ordinateur de votre kiné peut les lire.' : 'Cette page n’est pas en https : le code n’est pas chiffré.') + '</p>';
-  h += '<h2>Au cabinet, sans mail</h2><p>Montrez ce code à la caméra de son ordinateur, luminosité de l’écran au maximum.</p><div class="qr">' + q.svg + '</div><h2>Autrement</h2>';
+  /* GT-6 : des mots exacts (choix à confirmer, Antoine les réécrit au besoin) : le code ne se lit qu'avec la clé du lien, que le kiné a aussi */
+  h += '<p class="petit" id="envoi-chiffre">' + (V.code.chiffre ? 'Le code est chiffré : il ne se lit qu’avec la clé contenue dans votre lien, que votre kiné a aussi. Ne transférez pas ce lien.' : !window.isSecureContext ? 'Cette page n’est pas en https : le code n’est pas chiffré.' : 'Ce téléphone n’a pas pu chiffrer le code : il part en clair.') + '</p>';
+  h += q ? '<h2>Au cabinet, sans mail</h2><p>Montrez ce code à la caméra de son ordinateur, luminosité de l’écran au maximum.</p><div class="qr">' + q.svg + '</div><h2>Autrement</h2>'
+    : '<p class="petit" id="envoi-sans-qr">Ce message est trop long pour un code à montrer : envoyez-le par mail, par message ou copiez-le.</p><h2>Autrement</h2>';
   if (navigator.share) h += '<button class="btn" data-act="partager">Envoyer par message</button>';
   h += '<a class="btn sec" href="sms:' + tel + (ios ? '&' : '?') + 'body=' + t + '">Par SMS ou iMessage</a><a class="btn sec" href="https://wa.me/' + tel.replace('+', '') + '?text=' + t + '">Par WhatsApp</a><button class="btn sec" data-act="copier">Copier le code</button>';
   h += '<p class="petit">Le message ne contient ni votre nom ni le nom de l’exercice ou du questionnaire : seulement ce code.</p>';
   h += '<button class="btn lien" data-act="' + (E.t === 's' ? 'retour-seance' : 'fin') + '">Revenir</button>';
+  /* GT-7 : une fois envoyé, effacer ce qui reste sur le téléphone (un téléphone prêté, une tablette de la famille) */
+  h += '<p class="petit" id="envoi-reste">Après l’envoi, ce téléphone garde ' + (E.t === 'q' ? 'vos réponses' : E.t === 's' ? 'le programme et le journal de vos séances' : 'votre séance') + ' et le lien. Sur un appareil partagé, effacez-les.</p>' + lienEffacer();
   return h; }
 
-function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essai', '1'); st = localStorage.getItem('lecteur:essai') === '1'; } catch (e) { st = false; }
+/* AME-166 : ce que la page garde sur le téléphone, ce sont les clés « lecteur:… » du stockage du navigateur (le programme et ce qui a été noté, par envoi ;
+   le dernier lien ouvert). Le cache de sw.js ne garde que les fichiers de la page, aucune donnée. */
+function clesLecteur() { var l = []; try { for (var n = 0; n < localStorage.length; n++) { var k = localStorage.key(n); if (k && k.indexOf('lecteur:') === 0) l.push(k); } } catch (e) {} return l; }
+function effacer(tout) { var l = tout ? clesLecteur() : E ? ['lecteur:' + E.id].concat((lire('lecteur:dernier') || {}).h === V.lien ? ['lecteur:dernier'] : []) : [];
+  l.forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+  try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) {}   /* sans le lien dans l'adresse, rien ne se recrée au rechargement */
+  E = null; ETAT = null; V.lien = ''; V.source = ''; V.code = null; V.ecran = 'efface'; V.efface = tout ? 'tout' : 'un'; }
+function ecranEffacer() { var h = '<h1>Effacer mes données de ce téléphone</h1><p>Cela n’efface rien dans le dossier de votre kiné. Ce qui n’a pas encore été envoyé à votre kiné est perdu.</p>';
+  if (E) h += '<div class="carte"><p><b>Ce programme</b> : ' + esc(E.t === 'q' ? 'vos réponses à ce questionnaire' : E.t === 's' ? 'vos exercices à la maison et le journal de vos séances notées' : 'votre séance et les séries notées') + ', et le programme lui-même.</p><button class="btn" data-act="effacer-un">Effacer ce programme</button></div>';
+  h += '<div class="carte"><p><b>Tout</b> : tous les programmes, réponses et séances que cette page garde sur ce téléphone (' + pl(clesLecteur().length, 'élément') + ').</p><button class="btn sec" data-act="effacer-tout">Tout effacer</button></div>';
+  return h + '<button class="btn lien" data-act="effacer-non">Annuler</button>'; }
+var lienEffacer = function () { return '<button class="btn lien effacer" data-act="effacer">Effacer mes données de ce téléphone</button>'; };
+function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essai', '1'); st = localStorage.getItem('lecteur:essai') === '1'; localStorage.removeItem('lecteur:essai'); } catch (e) { st = false; }
   var app = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   return ['Ouverte depuis : ' + (V.source === 'lien' ? 'le lien (le programme est dans l’adresse)' : V.source === 'telephone' ? 'la mémoire de ce téléphone (pas de lien)' : 'rien'),
     'En app de l’écran d’accueil : ' + (app ? 'oui' : 'non'),
@@ -207,21 +541,79 @@ function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essa
 function rendre() { var h = '';
   if (V.ecran === 'vide') h = '<h1>Mon kiné</h1><p>Cette page s’ouvre avec le QR code ou le lien donné par votre kiné.</p><p class="petit">Elle ne contient rien par elle-même et n’envoie rien.</p>';
   else if (V.ecran === 'ancien') h = '<h1>Téléphone trop ancien pour ce lien</h1><p>Demandez à votre kiné le « lien pour ancien téléphone ».</p>';
+  else if (V.ecran === 'maj') h = '<h1>Cette page doit être mise à jour</h1><p>Votre kiné doit mettre à jour cette page avant que vous puissiez répondre. Prévenez-le, s’il vous plaît.</p>';
   else if (V.ecran === 'illisible') h = '<h1>Lien incomplet</h1><p>Le lien a été coupé en route. Demandez-le de nouveau à votre kiné, ou scannez le QR code au cabinet.</p>';
-  else if (V.ecran === 'accueil') h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.q.map(function (q) { return q.n; }).join(' et ')) + '</h1><div class="carte"><p>' + esc(E.q[0].c || 'Répondez à chaque question, puis montrez ou envoyez vos réponses à votre kiné.') + '</p></div><p class="petit">' + total() + ' questions, environ ' + Math.max(1, Math.round(total() / 5)) + ' min. Vos réponses restent sur ce téléphone jusqu’à ce que vous les montriez ou les envoyiez.</p><button class="btn" data-act="commencer">' + ((ETAT.rep[0] || []).length ? 'Reprendre' : 'Commencer') + '</button>';
+  else if (V.ecran === 'refuse') h = '<h1>Lien refusé</h1><p>Ce lien n’a pas la forme de ceux que prépare l’appli de votre kiné : rien n’en est montré. Demandez-le de nouveau à votre kiné, ou scannez le QR code au cabinet.</p>';   /* AME-157 */
+  else if (V.ecran === 'effacer') h = ecranEffacer();
+  else if (V.ecran === 'efface') h = '<h1>C’est effacé</h1><p class="ok">' + (V.efface === 'tout' ? 'Cette page ne garde plus rien sur ce téléphone.' : 'Ce programme est effacé de ce téléphone.') + '</p><p>Le lien ou le QR code de votre kiné le rouvre si besoin. Rien n’a changé dans son dossier.</p>';
+  else if (V.ecran === 'accueil') h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.q.map(function (q) { return q.n; }).join(' et ')) + '</h1><div class="carte"><p>' + esc(E.q[0].c || 'Répondez à chaque question, puis montrez ou envoyez vos réponses à votre kiné.') + '</p></div><p class="petit">' + total() + ' questions, environ ' + Math.max(1, Math.round(total() / 5)) + ' min. Vos réponses restent sur ce téléphone jusqu’à ce que vous les montriez ou les envoyiez.</p><button class="btn" data-act="commencer">' + ((ETAT.rep[0] || []).length ? 'Reprendre où j’en étais' : 'Commencer') + '</button>';
   else if (V.ecran === 'question') h = ecranQuestion();
+  else if (V.ecran === 'fin' && E.t === 'q' && sansReponse().length) h = '<h1>Merci, c’est presque terminé</h1><p>Sans réponse :</p><div class="carte" id="sans-reponse">' + sansReponse().map(function (x) { return '<button class="manque" data-act="aller-q" data-i="' + x.i + '" data-j="' + x.j + '">' + esc(x.q) + (x.f ? '' : ' (nécessaire)') + ' ›</button>'; }).join('') + '</div><button class="btn" data-act="envoi">Envoyer à mon kiné</button>';
   else if (V.ecran === 'fin') h = '<h1>Merci, c’est terminé</h1><p class="ok">' + (E.t === 'g' ? 'Votre séance est notée sur ce téléphone.' : 'Vos réponses sont notées sur ce téléphone.') + '</p><p>Il reste à ' + (E.t === 'g' ? 'la' : 'les') + ' donner à votre kiné : par mail, ou en montrant un code à son ordinateur.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">' + (E.t === 'g' ? 'Revoir ma séance' : 'Revoir mes réponses') + '</button>';
   else if (V.ecran === 'salle') h = ecranSalle();
+  else if (V.ecran === 'salle3') { h = ecranSalle3(); eveil(); }
+  else if (V.ecran === 'salle3-fin') h = finSalle3();
   else if (V.ecran === 'seance') h = ecranSeance();
   else if (V.ecran === 'journal') h = ecranJournal();
   else if (V.ecran === 'envoi') h = ecranEnvoi();
+  if (['accueil', 'fin', 'salle3-fin', 'salle', 'seance', 'journal'].indexOf(V.ecran) >= 0 || (V.ecran === 'vide' && clesLecteur().length)) h += lienEffacer();   /* AME-166 */
   h += '<details><summary>Essai : ce que ce téléphone sait faire</summary><pre>' + esc(diagnostic()) + '</pre></details>';
   var y = V.garde ? window.scrollY : 0; V.garde = false; app.innerHTML = h; window.scrollTo(0, y);
+  if (V.ecran === 'salle3' && ETAT && ETAT.s3 && V.joue !== ETAT.s3.i) { V.joue = ETAT.s3.i; var sv = document.querySelector('#s3-dessin svg'); if (sv) PictosTel.jouer(sv, document.getElementById('s3-dessin').dataset.p); }   /* le geste joue une fois à l'arrivée */
   var n = document.querySelector('#nombre[type=range]'), o = document.getElementById('nombre-v'); if (n && o) n.addEventListener('input', function () { V.touche = true; o.textContent = n.value; }); }
 
 var A = {
-  commencer: function () { V.i = 0; V.j = 0; V.ecran = 'question'; },
-  revoir: function () { if (E.t === 'g') { V.ecran = 'salle'; return; } V.i = 0; V.j = 0; V.ecran = 'question'; },
+  commencer: function () { var p = (ETAT.rep[0] || []).length ? (ETAT.pos || manquant(false)) : null; V.i = p ? p.i : 0; V.j = p ? p.j : 0; V.ecran = 'question'; },
+  /* lot 5 : le pré-bilan de l'athlète */
+  multi: function (el) { prendreChamps(); var r = repDe(), m = Array.isArray(r[V.j]) ? r[V.j] : [], k = el.dataset.v, i = m.indexOf(k); if (i >= 0) m.splice(i, 1); else m.push(k); r[V.j] = m.length ? m : null; V.err = ''; sauver(); V.garde = true; },
+  'ligne-plus': function () { prendreChamps(); var it = item(), r = repDe(), l = lignesDe(it, r[V.j]); if (l.length < (it.max || 5)) l.push(it.ch.map(function () { return null; })); r[V.j] = l; sauver(); V.garde = true; },
+  'ligne-moins': function (el) { prendreChamps(); var it = item(), r = repDe(), l = lignesDe(it, r[V.j]); l.splice(+el.dataset.r, 1); r[V.j] = vide1(l) ? null : l; sauver(); V.garde = true; },
+  reprendre: function () { var p = ETAT.pos || manquant(false) || {i: 0, j: 0}; V.i = p.i; V.j = p.j; V.ecran = 'question'; },
+  'aller-q': function (el) { V.i = +el.dataset.i; V.j = +el.dataset.j; V.err = ''; V.ecran = 'question'; },
+  /* version 3 : la salle */
+  's3-liste': function () { prendre3(); V.liste = !V.liste; },
+  's3-aller': function (el) { prendre3(); s3().i = +el.dataset.i; s3().rep = null; V.liste = false; sauver(); },
+  's3-jouer': function (el) { var sv = el.querySelector('svg'); if (sv) PictosTel.jouer(sv, el.dataset.p); return true; },
+  /* ERG-190 : « Série faite » note la série, sa gêne, son RIR ou son effort d'un seul geste, puis enchaîne (le repos, ou l'exercice suivant d'un groupe) ;
+     en Chrono, un chrono qui tourne s'arrête et écrit son temps d'abord, et le repos ne part pas tout seul (ERG-184) */
+  's3-faite': function () { prendre3(); var b = s3(), x = E.ex[b.i], v = brouillon3(); if (!v) return; if (b.chr && b.chr.dep) { var t = ecoule(b.chr); b.chr = {t: t}; ecrireTemps3(t); }
+    var s = b.x[b.i][v.j]; s.f = 1; if (x.co === 1) { s.rG = v.rG; s.kG = v.kG; s.rD = v.rD; s.kD = v.kD; } else { s.r = v.r; s.k = v.k; }
+    if (v.ir !== '') s.i = v.ir; if (v.ef) s.e = v.ef; s.g = v.g || ''; if (v.g && v.o) s.o = v.o;
+    var i = b.i; b.v = null; b.ten = null; b.chr = null; avancer3(i, v.j, b.mode !== 'c'); sauver(); },
+  's3-sauter': function () { prendre3(); var b = s3(), i = b.i, j = curJ(b.x[i]), v = b.v; if (j < 0) return; var s = {f: 2}; if (v && v.j === j && v.g) { s.g = v.g; if (v.o) s.o = v.o; }   /* la gêne choisie reste, comme « Sauter » de la vue gymnase */
+    b.x[i][j] = s; b.v = null; b.ten = null; b.chr = null; avancer3(i, j, false); sauver(); },
+  's3-rouvrir': function (el) { prendre3(); var b = s3(), l = b.x[b.i], k = +el.dataset.j; if (l[k] && l[k].f === 2) { l[k] = {}; b.v = null; b.rep = null; } sauver(); V.garde = true; },   /* une série sautée se reprend */
+  's3-ech': function (el) { var b = s3(), k = +el.dataset.i; b.ef[k] = b.ef[k] === 1 ? 0 : 1; sauver(); V.garde = true; },
+  's3-commencer': function () { s3().ech = true; sauver(); },
+  's3-plus': function () { prendre3(); var l = s3().x[s3().i]; if (l.length < 12) l.push({}); sauver(); V.garde = true; },
+  /* AME-138 : la dernière série ni faite ni sautée s'en va (elle n'entre ni dans le retour ni dans le journal) ; il en reste au moins une */
+  's3-moins': function () { prendre3(); var b = s3(), l = b.x[b.i], k = -1; for (var n = l.length - 1; n >= 0; n--) if (!l[n].f) { k = n; break; }
+    if (k < 0 || l.length < 2) return; l.splice(k, 1); if (b.v && b.v.i === b.i && b.v.j >= k) b.v = null; sauver(); V.garde = true; },
+  's3-rir': function (el) { prendre3(); var v = brouillon3(); if (v) v.ir = v.ir === el.dataset.v ? '' : el.dataset.v; sauver(); V.garde = true; },
+  's3-eff': function (el) { prendre3(); var v = brouillon3(), n = +el.dataset.v; if (v) v.ef = v.ef === n ? '' : n; sauver(); V.garde = true; },
+  's3-gene': function (el) { prendre3(); var v = brouillon3(); if (v) { v.g = el.dataset.v; if (!v.g) v.o = ''; } sauver(); V.garde = true; },
+  's3-ou': function (el) { prendre3(); var v = brouillon3(); if (v) v.o = v.o === el.dataset.v ? '' : el.dataset.v; sauver(); V.garde = true; },
+  's3-passer': function () { prendre3(); s3().rep = null; sauver(); },
+  's3-plus15': function () { var r = s3().rep; if (r) { r.fin += 15000; r.duree += 15; r.bip = 0; } sauver(); V.garde = true; },
+  /* ERG-184 : Repos (d'office) ou Chrono */
+  's3-mode': function (el) { prendre3(); var b = s3(); b.mode = el.dataset.v === 'c' ? 'c' : 'r'; if (b.mode === 'c') { b.rep = null; b.ten = null; } else if (b.chr && b.chr.dep) b.chr = {t: ecoule(b.chr)}; sauver(); V.garde = true; },
+  's3-chrono': function () { prendre3(); var b = s3(), c = b.chr || {}; if (c.dep) { var t = ecoule(c); b.chr = {t: t}; ecrireTemps3(t); } else b.chr = {dep: Date.now(), t: 0}; sauver(); V.garde = true; },
+  's3-meme': function () { prendre3(); var b = s3(); b.mc = Array.isArray(b.mc) ? b.mc : []; b.mc[b.i] = b.mc[b.i] ? 0 : 1; var av = chargeAvant3(b.i), v = brouillon3();
+    if (av && v) { if (av.k) v.k = av.k; if (av.kG) v.kG = av.kG; if (av.kD) v.kD = av.kD; } sauver(); V.garde = true; },
+  's3-tenue': function () { prendre3(); var b = s3(), v = brouillon3(), x = E.ex[b.i]; b.ten = {fin: Date.now() + Math.max(1, Math.min(3600, +(v && v.r) || +x.r || 30)) * 1000}; sauver(); V.garde = true; },
+  's3-revenir': function () { prendre3(); var b = s3(); if (b.i > 0) { b.i--; b.rep = null; } sauver(); },
+  's3-suivant': function () { prendre3(); var b = s3(); b.rep = null; if (b.i < E.ex.length - 1) b.i++; else V.ecran = 'salle3-fin'; sauver(); },
+  's3-retour': function () { prendre3(); V.ecran = 'salle3'; sauver(); },
+  's3-corriger': function (el) { prendre3(); var b = s3(); b.i = Math.max(0, Math.min(E.ex.length - 1, +el.dataset.i || 0)); b.rep = null; V.ecran = 'salle3'; sauver(); },
+  's3-douleur': function (el) { prendre3(); s3().p = +el.dataset.v; V.err = ''; sauver(); V.garde = true; },
+  's3-effort': function (el) { prendre3(); s3().e = +el.dataset.v; sauver(); V.garde = true; },
+  's3-finir': function () { prendre3(); var b = s3(); if (b.p == null) { V.err = 'Notez votre douleur de 0 à 10, s’il vous plaît.'; sauver(); V.garde = true; return; } V.err = ''; ETAT.fini = true; ETAT.finLe = auj(); sauver(); preparerEnvoi(); return true; },
+  /* AME-166 : « Effacer mes données de ce téléphone » : ce programme, ou tout ce que la page garde ; rien n'est effacé dans le dossier du kiné */
+  effacer: function () { V.avant = V.ecran; V.ecran = 'effacer'; },
+  'effacer-non': function () { V.ecran = V.avant && V.avant !== 'effacer' ? V.avant : 'vide'; },
+  'effacer-un': function () { effacer(false); },
+  'effacer-tout': function () { effacer(true); },
+  revoir: function () { if (E.t === 'g') { V.ecran = E.lv >= 3 ? 'salle3' : 'salle'; return; } V.i = 0; V.j = 0; V.ecran = 'question'; },
   serie: function (el) { prendreSalle(); var l = salle().x[+el.dataset.i][+el.dataset.j]; l[0] = l[0] === 1 ? 0 : 1; sauver(); V.garde = true; },
   's-douleur': function (el) { prendreSalle(); salle().p = +el.dataset.v; V.err = ''; sauver(); V.garde = true; },
   's-effort': function (el) { prendreSalle(); salle().e = +el.dataset.v; sauver(); V.garde = true; },
@@ -229,21 +621,22 @@ var A = {
   rep: function (el) { var v = el.dataset.v, it = item(); repDe()[V.j] = it.t === 'echelle' && v !== 'na' ? +v : v; V.err = ''; sauver(); },
   branche: function (el) { repDe()[V.j] = [el.dataset.v, null]; V.err = ''; sauver(); },
   rep8: function (el) { var v = repDe()[V.j]; if (Array.isArray(v)) { v[1] = el.dataset.v; V.err = ''; sauver(); } },
-  suivant: function () { var it = item(); if (it.t === 'texte') prendreTexte(); if (it.t === 'nombre') prendreNombre(); var v = repDe()[V.j];
-    if (it.t === 'visa8' && !(Array.isArray(v) && v[0] && v[1] != null)) v = null;
+  suivant: function () { var it = item(); if (it.t === 'texte') prendreChamps(); if (it.t === 'nombre') prendreNombre(); if (SORTES_CHAMPS.indexOf(it.t) >= 0) prendreChamps(); var v = repDe()[V.j];
+    if (it.t === 'visa8' && !(Array.isArray(v) && v[0] && v[1] != null)) v = null; if (SORTES_CHAMPS.indexOf(it.t) >= 0 && vide1(v)) v = null; ETAT.pos = {i: V.i, j: V.j};
     if ((v === undefined || v === null || v === '') && !it.f) { V.err = it.t === 'texte' ? 'Écrivez quelques mots, s’il vous plaît.' : it.t === 'nombre' ? (document.querySelector('#nombre[type=range]') ? 'Placez le curseur, s’il vous plaît.' : 'Écrivez un nombre dans les bornes, s’il vous plaît.') : 'Choisissez une réponse, s’il vous plaît.'; return; }
     V.err = ''; V.touche = false; sauver();
     if (V.j + 1 < quest().it.length) V.j++; else if (V.i + 1 < E.q.length) { V.i++; V.j = 0; } else { ETAT.fini = true; ETAT.finLe = auj(); sauver(); V.ecran = 'fin'; } },
-  precedent: function () { if (item().t === 'texte') prendreTexte(); if (item().t === 'nombre') prendreNombre(); V.err = ''; V.touche = false; if (V.j > 0) V.j--; else if (V.i > 0) { V.i--; V.j = quest().it.length - 1; } },
+  precedent: function () { if (item().t === 'texte' || SORTES_CHAMPS.indexOf(item().t) >= 0) prendreChamps(); if (item().t === 'nombre') prendreNombre(); sauver(); V.err = ''; V.touche = false; if (V.j > 0) V.j--; else if (V.i > 0) { V.i--; V.j = quest().it.length - 1; } },
   fin: function () { V.ecran = 'fin'; },
   fait: function (el) { var b = brouillon(), i = +el.dataset.i; garderMot(); b.f[i] = b.f[i] === 1 ? 0 : 1; sauver(); V.garde = true; },
   douleur: function (el) { garderMot(); brouillon().p = +el.dataset.v; V.err = ''; sauver(); V.garde = true; },
   effort: function (el) { garderMot(); brouillon().e = +el.dataset.v; sauver(); V.garde = true; },
   noter: function () { garderMot(); var b = brouillon(); if (b.p == null) { V.err = 'Notez votre douleur de 0 à 10, s’il vous plaît.'; return; }
-    V.err = ''; ETAT.journal = ETAT.journal.filter(function (x) { return x[0] !== b.d; }).concat([[b.d, b.f.join(''), b.p, b.e || 0, b.m || '']]).sort(); sauver(); V.ecran = 'journal'; },
+    /* AME-160 : une séance par jour (P130-9), la deuxième corrige la première ; la ligne porte l'heure où elle est notée (ms), que l'appli compare */
+    V.err = ''; ETAT.journal = ETAT.journal.filter(function (x) { return x[0] !== b.d; }).concat([[b.d, b.f.join(''), b.p, b.e || 0, b.m || '', Date.now()]]).sort(); sauver(); V.ecran = 'journal'; },
   journal: function () { garderMot(); V.ecran = 'journal'; },
   'retour-seance': function () { V.ecran = 'seance'; },
-  envoi: function () { preparerEnvoi(); return true; },
+  envoi: function () { var m = manquant(true); if (m) { V.i = m.i; V.j = m.j; V.ecran = 'question'; V.err = 'Cette question est nécessaire avant l’envoi.'; return; } preparerEnvoi(); return true; },
   partager: function () { navigator.share({text: texteMessage()}).catch(function () {}); return true; },
   copier: function (el) { var t = V.code.code, fini = function () { el.textContent = 'Code copié ✓'; };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fini, function () { copieAncienne(t); fini(); }); else { copieAncienne(t); fini(); } return true; }
@@ -251,7 +644,7 @@ var A = {
 function garderMot() { var t = document.getElementById('mot'); if (t && ETAT && E.t === 's') brouillon().m = t.value.trim(); }
 function copieAncienne(t) { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); } catch (e) {} a.remove(); }
 app.addEventListener('click', function (ev) { var el = ev.target.closest('[data-act]'); if (!el || !A[el.dataset.act]) return; if (A[el.dataset.act](el) !== true) rendre(); });
-app.addEventListener('change', function () { if (V.ecran === 'salle') { prendreSalle(); sauver(); } });
+app.addEventListener('change', function () { if (V.ecran === 'salle') { prendreSalle(); sauver(); } if (V.ecran === 'salle3' || V.ecran === 'salle3-fin') { prendre3(); sauver(); } });
 window.addEventListener('hashchange', ouvrir);
 /* hors connexion : la page se garde elle-même (ses propres fichiers seulement), le réseau d'abord quand il est là */
 if ('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWorker.register('sw.js').catch(function () {});
