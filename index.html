@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<!-- Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
+<!-- Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
      Revue avec la 1.30-test1 (lot 1 de la 1.30, 13 novembre) : le billet contrôlé champ par champ (AME-157), l'heure de chaque séance à la maison (AME-160),
      « Effacer mes données de ce téléphone » (AME-166), « − Une série » (AME-138), Repos · Chrono (ERG-184), la gêne sur la carte de la série (ERG-190),
      les kilos changés par le patient (AME-168), le bilan des séries avant l'envoi et l'ordre d'un circuit. Puis avec la 1.30-test3 (lot 3, l'audit du téléphone) :
      l'envoi qui ne se bloque plus sur un long journal (GT-1), « pas encore envoyées » et la garde des données (GT-2), une politique de sécurité (GT-5), les mots
-     du chiffrement (GT-6), « Effacer » après l'envoi (GT-7), « Vos réponses partent à » (GT-8), « − » et « + » (V130-1-9). Hors de l'appli KINÉ : le « lecteur », la page du téléphone du patient. Elle est vide : ni patient, ni questionnaire,
+     du chiffrement (GT-6), « Effacer » après l'envoi (GT-7), « Vos réponses partent à » (GT-8), « − » et « + » (V130-1-9). Puis avec la 1.30-test7 (lot 6, l'essai
+     d'Antoine sur la v3 en ligne) : plus de choix Repos · Chrono, le chrono sur les seuls exercices tenus, le repos minuté en option ; les kilos dès que la dose parle
+     de barre, d'haltère, de kettlebell ou de kg ; « − » dans la ligne de la série et « + Une série » en dernière ligne ; la valeur d'un exercice qui se mesure ;
+     deux onglets (révision relue avant d'écrire) et le stockage plein dit. Hors de l'appli KINÉ : le « lecteur », la page du téléphone du patient. Elle est vide : ni patient, ni questionnaire,
      ni programme. Tout arrive par le lien, après le « # », que le navigateur n'envoie jamais à un serveur. Aucun appel réseau. -->
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-CyPBdM14PMkE/GOqAkeLPBdxaphjyDkycDTgrkGSREE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-sPLGAOYP4xKzktvV9hJaabJ5nJa+7Ghf7mQzuBxFDfk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Mon kiné">
 <title>Mon kiné</title>
 <style>
-:root{--encre:#1A1D22;--accent:#1B314E;--ok:#1A4F35;--vig:#90652E;--alerte:#9D3B34;--fond:#F6F5F2;--carte:#fff;--filet:#DDD9D0;--gris:#5C6470}
+:root{--encre:#1A1D22;--accent:#2A2D33;--ok:#3A5D52;--vig:#7C6A35;--alerte:#9B100E;--fond:#F4F5F7;--carte:#FFFFFF;--filet:#E0E2E6;--gris:#4E535C;--onaccent:#FFFFFF;--wash:#EEEFF2;--accentbg:#E4E5E8;--watchbg:#F1EFE9;--alertbg:#F4E5E4;--l3:#BEC3C9}
+/* version 5 (1.30-test23, lot C5, DES-254) : les jetons de l'appli (DES-249) ; le mode sombre, celui du téléphone (sans réglage dans la page). Les dessins :
+   les --pk-* comme dans l'appli, posés sur html:root pour passer devant la balise que pictos.js ajoute à la fin de <head>. Le QR code garde son fond blanc. */
+html:root{--pk-encre:var(--encre);--pk-accent:#50545C;--pk-decor-fond:var(--wash);--pk-sol:var(--l3);--pk-fond:var(--carte)}
+@media (prefers-color-scheme:dark){
+  :root{--encre:#ECEDEF;--accent:#E6E5E2;--ok:#9DBAB1;--vig:#DCD29C;--alerte:#FD7964;--fond:#101215;--carte:#1B1E23;--filet:#2F343C;--gris:#A9AFB8;--onaccent:#141519;--wash:#24272C;--accentbg:#2E3137;--watchbg:#42423B;--alertbg:#483030;--l3:#5C626B;color-scheme:dark}
+  html:root{--pk-accent:#BDBFC4;--pk-decor:#8A9099;--pk-fantome:#3A4252;--pk-elastique:#F2C744;--pk-fleche:#F29A4A;--pk-zone:#F07D72;--pk-zone-souple:#6CC48A}
+}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fond);color:var(--encre);font:17px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Source Sans 3",sans-serif}
@@ -27,7 +37,7 @@ p{margin:8px 0}
 .petit{font-size:14px;color:var(--gris)}
 .tete{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--gris);margin-bottom:6px}
 .carte{background:var(--carte);border:1px solid var(--filet);border-radius:14px;padding:14px;margin:10px 0}
-.btn{display:block;width:100%;min-height:52px;border-radius:12px;border:1px solid var(--accent);background:var(--accent);color:#fff;font:inherit;font-weight:600;padding:12px 14px;margin:10px 0;text-align:center;text-decoration:none}
+.btn{display:block;width:100%;min-height:52px;border-radius:12px;border:1px solid var(--accent);background:var(--accent);color:var(--onaccent);font:inherit;font-weight:600;padding:12px 14px;margin:10px 0;text-align:center;text-decoration:none}
 .btn.sec{background:var(--carte);color:var(--accent)}
 .btn.lien{border:0;background:none;color:var(--accent);min-height:44px;font-weight:500;text-decoration:underline}
 .btn:disabled{opacity:.4}
@@ -40,17 +50,26 @@ p{margin:8px 0}
 .ech button,.choix button,.puce{min-height:52px;border-radius:12px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:18px}
 .choix{display:grid;gap:8px}
 .choix button{text-align:left;padding:10px 14px;font-size:17px}
-[aria-pressed=true]{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+[aria-pressed=true]{background:var(--accent)!important;border-color:var(--accent)!important;color:var(--onaccent)!important}
 textarea{width:100%;border:1px solid var(--filet);border-radius:12px;padding:12px;font:inherit;background:var(--carte);color:var(--encre)}
 .err{color:var(--alerte);font-weight:600}
 .exo{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}
-.exo svg{width:92px;height:92px;background:#F1EFEA;border-radius:10px}
+.exo svg{width:92px;height:92px;background:var(--wash);border-radius:10px}
 .exo b{font-size:18px}
 .exo .dose{color:var(--accent);font-weight:600}
 .exo .fait{grid-column:1 / -1;min-height:46px;margin:2px 0 0}
 .puces{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .qr{background:#fff;border-radius:14px;padding:6px;border:1px solid var(--filet)}
 .qr svg{display:block;width:100%;height:auto}
+.fi-ol,.fi-ul,.fi-cs{margin:6px 0;padding-left:22px}
+.fi-ol li,.fi-ul li,.fi-cs li{margin:6px 0}
+.fi-cs{list-style:none;padding-left:0}
+.fi-cs li.on{font-weight:600}
+.fi-retenir h2{color:var(--ok)}
+.fi-parler{border-color:var(--vig)}
+.fi-parler h2{color:var(--vig)}
+.fi-feu{border-left:4px solid var(--filet);padding-left:10px}
+.fi-feu.fi-ok{border-color:var(--ok)}.fi-feu.fi-watch{border-color:var(--vig)}.fi-feu.fi-alert{border-color:var(--alerte)}
 .journal{list-style:none;padding:0;margin:0}
 .journal li{padding:8px 0;border-bottom:1px solid var(--filet);font-size:15px}
 details{margin-top:26px;font-size:14px;color:var(--gris)}
@@ -68,10 +87,16 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .hors{font-size:13px;color:var(--gris);text-align:center;margin-top:18px}
 /* version 3 : la salle, un exercice à la fois */
 .s3-tete{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.fx-lien{width:auto;margin:2px 0 0;padding:6px 0;text-align:left;font-size:15px}
+.fx-rev{width:auto;margin:0 0 4px;padding:6px 0;text-align:left;text-decoration:none;font-weight:600}
+#fx-dessin{display:flex;justify-content:center;background:var(--wash);border-radius:12px;padding:6px;margin:0 0 8px}
+#fx-dessin svg{width:100%;max-width:264px;height:auto}
+.fx-ess{font-weight:600;margin:8px 0 0}
+.fx-l{margin:0;padding-left:20px}.fx-l li{margin:4px 0}
 .s3-tete .btn.lien{width:auto;min-height:40px;margin:0;padding:6px 0;text-align:left;text-decoration:none;font-weight:600}
 .s3-liste{list-style:none;padding:0;margin:0}
 .s3-liste button{display:flex;justify-content:space-between;width:100%;min-height:46px;border:0;border-bottom:1px solid var(--filet);background:none;font:inherit;color:var(--encre);text-align:left;padding:8px 2px}
-#s3-dessin{display:flex;justify-content:center;background:#F1EFEA;border-radius:12px;padding:6px;margin:4px 0 8px}
+#s3-dessin{display:flex;justify-content:center;background:var(--wash);border-radius:12px;padding:6px;margin:4px 0 8px}
 #s3-dessin svg{width:100%;max-width:300px;height:auto}
 .s3-series{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}
 .s3-series li{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--filet);border-radius:10px;background:var(--carte);font-size:15px}
@@ -96,21 +121,18 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .ligne .btn.lien{min-height:36px;margin:0}
 .manque{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--filet);background:none;font:inherit;padding:10px 0;color:var(--accent)}
 /* 1.30-test1 : Repos · Chrono (ERG-184), la gêne sur la carte (ERG-190), « + Une série · − Une série » (AME-138), le bilan avant l'envoi, effacer (AME-166) */
-.s3-mode{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 0 10px}
-.s3-mode button{min-height:44px;border-radius:10px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-weight:600}
 .s3-q{font-weight:600;margin:14px 0 6px}
 .s3-g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .s3-g4 button{min-height:64px;border-radius:12px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px 2px}
-.s3-g4 button[aria-pressed=true]{background:#E9EDF3!important;color:var(--encre)!important;border:2px solid var(--accent)!important}
-.pg{display:block;width:20px;height:20px;border-radius:50%;border:2px solid #9AA0A8;background:transparent}
+.s3-g4 button[aria-pressed=true]{background:var(--accentbg)!important;color:var(--encre)!important;border:2px solid var(--accent)!important}
+.pg{display:block;width:20px;height:20px;border-radius:50%;border:2px solid var(--l3);background:transparent}
 .pg-legere{border-color:var(--vig)}
 .pg-moyenne{border-color:var(--vig);background:linear-gradient(90deg,var(--vig) 50%,transparent 50%)}
 .pg-forte{border-color:var(--alerte);background:var(--alerte)}
-.s3-duo,.s3-pm{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.s3-duo .btn,.s3-pm .btn{margin:4px 0}
-.s3-pm .btn{font-size:26px;line-height:1;padding:8px 14px}
+.s3-duo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.s3-duo .btn{margin:4px 0}
 .envoi-detail{font-size:14px;color:var(--gris);margin:10px 0}.envoi-detail summary{cursor:pointer}
-.non-envoye{border-left:3px solid var(--vig);padding:6px 10px;background:#FBF7EF;border-radius:6px}
+.non-envoye{border-left:3px solid var(--vig);padding:6px 10px;background:var(--watchbg);border-radius:6px}
 .s3-rg{position:relative;width:156px;height:156px;margin:4px auto}
 .s3-rg svg{width:156px;height:156px;transform:rotate(-90deg)}
 .s3-rg circle{fill:none;stroke-width:9}
@@ -119,22 +141,39 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .s3-repos p{margin:2px 0}
 .s3-chrono{text-align:center}
 .s3-chrono b{display:block;font-size:64px;line-height:1.05;font-variant-numeric:tabular-nums}
-.s3-rond{display:block;width:118px;height:118px;border-radius:50%;border:0;background:var(--accent);color:#fff;font:inherit;font-size:20px;font-weight:700;margin:8px auto}
+.s3-rond{display:block;width:118px;height:118px;border-radius:50%;border:0;background:var(--accent);color:var(--onaccent);font:inherit;font-size:20px;font-weight:700;margin:8px auto}
 .s3-rond[aria-pressed=true]{background:var(--alerte)!important;border-color:var(--alerte)!important}
 .s3-ordre{color:var(--accent);font-weight:600;font-size:15px;margin:4px 0}
 .s3-meme{display:block;width:100%;min-height:40px;border-radius:10px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:14px;margin:2px 0 6px}
 .s3-series .btn.lien{width:auto;min-height:28px;margin:0;padding:0;font-size:14px}
 .effacer{margin-top:28px;font-size:15px}
+/* 1.30-test7 : « − » dans la ligne de la série, « + Une série » en dernière ligne (point 44), la valeur mesurée (point 45), les deux onglets et le stockage plein */
+.s3-series li.s3-plus{border:0;background:none;padding:2px 0;justify-content:flex-start}
+.s3-series .s3-moins{min-width:40px;min-height:30px;margin:-6px 0 -6px 6px;border:1px solid var(--filet);border-radius:8px;background:var(--carte);color:var(--encre);font:inherit;font-size:20px;line-height:1}
+#s3-mesure{border-top:1px solid var(--filet);margin-top:12px;padding-top:4px}
+#s3-minuter{font-size:14px;color:var(--gris)}
+.pas-garde{border-left:3px solid var(--alerte);padding:6px 10px;background:var(--alertbg);border-radius:6px;font-weight:600;color:var(--alerte)}
+/* 1.30-test12, GA-15 : le calendrier mictionnel */
+.cal-jour{font-weight:600;color:var(--accent);margin:4px 0 8px}
+.cal-3 .btn{min-height:64px;font-size:19px}
+.cal-h{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--gris);margin:4px 0 8px}
+.cal-h input{border:1px solid var(--filet);border-radius:10px;padding:8px 10px;font:inherit;font-size:18px;background:var(--carte);color:var(--encre);min-height:44px}
+.cal-e{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cal-e button{min-height:52px;border-radius:12px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:18px}
+.cal-l li{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cal-l .btn.lien{width:auto;min-height:36px;margin:0;padding:0 4px;font-size:14px}
+.cal-fin{border-color:var(--ok)}
 </style>
 </head>
 <body>
 <main id="app"><p>Ouverture…</p><noscript><p>Cette page a besoin de JavaScript.</p></noscript></main>
 <script src="commun.js"></script>
 <script src="pictos.js"></script>
+<script src="fiches.js"></script>
 <script>
 (function () {
 'use strict';
-var VERSION_LECTEUR = 3;   /* le retour la renvoie (lv) : l'appli sait quelle page est en ligne, sans appel réseau */
+var VERSION_LECTEUR = 4;   /* 1.30-test12, lot 11 : 4, la fiche conseil (f) et les exercices à garder (p) ; le retour la renvoie (lv) : l'appli sait quelle page est en ligne, sans appel réseau */
 var app = document.getElementById('app');
 var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); };
 var auj = function () { var d = new Date(), z = function (n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); };
@@ -166,11 +205,20 @@ var Billet = (function () {
     if (it.min != null) o.min = nb(it.min, -100000, 100000); if (it.max != null) o.max = nb(it.max, -100000, 100000);
     if (o.min != null && o.max != null && o.min > o.max) non('bornes'); if (it.t === 'lignes' && o.max != null) o.max = Math.max(1, Math.min(20, Math.round(o.max)));
     if (it.lg != null) o.lg = nb(it.lg, 1, 2000, true);
+    if (it.fin != null) o.fin = txt(it.fin, 8);   /* 1.30-test17, GF4-22 : cette réponse finit le questionnaire */
     if (it.t === 'visa8') { o.br = liste(it.br, 6).map(function (b) { objet(b); var r = {k: txt(b.k, 8), cond: txt(b.cond, 600), q: txt(b.q, 1000), v: textes(b.v, 20, 20)}; if (b.temps != null) r.temps = textes(b.temps, 20, 200); return r; });
       if (it.temps != null) o.temps = textes(it.temps, 20, 200); }
     if (it.t === 'groupe' || it.t === 'lignes') { o.ch = liste(it.ch, 12).map(champ); if (!o.ch.length) non('champs'); }
     return o; }
   function quest(q) { objet(q); var o = {n: txt(q.n, 300), c: txt(q.c, 4000), it: liste(q.it, 150).map(item)}; if (!o.it.length) non('vide'); return o; }
+  /* 1.30-test12, GA-11 : la fiche conseil (FICHES_EDU de l'appli) : titre, phrase, parties ; chaque ligne a sa sorte (num, li, p, feu, case, palier) ;
+     cs : les lignes « case » cochées par le kiné ; src, fin : le pied de la fiche */
+  var LIGNES = ['num', 'li', 'p', 'feu', 'case', 'palier'];
+  function ligneFiche(x) { objet(x); if (LIGNES.indexOf(x.s) < 0) non('ligne'); var o = {s: x.s, t: txt(x.t, 1500)}; if (x.n != null) o.n = txt(x.n, 80);
+    if (x.c != null) { o.c = txt(x.c, 12); if (!/^[a-z]*$/.test(o.c)) non('ligne'); } return o; }
+  function fiche(f) { objet(f); var o = {n: txt(f.n, 300), ph: txt(f.ph, 1000), src: txt(f.src, 600), fin: txt(f.fin, 200), cs: liste(f.cs, 40).map(function (v) { return nb(v, 0, 40, true); }),
+      p: liste(f.p, 20).map(function (pa) { objet(pa); var c = txt(pa.c, 12); if (!/^[a-z]*$/.test(c)) non('partie'); return {t: txt(pa.t, 300), c: c, l: liste(pa.l, 40).map(ligneFiche)}; })};
+    if (!o.n.trim() || !o.p.length) non('vide'); return o; }
   function pt(v, n) { if (!Array.isArray(v) || v.length < n) non('dessin'); return v.slice(0, n).map(function (z) { var x = nb(z, -200, 300); if (x == null) non('dessin'); return x; }); }
   function corps(c) { objet(c); var o = {c: liste(c.c, 80).map(function (s) { return pt(s, 4); })}; if (c.t != null) o.t = pt(c.t, 2); return o; }
   function dessin(g) { var o = corps(g); if (g.f != null) o.f = corps(g.f);
@@ -178,26 +226,33 @@ var Billet = (function () {
   function exo(x) { objet(x); var o = {n: txt(x.n, 300)}, r, kg, s, rp; if (!o.n.trim()) non('exercice');
     if (x.d != null) o.d = txt(x.d, 300); if (x.c != null) o.c = txt(x.c, 2000); if (x.cs != null) o.cs = textes(x.cs, 20, 600);
     if (x.p != null) { o.p = txt(x.p, 80); if (!/^[a-z0-9-]+$/.test(o.p)) non('dessin'); }
+    if (x.f != null) { o.f = txt(x.f, 80); if (!/^[a-z0-9-]+$/.test(o.f)) non('fiche'); }   /* lot 11, GA-10 : l'id de la fiche (fiches.js), quand ce n'est pas celui du dessin */
     if (x.g != null) o.g = dessin(x.g);
     if ((s = nb(x.s, 1, 12, true)) != null) o.s = s; if ((r = nb(x.r, 0, 9999)) != null) o.r = r; if ((kg = nb(x.kg, 0, 999)) != null) o.kg = kg;
     if (x.u != null) { if (x.u !== 's') non('unité'); o.u = 's'; }
+    if (x.um === 1 && o.u == null) o.u = 'm';   /* 1.30-test20, lot C3, GE1-2 : une distance en mètres (« 25 m », pas « 25 rép. ») */
     if (x.q != null && x.q !== '') { if (x.q !== 'r' && x.q !== 'e') non('question'); o.q = x.q; }
     if (x.co != null) { if (x.co !== 1 && x.co !== 'G' && x.co !== 'D') non('côté'); o.co = x.co; }
     if ((rp = nb(x.rp, 0, 600, true)) != null) o.rp = rp; if (x.ss) o.ss = 1; if (x.kc) o.kc = 1;
+    if (x.r1 != null) { var r1 = nb(x.r1, 0, 9999); if (r1 != null) o.r1 = r1; } if (x.bf) o.bf = 1;   /* lot 11, T9-04 : l'objectif de la première série (le 30 du BFR) et le bloc du BFR */
+    if (x.me != null) { objet(x.me); o.me = {u: txt(x.me.u, 12), l: txt(x.me.l, 40)}; if (!o.me.u.trim()) non('mesure'); }   /* 1.30-test7 (point 45) : un exercice qui se mesure, son unité et son mot */
     return o; }
   function lire(o) { objet(o); if (o.v !== 1) non('version'); var b = {v: 1, id: txt(o.id, 12), t: o.t};
-    if (!/^[A-Za-z0-9]{4,12}$/.test(b.id)) non('envoi'); if (['q', 's', 'g'].indexOf(o.t) < 0) non('sorte');
+    if (!/^[A-Za-z0-9]{4,12}$/.test(b.id)) non('envoi'); if (['q', 's', 'g', 'f', 'p', 'c'].indexOf(o.t) < 0) non('sorte');
     if (o.k != null && o.k !== '') { b.k = txt(o.k, 64); if (!/^[A-Za-z0-9_-]{16,64}$/.test(b.k)) non('clé'); }
     if (o.e != null) { b.e = txt(o.e, 40); if (!/^[A-Za-z0-9-]*$/.test(b.e)) non('repère'); }
     if (o.cab != null) b.cab = txt(o.cab, 200);
     if (o.mel != null && o.mel !== '') { b.mel = txt(o.mel, 200); if (!/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(b.mel)) non('adresse'); }   /* la forme que l'appli accepte (telMelOk) */
     if (o.tel != null && o.tel !== '') b.tel = txt(o.tel, 40);
     if (o.lv != null) b.lv = nb(o.lv, 1, 99, true); if (o.nom != null) b.nom = txt(o.nom, 300); if (o.mot != null) b.mot = txt(o.mot, 2000);
-    if (o.t === 'q') { b.q = liste(o.q, 12).map(quest); if (!b.q.length) non('vide'); }
+    if (o.t === 'f') b.fi = fiche(o.fi);   /* 1.30-test12, GA-11 : la fiche conseil, à lire */
+    else if (o.t === 'q') { b.q = liste(o.q, 12).map(quest); if (!b.q.length) non('vide'); }
+    else if (o.t === 'c') b.jo = nb(o.jo, 1, 7, true) || 3;   /* 1.30-test12, GA-15 : le calendrier mictionnel, jo jours */
     else { b.ex = liste(o.ex, 60).map(exo); if (!b.ex.length) non('vide');
       if (o.mo != null) { if (o.mo !== 'c') non('mode'); b.mo = 'c'; } if (o.to != null) b.to = nb(o.to, 1, 12, true);
       if (o.ec != null) b.ec = liste(o.ec, 30).map(exo); if (o.ect != null) b.ect = txt(o.ect, 4000);
       if (o.go != null) b.go = textes(o.go, 12, 80).filter(function (z) { return z.trim(); }); }
+    if (o.t === 'p' && o.qd != null) b.qd = textes(o.qd, 12, 600);   /* 1.30-test12, GA-27 : « Quand revenir nous voir » */
     if (o.z === 1) b.z = 1;   /* 1.30-test3, GT-1 : l'appli qui a fait ce billet sait lire un retour compressé (mode d) */
     return b; }
   return {lire: lire};
@@ -207,31 +262,40 @@ var Billet = (function () {
    La page n'a aucune bibliothèque : sans « g », la carte s'affiche sans dessin. */
 var nPicto = 0;
 function picto(g) { if (!g || !Array.isArray(g.c)) return '';
-  var id = 'fl' + (++nPicto), corps = function (c) { return (c.c || []).filter(function (s) { return Array.isArray(s) && s.length >= 4; }).map(function (s) { return '<line x1="' + (+s[0]) + '" y1="' + (+s[1]) + '" x2="' + (+s[2]) + '" y2="' + (+s[3]) + '"/>'; }).join('') + (Array.isArray(c.t) ? '<circle cx="' + (+c.t[0]) + '" cy="' + (+c.t[1]) + '" r="6.2" fill="#1A1D22" stroke="none"/>' : ''); };
-  var fl = (g.fl || []).filter(function (f) { return Array.isArray(f) && f.length === 3; }).map(function (f) { return '<path d="M' + (+f[0][0]) + ' ' + (+f[0][1]) + ' Q' + (+f[1][0]) + ' ' + (+f[1][1]) + ' ' + (+f[2][0]) + ' ' + (+f[2][1]) + '" fill="none" stroke="#1B314E" stroke-width="2.2" marker-end="url(#' + id + ')"/>'; }).join('');
-  return '<svg viewBox="0 0 100 100" role="img" aria-label="Dessin de l’exercice"><defs><marker id="' + id + '" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1B314E"/></marker></defs>'
-    + '<line x1="6" y1="93" x2="94" y2="93" stroke="#C9C4B8" stroke-width="1.5"/>'
-    + (g.f ? '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round" opacity=".2">' + corps(g.f) + '</g>' : '')
-    + '<g stroke="#1A1D22" stroke-width="6" stroke-linecap="round">' + corps(g) + '</g>' + fl + '</svg>'; }
+  var id = 'fl' + (++nPicto), corps = function (c) { return (c.c || []).filter(function (s) { return Array.isArray(s) && s.length >= 4; }).map(function (s) { return '<line x1="' + (+s[0]) + '" y1="' + (+s[1]) + '" x2="' + (+s[2]) + '" y2="' + (+s[3]) + '"/>'; }).join('') + (Array.isArray(c.t) ? '<circle cx="' + (+c.t[0]) + '" cy="' + (+c.t[1]) + '" r="6.2" fill="var(--encre)" stroke="none"/>' : ''); };
+  var fl = (g.fl || []).filter(function (f) { return Array.isArray(f) && f.length === 3; }).map(function (f) { return '<path d="M' + (+f[0][0]) + ' ' + (+f[0][1]) + ' Q' + (+f[1][0]) + ' ' + (+f[1][1]) + ' ' + (+f[2][0]) + ' ' + (+f[2][1]) + '" fill="none" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#' + id + ')"/>'; }).join('');
+  return '<svg viewBox="0 0 100 100" role="img" aria-label="Dessin de l’exercice"><defs><marker id="' + id + '" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>'
+    + '<line x1="6" y1="93" x2="94" y2="93" stroke="var(--l3)" stroke-width="1.5"/>'
+    + (g.f ? '<g stroke="var(--encre)" stroke-width="6" stroke-linecap="round" opacity=".2">' + corps(g.f) + '</g>' : '')
+    + '<g stroke="var(--encre)" stroke-width="6" stroke-linecap="round">' + corps(g) + '</g>' + fl + '</svg>'; }
 
 var E = null, ETAT = null, V = {ecran: '', i: 0, j: 0, err: '', lien: '', source: '', touche: false, garde: false};
 var cleEtat = function () { return 'lecteur:' + E.id; };
-var sauver = function () { garder(cleEtat(), ETAT); gardeDonnees(); };
+/* 1.30-test7 (dernier audit de Codex, 13/11) : deux onglets sur le même lien. L'état porte un compteur de révision (rev), relu avant chaque écriture : plus
+   récent ailleurs, la page reprend cet état sans l'écraser et le dit en une ligne (V.ailleurs). Stockage plein : garder échoue, l'état reste en mémoire et la
+   page dit « pas gardées sur ce téléphone : envoyez-les maintenant » (V.pasGarde) au lieu de « notées sur ce téléphone ». */
+var etatOk = function (o) { return !!(o && typeof o === 'object' && Array.isArray(o.rep) && Array.isArray(o.journal)); };
+var plusRecent = function () { var la = lire(cleEtat()); return etatOk(la) && (+la.rev || 0) > (+ETAT.rev || 0) ? la : null; };
+var sauver = function () { if (!E || !ETAT) return false; var la = plusRecent(); if (la) { ETAT = la; V.ailleurs = true; return false; }
+  ETAT.rev = (+ETAT.rev || 0) + 1; var ok = garder(cleEtat(), ETAT); V.pasGarde = !ok; if (ok) gardeDonnees(); return ok; };
 /* 1.30-test3, GT-2 : sur iPhone, une page restée fermée sept jours peut perdre ce qu'elle garde ; la page demande une fois au navigateur de garder ses données */
 function gardeDonnees() { if (V.persiste) return; V.persiste = true; try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {}); } catch (e) {} }
 
 function ouvrir() {
   var h = location.hash.replace(/^#/, ''), source = 'lien';
   if (!h) { h = (lire('lecteur:dernier') || {}).h || ''; source = h ? 'telephone' : ''; }
-  V.lien = h; V.source = source; E = null; ETAT = null;
+  V.lien = h; V.source = source; E = null; ETAT = null; V.ailleurs = false; V.pasGarde = false;
   if (!h) { V.ecran = 'vide'; rendre(); return; }
   if (h.length > LIEN_MAX) { refuser(); return; }   /* AME-157 : un billet démesuré n'est pas décodé */
   Codec.lireAller(h).then(function (o) {
     if (!o || typeof o !== 'object' || Array.isArray(o)) throw new Error('lien');
     if (+o.lv > VERSION_LECTEUR) { V.ecran = 'maj'; rendre(); return; }   /* un billet fait pour une page plus récente (avant le contrôle : ses champs peuvent être nouveaux) */
-    E = Billet.lire(o); garder('lecteur:dernier', {h: h, le: auj()});
-    ETAT = lire(cleEtat()); if (!ETAT || typeof ETAT !== 'object' || !Array.isArray(ETAT.rep) || !Array.isArray(ETAT.journal)) ETAT = {rep: [], fini: false, journal: [], montre: ''};
-    if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else if (E.t === 'g') V.ecran = ETAT.fini ? 'fin' : E.lv >= 3 ? 'salle3' : 'salle'; else V.ecran = 'seance';
+    E = Billet.lire(o); var der = (lire('lecteur:dernier') || {}).h;
+    V.ficheSeule = E.t === 'f' && !!der && der !== h;   /* 1.30-test12, GA-11 : une fiche ne prend pas la place du programme gardé ; elle se rouvre par son lien */
+    if (!V.ficheSeule) garder('lecteur:dernier', {h: h, le: auj()});
+    ETAT = lire(cleEtat()); if (!etatOk(ETAT)) ETAT = {rep: [], fini: false, journal: [], montre: ''};
+    if (E.t === 'f' || E.t === 'p') V.ecran = E.t === 'f' ? 'fiche' : 'entretien';   /* 1.30-test12, GA-11 et GA-27 : à lire, sans rien à noter ni à envoyer */
+    else if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else if (E.t === 'g') V.ecran = ETAT.fini ? 'fin' : E.lv >= 3 ? 'salle3' : 'salle'; else if (E.t === 'c') V.ecran = 'cal'; else V.ecran = 'seance';
     rendre();
   }).catch(function (e) { E = null; ETAT = null; if (e && e.refus) { refuser(); return; } V.ecran = e && e.message === 'ancien' ? 'ancien' : 'illisible'; rendre(); });
 }
@@ -247,14 +311,16 @@ function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '
   h += '<div class="tete"><span>' + esc(q.n) + '</span><span>' + (rang() + 1) + ' sur ' + total() + '</span></div><div class="barre"><i style="width:' + Math.round(100 * rang() / total()) + '%"></i></div>';
   if (it.intro) h += '<p class="intro">' + esc(it.intro) + '</p>';
   h += '<p class="q">' + esc(it.q) + '</p>' + (it.f && it.t !== 'texte' ? '<p class="petit">Facultatif : « Suivant » passe la question.</p>' : '') + (!it.f && E.q[0].it.some(function (x) { return x.f; }) ? '<p class="petit">Nécessaire.</p>' : '');
-  if (it.t === 'echelle') { h += '<div class="ancres"><span>0 · ' + esc((it.a || [])[0] || '') + '</span><span>' + esc((it.a || [])[1] || '') + ' · 10</span></div><div class="ech">';
-    for (var n = 0; n <= 10; n++) h += '<button data-act="rep" data-v="' + n + '" aria-pressed="' + (v === n) + '">' + n + '</button>';
+  if (it.t === 'echelle') { var mn = (it.a || []).map(function (x) { return /^(\d+)\s*min(utes)?$/.exec(String(x).trim()); }), enMin = mn.length === 2 && mn[0] && mn[1];   /* 1.30-test17, GF4-36 : les minutes sur les boutons quand les deux bouts en sont ; les points restent la réponse */
+    h += '<div class="ancres"><span>' + (enMin ? '' : '0 · ') + esc((it.a || [])[0] || '') + '</span><span>' + esc((it.a || [])[1] || '') + (enMin ? '' : ' · 10') + '</span></div><div class="ech">';
+    for (var n = 0; n <= 10; n++) h += '<button data-act="rep" data-v="' + n + '" aria-pressed="' + (v === n) + '">' + (mn.length === 2 && mn[0] && mn[1] ? Math.round(+mn[0][1] + (+mn[1][1] - +mn[0][1]) * n / 10) : n) + '</button>';
     h += '</div>' + (it.na ? '<div class="choix" style="margin-top:8px"><button data-act="rep" data-v="na" aria-pressed="' + (v === 'na') + '">' + esc(it.na) + '</button></div>' : ''); }
   else if (it.t === 'choix') h += '<div class="choix">' + (it.o || []).map(function (o) { return '<button data-act="rep" data-v="' + esc(o[0]) + '" aria-pressed="' + (v != null && String(v) === String(o[0])) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
   else if (it.t === 'nombre') { var mi = it.min != null ? +it.min : 0, ma = it.max != null ? +it.max : 100, cur = ma - mi >= 50;   /* un curseur pour les échelles de 0 à 100, un champ pour un petit nombre (des jours) */
     if (Array.isArray(it.a) && it.a.length === 2) h += '<div class="ancres"><span>' + mi + ' · ' + esc(it.a[0]) + '</span><span>' + esc(it.a[1]) + ' · ' + ma + '</span></div>';
     if (cur) h += '<div class="nb"><input type="range" id="nombre" min="' + mi + '" max="' + ma + '" step="1" value="' + (typeof v === 'number' ? v : Math.round((mi + ma) / 2)) + '" aria-label="' + esc(it.q) + '"><output id="nombre-v">' + (typeof v === 'number' ? v : '–') + '</output></div><p class="petit">Faites glisser le curseur' + (it.unite ? ' (' + esc(it.unite) + ')' : '') + '.</p>';
-    else h += '<input type="number" id="nombre" inputmode="numeric" min="' + mi + '" max="' + ma + '" value="' + (typeof v === 'number' ? v : '') + '" aria-label="' + esc(it.q) + '"><p class="petit">De ' + mi + ' à ' + ma + (it.unite ? ' ' + esc(it.unite) : '') + '.</p>'; }
+    else h += '<input type="number" id="nombre" inputmode="numeric" min="' + mi + '" max="' + ma + '" value="' + (typeof v === 'number' ? v : '') + '" aria-label="' + esc(it.q) + '"><p class="petit">De ' + mi + ' à ' + ma + (it.unite ? ' ' + esc(it.unite) : '') + '.</p>';
+    if (it.na) h += '<div class="choix" style="margin-top:8px"><button data-act="rep" data-v="na" aria-pressed="' + (v === 'na') + '">' + esc(it.na) + '</button></div>'; }   /* 1.30-test7, T1-05 : « Cela ne me concerne pas » sous un nombre (la Q9 de l'iHOT traduit) */
   else if (it.t === 'visa8') { var br = it.br || [], vb = Array.isArray(v) ? v : [], b = br.filter(function (x) { return x.k === vb[0]; })[0];
     h += '<div class="choix">' + br.map(function (x) { return '<button data-act="branche" data-v="' + esc(x.k) + '" aria-pressed="' + (vb[0] === x.k) + '">' + esc(x.k + '. ' + x.cond) + '</button>'; }).join('') + '</div>';
     if (b) h += '<p class="q" style="font-size:18px;margin-top:18px">' + esc(b.q) + '</p><div class="choix">' + (b.temps || it.temps || []).map(function (t, i) { return '<button data-act="rep8" data-v="' + esc(b.v[i]) + '" aria-pressed="' + (vb[1] != null && String(vb[1]) === String(b.v[i])) + '">' + esc(t) + '</button>'; }).join('') + '</div>'; }
@@ -266,7 +332,7 @@ function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '
 function prendreTexte() { var t = document.getElementById('texte'); if (t) { var r = repDe(); if (t.value.trim()) r[V.j] = t.value.trim(); else r[V.j] = null; } }
 /* un nombre : le curseur ne compte que s'il a été touché (V.touche), le champ que s'il est rempli et dans les bornes */
 function prendreNombre() { var n = document.getElementById('nombre'), it = item(); if (!n || it.t !== 'nombre') return; var r = repDe();
-  if (n.type === 'range') { if (V.touche) r[V.j] = +n.value; return; }
+  if (n.type === 'range') { if (V.touche) r[V.j] = +n.value; return; } if (r[V.j] === 'na' && n.value.trim() === '') return;
   var x = n.value.trim() === '' ? NaN : +n.value.replace(',', '.'), mi = it.min != null ? +it.min : 0, ma = it.max != null ? +it.max : 100; r[V.j] = isFinite(x) && x >= mi && x <= ma ? x : null; }
 
 
@@ -296,15 +362,32 @@ function ecranChamps(it, v) { var h = '';
     if (it.autre) h += '<label class="g-l"><span>Autre</span><input type="text" id="autre" maxlength="120" value="' + esc(au ? au[1] : '') + '"></label>'; }
   return h; }
 var SORTES_CHAMPS = ['groupe', 'lignes', 'multi'];
-function manquant(req) { if (!E || E.t !== 'q') return null; for (var i = 0; i < E.q.length; i++) { var r = ETAT.rep[i] || []; for (var j = 0; j < E.q[i].it.length; j++) { var it = E.q[i].it[j], v = r[j]; if ((req ? !it.f : true) && vide1(Array.isArray(v) && it.t === 'visa8' ? (v[0] && v[1] != null ? v : null) : v)) return {i: i, j: j}; } } return null; }
+function manquant(req) { if (!E || E.t !== 'q') return null; for (var i = 0; i < E.q.length; i++) { var r = ETAT.rep[i] || []; for (var j = 0; j < E.q[i].it.length; j++) { var it = E.q[i].it[j], v = r[j]; if ((req ? !it.f : true) && vide1(Array.isArray(v) && it.t === 'visa8' ? (v[0] && v[1] != null ? v : null) : v)) return {i: i, j: j}; if (it.fin != null && String(v) === it.fin) break; } } return null; }
 function sansReponse() { var l = []; if (!E || E.t !== 'q') return l; E.q.forEach(function (q, i) { var r = ETAT.rep[i] || []; q.it.forEach(function (it, j) { if (vide1(r[j])) l.push({i: i, j: j, q: it.q, f: !!it.f}); }); }); return l; }
+
+/* ---------- lot 11 : les consignes entières (T9-03) et la fiche « Comment faire ? » (GA-10) ----------
+   Les consignes : c et cs ensemble, sans doublon (un billet d'avant portait la base en c et les complémentaires seules en cs ; un billet du lot 11
+   porte la liste entière en cs). La fiche : celle de x.f, sinon celle du dessin x.p, dans fiches.js (la partie patient seulement) ; sans fiche, pas de lien. */
+function consignesDe(x) { var l = [], vu = {}; [x.c].concat(Array.isArray(x.cs) ? x.cs : []).forEach(function (c) { var t = String(c == null ? '' : c).trim(), k = t.toLowerCase(); if (t && !vu[k]) { vu[k] = 1; l.push(t); } }); return l; }
+function consPetit(x) { var l = consignesDe(x); return l.length ? '<br><span class="petit">' + l.map(esc).join(' · ') + '</span>' : ''; }
+function ficheDe(x) { var id = x && (x.f || x.p); return id && window.FichesTel && FichesTel.de(id) ? id : ''; }
+function lienFiche(i) { return ficheDe(E.ex[i]) ? '<button class="btn lien fx-lien" data-act="exo-fiche" data-i="' + i + '">Comment faire ? ›</button>' : ''; }
+function rubFiche(t, l) { return Array.isArray(l) && l.length ? '<h2>' + t + '</h2><ul class="fx-l">' + l.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' : ''; }
+function ecranExoFiche() { var x = E.ex[V.fx] || {}, id = ficheDe(x), f = id ? FichesTel.de(id) : null, cs = consignesDe(x), p = x.p && window.PictosTel && PictosTel.connu(x.p) ? x.p : window.PictosTel && PictosTel.connu(id) ? id : '';
+  var h = '<button class="btn lien fx-rev" data-act="exo-fiche-revenir">‹ Revenir</button>';
+  if (!f) return h + '<p>Pas de fiche pour cet exercice.</p>';
+  h += '<div class="carte">' + (p ? '<div id="fx-dessin" data-act="s3-jouer" data-p="' + esc(p) + '">' + PictosTel.svg(p, 264) + '</div>' : '') + '<h1 id="fx-nom">' + esc(x.n || f.nom) + '</h1>' + (x.d ? '<p class="dose">' + esc(x.d) + '</p>' : '')
+    + (String(f.nom || '').toLowerCase() !== String(x.n || '').trim().toLowerCase() ? '<p class="petit">La fiche : ' + esc(f.nom) + '</p>' : '')
+    + (cs.length ? '<p id="fx-cons"><b>Votre consigne</b> ' + cs.map(esc).join(' · ') + '</p>' : '') + (f.essentiel ? '<p class="fx-ess">' + esc(f.essentiel) + '</p>' : '') + '</div>';
+  h += rubFiche('Mise en place', f.mise_en_place) + rubFiche('Le mouvement', f.mouvement) + rubFiche('Points de contrôle', f.controle);
+  return h + '<button class="btn sec" data-act="exo-fiche-revenir">Revenir</button>'; }
 
 /* ---------- séance à la maison ---------- */
 var EFFORTS = ['Facile', 'Moyen', 'Dur'];
 function brouillon() { ETAT.b = ETAT.b && ETAT.b.d === auj() ? ETAT.b : {d: auj(), f: E.ex.map(function () { return 0; }), p: null, e: null, m: ''}; return ETAT.b; }
 function ecranSeance() { var b = brouillon(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(auj()) + '</span></div><h1>' + esc(E.nom || 'Votre séance') + '</h1>';
   if (E.mot) h += '<p>' + esc(E.mot) + '</p>';
-  E.ex.forEach(function (x, i) { h += '<div class="carte exo"' + (x.g ? '' : ' style="grid-template-columns:1fr"') + '>' + picto(x.g) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + (x.c ? '<br><span class="petit">' + esc(x.c) + '</span>' : '') + '</div><button class="btn sec fait" data-act="fait" data-i="' + i + '" aria-pressed="' + (b.f[i] === 1) + '">' + (b.f[i] === 1 ? 'Fait ✓' : 'Fait') + '</button></div>'; });
+  E.ex.forEach(function (x, i) { h += '<div class="carte exo"' + (x.g ? '' : ' style="grid-template-columns:1fr"') + '>' + picto(x.g) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + consPetit(x) + lienFiche(i) + '</div><button class="btn sec fait" data-act="fait" data-i="' + i + '" aria-pressed="' + (b.f[i] === 1) + '">' + (b.f[i] === 1 ? 'Fait ✓' : 'Fait') + '</button></div>'; });
   h += '<h2>Douleur pendant la séance</h2><div class="ancres"><span>0 · aucune</span><span>la pire · 10</span></div><div class="ech">';
   for (var n = 0; n <= 10; n++) h += '<button data-act="douleur" data-v="' + n + '" aria-pressed="' + (b.p === n) + '">' + n + '</button>';
   h += '</div><h2>Effort</h2><div class="puces">' + EFFORTS.map(function (t, i) { return '<button class="puce" data-act="effort" data-v="' + (i + 1) + '" aria-pressed="' + (b.e === i + 1) + '">' + t + '</button>'; }).join('') + '</div>';
@@ -312,6 +395,27 @@ function ecranSeance() { var b = brouillon(), h = '<div class="tete"><span>' + e
   h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="noter">Enregistrer ma séance du jour</button>';
   if (ETAT.journal.length) h += '<button class="btn sec" data-act="journal">Mes séances notées (' + ETAT.journal.length + ')</button>' + texteNonEnvoyees();
   return h; }
+/* 1.30-test12, GA-11 : la fiche conseil, à lire (titre, phrase, « Trois choses à retenir », « Ce que vous pouvez faire », « Quand en parler »…). Rien à noter ni à envoyer. */
+function partieFiche(pa, k) { var h = '', i = 0, l = pa.l, groupe = function (s) { var g = []; while (i < l.length && l[i].s === s) g.push(l[i++]); return g; };
+  while (i < l.length) { var s = l[i].s;
+    if (s === 'num') h += '<ol class="fi-ol">' + groupe('num').map(function (x) { return '<li>' + esc(x.t) + '</li>'; }).join('') + '</ol>';
+    else if (s === 'li') h += '<ul class="fi-ul">' + groupe('li').map(function (x) { return '<li>' + esc(x.t) + '</li>'; }).join('') + '</ul>';
+    else if (s === 'feu') h += groupe('feu').map(function (x) { return '<p class="fi-feu fi-' + esc(x.c || '') + '"><b>' + esc(x.n || '') + '</b> ' + esc(x.t) + '</p>'; }).join('');
+    else if (s === 'case') h += '<ul class="fi-cs">' + groupe('case').map(function (x) { var on = E.fi.cs.indexOf(k++) >= 0; return '<li class="' + (on ? 'on' : '') + '"><span aria-hidden="true">' + (on ? '☑' : '☐') + '</span> ' + esc(x.t) + '</li>'; }).join('') + '</ul>';
+    else if (s === 'palier') h += '<ul class="fi-ul">' + groupe('palier').map(function (x) { return '<li><b>' + esc(x.n || '') + '</b> : ' + esc(x.t) + '</li>'; }).join('') + '</ul>';
+    else h += '<p>' + esc(l[i++].t) + '</p>'; }
+  return '<div class="carte fi-' + esc(pa.c) + '"><h2>' + esc(pa.t) + '</h2>' + h + '</div>'; }
+function ecranFiche() { var f = E.fi;
+  return '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>Fiche conseil</span></div><h1>' + esc(f.n) + '</h1>' + (f.ph ? '<p>' + esc(f.ph) + '</p>' : '')
+    + f.p.map(function (pa, n) { return partieFiche(pa, f.p.slice(0, n).reduce(function (s, q) { return s + q.l.filter(function (x) { return x.s === 'case'; }).length; }, 0)); }).join('') + (f.src || f.fin ? '<p class="petit">' + esc([f.src ? 'Sources : ' + f.src : '', f.fin].filter(Boolean).join('. ')) + '.</p>' : '')
+    + '<p class="petit" id="fi-garde">' + (V.ficheSeule ? 'Pour la relire, rouvrez ce lien (gardez le mail de votre kiné, ou ajoutez la page à vos favoris) : cette page garde d’abord votre programme.' : 'Cette fiche reste sur ce téléphone : rouvrez cette page quand vous voulez.') + '</p>'; }
+/* 1.30-test12, GA-27 : à la sortie, les exercices à garder, à la place du programme de rééducation ; ni journal, ni « Envoyer à mon kiné ». */
+function ecranEntretien() { var h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.nom || 'Vos exercices à garder') + '</h1>';
+  if (E.mot) h += '<p>' + esc(E.mot) + '</p>';
+  E.ex.forEach(function (x) { var d = x.p && window.PictosTel && PictosTel.connu(x.p) ? PictosTel.svg(x.p, 92) : picto(x.g);
+    h += '<div class="carte exo"' + (d ? '' : ' style="grid-template-columns:1fr"') + '>' + d + '<div><b>' + esc(x.n) + '</b>' + (x.d ? '<br><span class="dose">' + esc(x.d) + '</span>' : '') + (x.c ? '<br><span class="petit">' + esc(x.c) + '</span>' : '') + '</div></div>'; });
+  if (E.qd && E.qd.length) h += '<h2>Quand revenir nous voir</h2><div class="carte fi-parler"><ul class="fi-ul">' + E.qd.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+  return h + '<p class="petit" id="en-garde">Rien à cocher ni à envoyer : ce programme reste sur ce téléphone, à la place du précédent.</p>'; }
 function ligneJournal(x) { var n = x[1].split('').filter(function (c) { return c === '1'; }).length; return dCourte(x[0]) + ' · ' + n + ' exercice' + (n > 1 ? 's' : '') + ' sur ' + x[1].length + (x[2] != null ? ' · douleur ' + x[2] + '/10' : '') + (x[3] ? ' · ' + EFFORTS[x[3] - 1].toLowerCase() : '') + (x[4] ? ' · « ' + x[4] + ' »' : ''); }
 function ecranJournal() { return '<h1>Mes séances notées</h1><div class="carte"><ul class="journal">' + ETAT.journal.map(function (x) { return '<li>' + esc(ligneJournal(x)) + '</li>'; }).join('') + '</ul></div>'
   + texteNonEnvoyees() + '<button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn sec" data-act="retour-seance">Revenir à la séance</button>'; }
@@ -319,12 +423,16 @@ function ecranJournal() { return '<h1>Mes séances notées</h1><div class="carte
 /* ---------- séance faite en salle, sur le téléphone du patient ---------- */
 /* E.ex[i] = {n, d, c, g, s: nombre de séries, r: répétitions prévues, kg: charge prévue, u: unité à la place des répétitions (« s » pour des secondes)}
    ETAT.sal = {d, x: [[ [faite 0/1, répétitions, charge], … ], …], p: douleur, e: effort 1 à 3, m: mot} */
+/* 1.30-test7 (point 43, « ou est la barre et la charge ? ») : le champ des kilos dès que l'exercice se charge (kg prévus, kc de l'appli, AME-168) ou que son nom,
+   sa dose ou ses consignes parlent de barre, d'haltère, de kettlebell ou de kg, même sans charge chiffrée */
+var MOTS_KG = /(^|[^a-zà-ÿ])(barres?|halt[eè]res?|kettlebells?|kettle|kg)(?![a-zà-ÿ])/i;
+function avecKilos(x) { return x.kg != null && x.kg !== '' || !!x.kc || MOTS_KG.test([x.n, x.d, x.c].concat(Array.isArray(x.cs) ? x.cs : []).join(' ')); }
 function salle() { if (!ETAT.sal) ETAT.sal = {d: auj(), x: E.ex.map(function (x) { var l = []; for (var j = 0; j < Math.max(1, Math.min(12, +x.s || 1)); j++) l.push([0, x.r != null ? String(x.r) : '', x.kg != null ? String(x.kg) : '']); return l; }), p: null, e: null, m: ''}; return ETAT.sal; }
 function prendreSalle() { var b = salle(); [].forEach.call(document.querySelectorAll('[data-ch]'), function (el) { var p = el.dataset.ch.split('.'), l = (b.x[+p[0]] || [])[+p[1]]; if (l) l[+p[2]] = el.value.trim().replace(',', '.').slice(0, 6); }); var m = document.getElementById('mot'); if (m) b.m = m.value.trim(); }
 function ecranSalle() { var b = salle(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(b.d) + '</span></div><h1>' + esc(E.nom || 'Votre séance') + '</h1>';
   if (E.mot) h += '<p>' + esc(E.mot) + '</p>';
-  E.ex.forEach(function (x, i) { var u = x.u || 'rép.', kg = x.kg != null && x.kg !== '';
-    h += '<div class="carte exo"' + (x.g ? '' : ' style="grid-template-columns:1fr"') + '>' + picto(x.g) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + (x.c ? '<br><span class="petit">' + esc(x.c) + '</span>' : '') + '</div><div class="series">';
+  E.ex.forEach(function (x, i) { var u = x.u || 'rép.', kg = avecKilos(x);
+    h += '<div class="carte exo"' + (x.g ? '' : ' style="grid-template-columns:1fr"') + '>' + picto(x.g) + '<div><b>' + esc(x.n) + '</b><br><span class="dose">' + esc(x.d || '') + '</span>' + consPetit(x) + lienFiche(i) + '</div><div class="series">';
     b.x[i].forEach(function (l, j) { h += '<div class="serie"' + (kg ? '' : ' style="grid-template-columns:52px 1fr"') + '><button data-act="serie" data-i="' + i + '" data-j="' + j + '" aria-pressed="' + (l[0] === 1) + '" aria-label="Série ' + (j + 1) + (l[0] === 1 ? ', faite' : '') + '">' + (l[0] === 1 ? '✓' : j + 1) + '</button>'
         + '<label><input type="text" inputmode="decimal" data-ch="' + i + '.' + j + '.1" value="' + esc(l[1]) + '" aria-label="Série ' + (j + 1) + ', ' + esc(u) + '">' + esc(u) + '</label>'
         + (kg ? '<label><input type="text" inputmode="decimal" data-ch="' + i + '.' + j + '.2" value="' + esc(l[2]) + '" aria-label="Série ' + (j + 1) + ', charge en kilos">kg</label>' : '') + '</div>'; });
@@ -338,13 +446,13 @@ function ecranSalle() { var b = salle(), h = '<div class="tete"><span>' + esc(E.
 
 
 /* ---------- version 3 : la séance de salle, un exercice à la fois (billet lv ≥ 3) ----------
-   E.ex[i] : n, d, c, cs (les consignes en liste), s (séries), r (répétitions ou secondes), kg, u (« s »), p (l'id du dessin, dans pictos.js),
+   E.ex[i] : n, d, c, cs (les consignes en liste), s (séries), r (répétitions, secondes ou mètres), kg, u (« s », ou « m » pour des mètres), p (l'id du dessin, dans pictos.js),
    q (« r » : RIR après la série ; « e » : effort ; absent : rien), co (1 : gauche et droite ; « G » ou « D » : un seul côté), rp (repos en secondes).
    E.go : les endroits notés au bilan, pour « Où ? ».
    ETAT.s3 = {d, i, x: [[série…]…], v: {le brouillon de la série en cours}, rep: {fin, duree, bip}, ten: {fin}, p, e, m}
    une série (la forme 2 du retour) : f (1 faite, 2 sautée), r, k, i (RIR), e (effort), g (legere, moyenne, forte), o (où), rG, kG, rD, kD
    1.30-test1 : le brouillon porte aussi la gêne (g, o), le RIR (ir) et l'effort (ef), choisis sur la carte avant « Série faite » (ERG-190) ; ETAT.s3.mode
-   (« r » Repos, d'office, ou « c » Chrono, ERG-184), chr {dep, t} (le chrono libre, qui suit l'heure), mc [1 par exercice : la même charge, AME-168] */
+   (« r » Repos, d'office, ou « c » Chrono, ERG-184 ; ignoré depuis la 1.30-test7, qui garde minute : le repos minuté en option, et me : les valeurs mesurées), chr {dep, t} (le chrono libre, qui suit l'heure), mc [1 par exercice : la même charge, AME-168] */
 var GENES = [['', 'Aucune'], ['legere', 'Légère'], ['moyenne', 'Moyenne'], ['forte', 'Forte']];
 function nSer(x) { return Math.max(1, Math.min(12, +x.s || 1)); }
 function s3() { if (!ETAT.s3) ETAT.s3 = {d: auj(), i: 0, x: E.ex.map(function (x) { var l = []; for (var j = 0; j < nSer(x); j++) l.push({}); return l; }), v: null, rep: null, ten: null, p: null, e: null, m: '',
@@ -355,7 +463,11 @@ function s3() { if (!ETAT.s3) ETAT.s3 = {d: auj(), i: 0, x: E.ex.map(function (x
 function groupes3() { var gr = []; E.ex.forEach(function (x, i) { if (i && x.ss && gr.length) gr[gr.length - 1].push(i); else gr.push([i]); }); return gr; }
 function etapes3() { var b = s3(), l = [], tours = function (g) { return Math.max.apply(null, g.map(function (i) { return b.x[i].length; })); };
   var blocs = E.mo === 'c' ? [E.ex.map(function (x, i) { return i; })] : groupes3();
-  blocs.forEach(function (g) { for (var k = 0, T = tours(g); k < T; k++) { var dern = null; g.forEach(function (i) { if (k < b.x[i].length) { l.push({i: i, j: k}); dern = l[l.length - 1]; } }); if (dern) dern.repos = true; } });
+  /* lot 11, T9-04 : un BFR (bf) d'un superset ou d'un circuit joue toutes ses séries d'affilée, chacune suivie de son repos, à sa première place ; les
+     autres exercices du bloc reprennent ensuite leur alternance (comme suivantIndexGym au Mac) */
+  blocs.forEach(function (g) { var pris = {}; for (var k = 0, T = tours(g); k < T; k++) { var dern = null; g.forEach(function (i) { if (pris[i] || k >= b.x[i].length) return;
+    if (E.ex[i].bf && g.length > 1) { pris[i] = 1; if (dern) dern.repos = true; for (var j = k; j < b.x[i].length; j++) l.push({i: i, j: j, repos: true}); dern = null; return; }
+    l.push({i: i, j: k}); dern = l[l.length - 1]; }); if (dern) dern.repos = true; } });
   return l; }
 function lie3(i) { return E.mo === 'c' || groupes3().some(function (g) { return g.length > 1 && g.indexOf(i) >= 0; }); }
 function lettre3(i) { var gr = groupes3().filter(function (g) { return g.length > 1; }); for (var k = 0; k < gr.length; k++) { var p = gr[k].indexOf(i); if (p >= 0) return String.fromCharCode(65 + k) + (p + 1); } return ''; }
@@ -376,7 +488,7 @@ function etatExo(l) { var a = l.filter(function (s) { return s.f === 1; }).lengt
   if (termine(l)) return fini(l) ? 'fait ✓' : !a ? 'sauté' : pl(a, 'faite') + ' · ' + pl(c, 'sautée');
   return a ? pl(a, 'série') + ' ' + pl(a, 'faite').replace(/^\d+ /, '') : ''; }
 function brouillon3() { var b = s3(), x = E.ex[b.i], j = curJ(b.x[b.i]); if (j < 0) return null;
-  if (!b.v || b.v.i !== b.i || b.v.j !== j) { var r = x.r != null ? String(x.r) : '', k = x.kg != null ? String(x.kg) : '', kG = k, kD = k, av = chargeAvant3(b.i);
+  if (!b.v || b.v.i !== b.i || b.v.j !== j) { var r = j === 0 && x.r1 != null ? String(x.r1) : x.r != null ? String(x.r) : '',   /* T9-04 : la première série a son objectif (r1) */ k = x.kg != null ? String(x.kg) : '', kG = k, kD = k, av = chargeAvant3(b.i);
     if (av) { if (av.k) k = av.k; if (av.kG) kG = av.kG; if (av.kD) kD = av.kD; }
     b.v = {i: b.i, j: j, r: r, k: k, rG: r, kG: kG, rD: r, kD: kD, g: '', o: '', ir: '', ef: ''}; }
   return b.v; }
@@ -384,9 +496,11 @@ function brouillon3() { var b = s3(), x = E.ex[b.i], j = curJ(b.x[b.i]); if (j <
 function chargeAvant3(i) { var b = s3(); if (!b.mc || !b.mc[i]) return null; return b.x[i].filter(function (s) { return s.f === 1 && (s.k || s.kG || s.kD); }).pop() || null; }
 function prendre3() { var v = s3().v; if (v) { ['r', 'k', 'rG', 'kG', 'rD', 'kD'].forEach(function (c) { var el = document.getElementById('s3-' + c); if (el) v[c] = el.value.trim().replace(',', '.').slice(0, 6); });
     var a = document.getElementById('s3-ailleurs'); if (a && v.g) { if (a.value.trim()) v.o = a.value.trim().slice(0, 60); else if (v.o && (E.go || []).indexOf(v.o) < 0) v.o = ''; } }
+  var b0 = s3(), mm = {}; [['me', 'v'], ['meG', 'G'], ['meD', 'D']].forEach(function (c) { var el = document.getElementById('s3-' + c[0]); if (el) mm[c[1]] = el.value.trim().replace(',', '.').slice(0, 7); });
+  if (Object.keys(mm).length) { b0.me = Array.isArray(b0.me) ? b0.me : []; b0.me[b0.i] = mm; }
   var m = document.getElementById('mot'); if (m) s3().m = m.value.trim().slice(0, 140); }
 function champ3(c, val, lab, unite) { return '<label><input type="text" inputmode="decimal" id="s3-' + c + '" value="' + esc(val) + '" aria-label="' + esc(lab) + '">' + esc(unite) + '</label>'; }
-function texteSerie(x, s) { var u = x.u === 's' ? ' s' : ' rép.', kg = function (k) { return k ? ' · ' + k + ' kg' : ''; };
+function texteSerie(x, s) { var u = x.u === 's' ? ' s' : x.u === 'm' ? ' m' : ' rép.', kg = function (k) { return k ? ' · ' + k + ' kg' : ''; };
   if (s.f === 2) return 'sautée'; if (s.f !== 1) return '';
   var t = x.co === 1 ? 'G ' + (s.rG || '—') + u + kg(s.kG) + ' · D ' + (s.rD || '—') + u + kg(s.kD) : (s.r || '—') + u + kg(s.k);
   if (s.i != null && s.i !== '') t += ' · RIR ' + s.i; if (s.e) t += ' · effort ' + s.e + '/10'; if (s.g) t += ' · gêne ' + {legere: 'légère', moyenne: 'moyenne', forte: 'forte'}[s.g] + (s.o ? ', ' + s.o : '');
@@ -431,34 +545,43 @@ function demande3(x, v) { var h = '';
   if (x.q === 'r') h += '<p class="s3-q">Répétitions en réserve <span class="petit">: combien auriez-vous pu en faire encore ?</span></p><div class="s3-n" id="s3-rir">' + ['5', '4', '3', '2', '1', '0'].map(function (r) { return '<button data-act="s3-rir" data-v="' + r + '" aria-pressed="' + (v.ir === r) + '">' + r + '</button>'; }).join('') + '</div>';
   else if (x.q === 'e') { h += '<p class="s3-q">Effort <span class="petit">: de très facile (1) à maximal (10)</span></p><div class="s3-eff" id="s3-effort">'; for (var k = 1; k <= 10; k++) h += '<button data-act="s3-eff" data-v="' + k + '" aria-pressed="' + (v.ef === k) + '">' + k + '</button>'; h += '</div>'; }
   return h; }
-function ecranSalle3() { var b = s3(); if (!b.ech) return ecranEch(); var i = b.i, x = E.ex[i], l = b.x[i], j = curJ(l), n = E.ex.length, v = brouillon3(), h = '', lt = lettre3(i), chr = b.mode === 'c';
+function ecranSalle3() { var b = s3(); if (!b.ech) return ecranEch(); var i = b.i, x = E.ex[i], l = b.x[i], j = curJ(l), n = E.ex.length, v = brouillon3(), h = '', lt = lettre3(i), chr = x.u === 's';   /* 1.30-test7 (point 42) : le chrono, seulement sur un exercice tenu (en secondes) */
   var T = E.mo === 'c' ? Math.max.apply(null, b.x.map(function (s) { return s.length; })) : 0, tour = E.mo === 'c' ? 'Tour ' + Math.min(T, (j < 0 ? l.length : j + 1)) + ' sur ' + T + ' · ' : '';
   var finis = E.ex.filter(function (y, k) { return termine(b.x[k]); }).length;
   h += '<div class="tete s3-tete"><button class="btn lien" id="s3-tete" data-act="s3-liste" aria-expanded="' + !!V.liste + '">' + (tour ? tour + 'exercice ' : 'Exercice ') + (i + 1) + ' sur ' + n + ' ›</button><span>' + dCourte(b.d) + '</span></div>';
   h += '<div class="barre" role="img" aria-label="' + finis + ' exercices terminés sur ' + n + '"><i style="width:' + Math.round(100 * finis / n) + '%"></i></div>';
   if (V.liste) h += '<div class="carte"><ul class="s3-liste" id="s3-liste">' + E.ex.map(function (y, k) { return '<li><button data-act="s3-aller" data-i="' + k + '"><span>' + (k + 1) + '. ' + esc(y.n) + '</span><span class="petit">' + esc(etatExo(b.x[k])) + '</span></button></li>'; }).join('') + '</ul></div>';
   var dessin = x.p && window.PictosTel && PictosTel.connu(x.p) ? PictosTel.svg(x.p, 264) : '', ordre = ordre3(i);
-  h += '<div class="carte s3"><div class="s3-mode" role="group" aria-label="Repos ou chrono"><button data-act="s3-mode" data-v="r" aria-pressed="' + !chr + '">Repos</button><button data-act="s3-mode" data-v="c" aria-pressed="' + chr + '">Chrono</button></div>';
+  h += '<div class="carte s3">';   /* 1.30-test7 (point 42, « on supprime ca complique trop l'appli ») : plus de choix Repos · Chrono */
   h += (dessin ? '<div id="s3-dessin" data-act="s3-jouer" data-p="' + esc(x.p) + '">' + dessin + '</div>' : '');
   h += '<h1 id="s3-nom">' + (lt ? '<span class="petit" id="s3-lettre">' + lt + ' · </span>' : '') + esc(x.n) + '</h1><p class="dose">' + esc(x.d || '') + (x.co === 'G' ? ' · côté gauche' : x.co === 'D' ? ' · côté droit' : '') + '</p>';
   if (ordre) h += '<p class="s3-ordre" id="s3-ordre">' + esc(ordre) + '</p>';
-  if (Array.isArray(x.cs) && x.cs.length > 1) h += '<ul class="petit" id="s3-cons">' + x.cs.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>'; else if (x.c) h += '<p class="petit" id="s3-cons">' + esc(x.c) + '</p>';
+  var cs3 = consignesDe(x); if (cs3.length > 1) h += '<ul class="petit" id="s3-cons">' + cs3.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>'; else if (cs3.length) h += '<p class="petit" id="s3-cons">' + esc(cs3[0]) + '</p>';   /* T9-03 : c et cs ensemble */
+  h += lienFiche(i);   /* GA-10 */
+  /* 1.30-test7 (point 44) : « − » dans la ligne de la dernière série ni faite ni sautée (AME-138 : il en reste au moins une), « + Une série » en dernière ligne */
+  var pm = E.mo !== 'c', kM = -1; if (pm && l.length > 1) for (var q = l.length - 1; q >= 0; q--) if (!l[q].f) { kM = q; break; }
   h += '<ol class="s3-series" id="s3-series">' + l.map(function (s, k) { return '<li class="' + (s.f === 1 ? 'faite' : s.f === 2 ? 'sautee' : k === j ? 'cur' : '') + '" data-j="' + k + '"><span>Série ' + (k + 1) + '</span><span>' + esc(texteSerie(x, s) || (k === j ? 'en cours' : 'à faire'))
-    + (s.f === 2 ? ' <button class="btn lien" data-act="s3-rouvrir" data-j="' + k + '">Reprendre</button>' : '') + '</span></li>'; }).join('') + '</ol>';
-  if (b.rep && !chr) h += repos3(b);
-  else if (j >= 0) { var u = x.u === 's' ? 's' : 'rép.', avecKg = x.kg != null || !!x.kc || !!(v.k || v.kG || v.kD);   /* AME-168 : les kilos offerts même sans charge prévue, quand l'exercice s'y prête (kc) */
+    + (s.f === 2 ? ' <button class="btn lien" data-act="s3-rouvrir" data-j="' + k + '">Reprendre</button>' : '') + (k === kM ? ' <button class="s3-moins" data-act="s3-moins" aria-label="Une série de moins">−</button>' : '') + '</span></li>'; }).join('')
+    + (pm && l.length < 12 ? '<li class="s3-plus"><button class="btn lien" data-act="s3-plus">+ Une série</button></li>' : '') + '</ol>';
+  if (b.rep) h += repos3(b);
+  else if (j >= 0) { var u = x.u === 's' ? 's' : x.u === 'm' ? 'm' : 'rép.', avecKg = avecKilos(x) || !!(v.k || v.kG || v.kD);   /* AME-168 : les kilos offerts même sans charge prévue, quand l'exercice s'y prête (kc) */
     if (chr) h += chrono3(x);
     h += '<div class="s3-champs">' + (x.co === 1 ? '<span>Gauche</span>' + champ3('rG', v.rG, 'Gauche, ' + u, u) + (avecKg ? champ3('kG', v.kG, 'Gauche, charge en kilos', 'kg') : '<span></span>') + '<span>Droite</span>' + champ3('rD', v.rD, 'Droite, ' + u, u) + (avecKg ? champ3('kD', v.kD, 'Droite, charge en kilos', 'kg') : '<span></span>')
-      : '<span>Série ' + (j + 1) + '</span>' + champ3('r', v.r, u === 's' ? 'Secondes' : 'Répétitions', u) + (avecKg ? champ3('k', v.k, 'Charge en kilos', 'kg') : '<span></span>')) + '</div>';
+      : '<span>Série ' + (j + 1) + '</span>' + champ3('r', v.r, u === 's' ? 'Secondes' : u === 'm' ? 'Distance' : 'Répétitions', u) + (avecKg ? champ3('k', v.k, 'Charge en kilos', 'kg') : '<span></span>')) + '</div>';
     if (avecKg && l.length > 1) h += '<button class="s3-meme" data-act="s3-meme" aria-pressed="' + !!(b.mc && b.mc[i]) + '">Même charge pour toutes les séries</button>';
-    if (x.u === 's' && !chr) { var tr = b.ten ? reste(b.ten.fin) : 0; h += b.ten && tr > 0 ? '<p class="ok" id="s3-tenue" aria-live="polite">Tenez : <b id="s3-tenue-n">' + tr + '</b> s</p>' : '<button class="btn sec" data-act="s3-tenue">Lancer le décompte (' + esc(v.r || x.r || 30) + ' s)</button>'; }
     h += gene3(v) + demande3(x, v);
     h += '<button class="btn" data-act="s3-faite">Série faite</button><button class="btn lien" data-act="s3-sauter">Sauter cette série</button>'; }
   else h += '<p class="ok" id="s3-fini">' + (fini(l) ? 'Exercice terminé.' : l.some(function (s) { return s.f === 1; }) ? 'Exercice terminé, avec des séries sautées.' : 'Exercice sauté.') + '</p>';
-  if (E.mo !== 'c') { var moins = l.length > 1 && l.some(function (s) { return !s.f; });   /* AME-138 : « − Une série » retire la dernière série ni faite ni sautée ; il en reste au moins une */
-    h += '<div class="s3-pm"><button class="btn sec" data-act="s3-plus" aria-label="Une série de plus"' + (l.length < 12 ? '' : ' disabled') + '>+</button><button class="btn sec" data-act="s3-moins" aria-label="Une série de moins"' + (moins ? '' : ' disabled') + '>−</button></div>'; }   /* 1.30-test3, V130-1-9 (Antoine : « si c'est des boutons - et + devrais suffire ») */
+  if (x.me) h += mesure3(x, b);
   h += '</div><div class="s3-nav"><button class="btn sec" data-act="s3-revenir"' + (i > 0 ? '' : ' disabled') + '>Revenir</button><button class="btn' + (j < 0 ? '' : ' sec') + '" data-act="s3-suivant">' + (i < n - 1 ? 'Exercice suivant' : 'Fin de la séance') + '</button></div>';
+  h += '<button class="btn lien" id="s3-minuter" data-act="s3-minuter" aria-pressed="' + !!b.minute + '">' + (b.minute ? 'Ne plus minuter le repos' : 'Minuter le repos entre les séries') + '</button>';   /* 1.30-test7 (point 42) : le repos minuté, en option, éteint d'office */
   return h; }
+/* 1.30-test7 (point 45, réponse B) : la valeur d'un exercice qui se mesure (single hop en cm, pic au Tindeq en kg…), une par exercice (gauche et droite s'il le faut) ;
+   elle revient avec la séance (me) et l'appli la range aussi dans Mesures, marquée « séance » */
+function mesure3(x, b) { var m = (Array.isArray(b.me) ? b.me[b.i] : null) || {}, u = x.me.u === 'nb' ? '' : x.me.u, lab = x.me.l || 'Mesure';
+  return '<div id="s3-mesure"><p class="s3-q">' + esc(lab) + (u ? ' (' + esc(u) + ')' : '') + ' <span class="petit">: votre meilleur essai, facultatif</span></p><div class="s3-champs">'
+    + (x.co === 1 ? '<span>Gauche</span>' + champ3('meG', m.G || '', lab + ', gauche', u) + '<span></span><span>Droite</span>' + champ3('meD', m.D || '', lab + ', droite', u) + '<span></span>'
+      : '<span>' + (x.co === 'G' ? 'Gauche' : x.co === 'D' ? 'Droite' : 'Valeur') + '</span>' + champ3('me', m.v || '', lab, u) + '<span></span>') + '</div></div>'; }
 /* le retour lisible (Codex, piste 7 ; P130-11) : avant l'envoi, « 6 faites · 2 sautées · 1 non notée », et un accès direct à chaque exercice à corriger */
 function compte3() { var b = s3(), c = {f: 0, s: 0, n: 0, l: []}; E.ex.forEach(function (x, i) { var a = 0, z = 0, d = 0; b.x[i].forEach(function (s) { if (s.f === 1) a++; else if (s.f === 2) z++; else d++; }); c.f += a; c.s += z; c.n += d;
     if (z || d) c.l.push({i: i, t: [z ? pl(z, 'sautée') : '', d ? d + ' non notée' + (d > 1 ? 's' : '') : ''].filter(Boolean).join(' · ')}); }); return c; }
@@ -478,14 +601,80 @@ setInterval(function () { if (!E || V.ecran !== 'salle3' || !ETAT || !ETAT.s3) r
   if (b.ten) { var t2 = reste(b.ten.fin), e2 = document.getElementById('s3-tenue-n'); if (e2 && +e2.textContent !== t2) { if (t2 === 0) { b.ten = null; sauver(); bip(); V.garde = true; prendre3(); rendre(); } else e2.textContent = t2; } }
   if (b.chr && b.chr.dep) { var e3 = document.getElementById('s3-chr-n'), t3 = mmss(ecoule(b.chr)); if (e3 && e3.textContent !== t3) e3.textContent = t3; } }, 250);
 
+/* ---------- 1.30-test12, lot 11, GA-15 (Lara) : le calendrier mictionnel, trois jours ----------
+   ETAT.cal = {ev: [[sorte, heure en ms, a, b], …]} : « u » urine (a : 1 petite, 2 moyenne, 3 grande ; b : l'envie de 0, aucune, à 3, impossible à retenir),
+   « f » fuite (a : 1 une goutte, 2 la culotte mouillée, 3 davantage), « b » boisson (a : en cl). L'heure se prend seule, corrigeable avant de noter ; une heure
+   à venir passe à la veille (une miction de la nuit notée après minuit). La nuit de 22 h à 7 h, une journée de 7 h à 7 h (l'appli recompte de même : choix à
+   confirmer). Le retour porte toutes les notes (t0 en ms, puis des minutes) : l'appli fait les totaux. */
+var CAL_Q = [[1, 'Petite'], [2, 'Moyenne'], [3, 'Grande']], CAL_F = [[1, 'Une goutte'], [2, 'La culotte mouillée'], [3, 'Davantage']], CAL_B = [[15, 'Une tasse', '15 cl'], [25, 'Un verre', '25 cl'], [50, 'Une bouteille', '50 cl']];
+function cal() { if (!ETAT.cal || !Array.isArray(ETAT.cal.ev)) ETAT.cal = {ev: []}; return ETAT.cal; }
+function calZ(n) { return (n < 10 ? '0' : '') + n; }
+function calHm(ms) { var d = new Date(ms); return d.getHours() + ' h ' + calZ(d.getMinutes()); }
+function calNuit(ms) { var h = new Date(ms).getHours(); return h >= 22 || h < 7; }
+function calJournee(ms) { var d = new Date(ms - 7 * 3600000); return d.getFullYear() + '-' + calZ(d.getMonth() + 1) + '-' + calZ(d.getDate()); }
+function calJournees() { var l = []; cal().ev.forEach(function (x) { var j = calJournee(x[1]); if (l.indexOf(j) < 0) l.push(j); }); return l.sort(); }
+function calGarderH() { var el = document.getElementById('cal-h'); if (el) V.calH = el.value; }
+function calHeure() { var now = Date.now(), v = String(V.calH || ''); if (!/^\d{1,2}:\d{2}$/.test(v)) return now; var p = v.split(':'), d = new Date(); d.setHours(+p[0], +p[1], 0, 0); var t = d.getTime(); return t > now + 5 * 60000 ? t - 864e5 : t; }
+function calLib(l, v) { for (var i = 0; i < l.length; i++) if (l[i][0] === v) return l[i][1]; return '?'; }
+function calNoter(x, dit) { var c = cal(); c.ev.push(x); c.ev.sort(function (a, b) { return a[1] - b[1]; }); V.calP = null; V.calQ = null; V.calE = null; V.calH = null; V.err = ''; V.calDit = dit; sauver(); }
+function calResume(l) { var u = 0, n = 0, f = 0, cl = 0; l.forEach(function (x) { if (x[0] === 'u') { if (calNuit(x[1])) n++; else u++; } else if (x[0] === 'f') f++; else cl += +x[2] || 0; });
+  return pl(u, 'miction') + ' de jour, ' + n + ' de nuit, ' + pl(f, 'fuite') + ', ' + String(Math.round(cl / 10) / 10).replace('.', ',') + ' L bus'; }
+function texteNote(x) { var t = calHm(x[1]) + (calNuit(x[1]) ? ' (nuit)' : '') + ' · ';
+  return x[0] === 'u' ? t + 'urine ' + calLib(CAL_Q, x[2]).toLowerCase() + ', envie ' + x[3] : x[0] === 'f' ? t + 'fuite : ' + calLib(CAL_F, x[2]).toLowerCase() : t + 'boisson, ' + x[2] + ' cl'; }
+function panneauCal() { var p = V.calP, d = new Date(), h = '<div class="carte" id="cal-panneau"><h2>' + ({u: 'J’ai uriné', f: 'Fuite', b: 'J’ai bu'})[p] + '</h2>'
+    + '<label class="cal-h">Heure <input type="time" id="cal-h" value="' + esc(V.calH || calZ(d.getHours()) + ':' + calZ(d.getMinutes())) + '"></label>';
+  if (p === 'u') { h += '<p class="s3-q">Quantité</p><div class="puces">' + CAL_Q.map(function (o) { return '<button class="puce" data-act="cal-q" data-v="' + o[0] + '" aria-pressed="' + (V.calQ === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>'
+      + '<p class="s3-q">Envie</p><div class="ancres"><span>0 · aucune</span><span>impossible à retenir · 3</span></div><div class="cal-e">' + [0, 1, 2, 3].map(function (n) { return '<button data-act="cal-e" data-v="' + n + '" aria-pressed="' + (V.calE === n) + '">' + n + '</button>'; }).join('') + '</div>'
+      + (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="cal-noter">Noter</button>'; }
+  else h += '<div class="choix">' + (p === 'f' ? CAL_F : CAL_B).map(function (o) { return '<button data-act="cal-' + p + 'v" data-v="' + o[0] + '">' + o[1] + (o[2] ? ' <span class="petit">· ' + o[2] + '</span>' : '') + '</button>'; }).join('') + '</div>';
+  return h + '<button class="btn lien" data-act="cal-annuler">Annuler</button></div>'; }
+function ecranCal() { var c = cal(), js = calJournees(), ici = calJournee(Date.now()), k = js.indexOf(ici), jo = E.jo || 3, n = k >= 0 ? k + 1 : js.length + 1;
+  var h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(auj()) + '</span></div><h1>' + esc(E.nom || 'Mon calendrier mictionnel') + '</h1>';
+  if (!c.ev.length && E.mot) h += '<p>' + esc(E.mot) + '</p>';
+  h += '<p class="cal-jour" id="cal-jour">Jour ' + n + ' sur ' + jo + '</p>';
+  h += V.calP ? panneauCal() : '<div class="cal-3" id="cal-3"><button class="btn" data-act="cal-u">J’ai uriné</button><button class="btn sec" data-act="cal-f">Fuite</button><button class="btn sec" data-act="cal-b">J’ai bu</button></div>';
+  if (V.calDit && !V.calP) h += '<p class="ok" id="cal-dit" role="status">' + esc(V.calDit) + '</p>';
+  var du = c.ev.filter(function (x) { return calJournee(x[1]) === ici; });
+  if (du.length) h += '<p class="petit" id="cal-auj">Aujourd’hui : ' + esc(calResume(du)) + '.</p>';
+  if (c.ev.length) h += '<button class="btn sec" data-act="cal-notes">Revoir mes notes (' + c.ev.length + ')</button>';
+  if (c.ev.length && n >= jo) h += '<div class="carte cal-fin" id="cal-fin"><p><b>' + (n > jo ? 'Les ' + jo + ' jours sont notés.' : 'C’est le ' + (jo === 3 ? 'troisième' : 'dernier') + ' jour.') + '</b> Ce soir, après votre dernière note, envoyez votre calendrier à votre kiné.</p><button class="btn" data-act="cal-envoi">Envoyer à ma kiné</button></div>';
+  else if (c.ev.length) h += '<button class="btn lien" data-act="cal-envoi">Envoyer à ma kiné maintenant</button>';
+  return h + '<p class="petit">Vos notes restent sur ce téléphone, même après l’envoi, jusqu’à ce que vous les effaciez. Rien ne part sans vous.</p>'; }   /* 1.30-test17, C1, GF3-6 */
+function ecranCalNotes() { var c = cal(), h = '<h1>Mes notes</h1>';
+  if (!c.ev.length) h += '<p>Aucune note pour l’instant.</p>';
+  calJournees().forEach(function (j, k) { var l = []; c.ev.forEach(function (x, i) { if (calJournee(x[1]) === j) l.push(i); });
+    h += '<h2>Jour ' + (k + 1) + ' · ' + dCourte(j) + '</h2><p class="petit">' + esc(calResume(l.map(function (i) { return c.ev[i]; }))) + '</p><div class="carte"><ul class="journal cal-l">'
+      + l.map(function (i) { return '<li><span>' + esc(texteNote(c.ev[i])) + '</span><button class="btn lien" data-act="cal-retirer" data-i="' + i + '" aria-label="Retirer cette note">Retirer</button></li>'; }).join('') + '</ul></div>'; });
+  return h + (c.ev.length ? '<button class="btn" data-act="cal-envoi">Envoyer à ma kiné</button>' : '') + '<button class="btn sec" data-act="cal-retour">Revenir</button>'; }
+function objetCal() { var l = cal().ev.filter(function (x) { return Array.isArray(x) && isFinite(x[1]); }), t0 = Math.floor((l.length ? l[0][1] : Date.now()) / 60000) * 60000;
+  return {e: E.e, t: 'c', lv: VERSION_LECTEUR, d: auj(), t0: t0, ev: l.map(function (x) { var o = [x[0], Math.round((x[1] - t0) / 60000), x[2]]; if (x[0] === 'u') o.push(x[3]); return o; })}; }
+function calActions(A) {
+  ['u', 'f', 'b'].forEach(function (p) { A['cal-' + p] = function () { V.calP = p; V.calQ = null; V.calE = null; V.calH = null; V.err = ''; V.calDit = ''; }; });
+  A['cal-q'] = function (el) { calGarderH(); V.calQ = +el.dataset.v; V.err = ''; V.garde = true; };
+  A['cal-e'] = function (el) { calGarderH(); V.calE = +el.dataset.v; V.err = ''; V.garde = true; };
+  A['cal-noter'] = function () { calGarderH(); if (!V.calQ) { V.err = 'Choisissez la quantité, s’il vous plaît.'; V.garde = true; return; } if (V.calE == null) { V.err = 'Choisissez l’envie, de 0 à 3, s’il vous plaît.'; V.garde = true; return; }
+    var t = calHeure(); calNoter(['u', t, V.calQ, V.calE], 'Noté à ' + calHm(t) + (calNuit(t) ? ', la nuit' : '') + '.'); };
+  A['cal-fv'] = function (el) { calGarderH(); var t = calHeure(); calNoter(['f', t, +el.dataset.v], 'Fuite notée à ' + calHm(t) + '.'); };
+  A['cal-bv'] = function (el) { calGarderH(); var t = calHeure(); calNoter(['b', t, +el.dataset.v], 'Boisson notée à ' + calHm(t) + '.'); };
+  A['cal-annuler'] = function () { V.calP = null; V.err = ''; };
+  A['cal-notes'] = function () { V.calP = null; V.calDit = ''; V.ecran = 'cal-notes'; };
+  A['cal-retirer'] = function (el) { var c = cal(), i = +el.dataset.i; if (c.ev[i]) { c.ev.splice(i, 1); sauver(); } V.garde = true; };
+  A['cal-retour'] = function () { V.ecran = 'cal'; };
+  A['cal-envoi'] = function () { if (!cal().ev.length) return; V.calP = null; V.calDit = ''; preparerEnvoi(); return true; };
+}
+
 /* ---------- l'envoi : un QR code à montrer, ou un message ---------- */
-function objetRetour() { if (E.t === 'q') return {e: E.e, t: 'q', lv: VERSION_LECTEUR, d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
-  if (E.t === 'g' && E.lv >= 3) { var b3 = s3(), o3 = {e: E.e, t: 'g', lv: VERSION_LECTEUR, f: 2, d: b3.d, x: b3.x.map(function (l) { return l.map(propre); }), p: b3.p, r: b3.e || 0, m: b3.m || ''}; if (b3.ef.length) o3.ef = b3.ef; return o3; }
+function objetRetour() { if (E.t === 'c') return objetCal();   /* GA-15 */
+  if (E.t === 'q') return {e: E.e, t: 'q', lv: VERSION_LECTEUR, d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
+  if (E.t === 'g' && E.lv >= 3) { var b3 = s3(), o3 = {e: E.e, t: 'g', lv: VERSION_LECTEUR, f: 2, d: b3.d, x: b3.x.map(function (l) { return l.map(propre); }), p: b3.p, r: b3.e || 0, m: b3.m || ''}; if (b3.ef.length) o3.ef = b3.ef;
+    var me3 = E.ex.map(function (x, i) { var m = x.me && Array.isArray(b3.me) ? b3.me[i] : null, o = {}; if (m) ['v', 'G', 'D'].forEach(function (k) { if (m[k]) o[k] = String(m[k]); }); return Object.keys(o).length ? o : null; });
+    if (me3.some(Boolean)) o3.me = me3; return o3; }   /* 1.30-test7 (point 45) : les valeurs mesurées, une par exercice (null sinon) */
   if (E.t === 'g') { var b = salle(); return {e: E.e, t: 'g', lv: VERSION_LECTEUR, d: b.d, x: b.x, p: b.p, r: b.e || 0, m: b.m || ''}; }
   return {e: E.e, t: 's', lv: VERSION_LECTEUR, j: ETAT.journal}; }
-function preparerEnvoi() { V.ecran = 'envoi'; V.code = null; rendre();
+function preparerEnvoi() { V.ecran = 'envoi'; V.code = null; V.clairOk = false; rendre();   /* 1.30-test17, C1, GF3-9 */
   var o = objetRetour(), hMax = E.t === 's' ? ETAT.journal.reduce(function (m, x) { return Math.max(m, +x[5] || 0); }, 0) : 0;
   Codec.retour(E.id, E.k, o, E.lv >= 3 || E.z === 1).then(function (r) { V.code = r; envoye(hMax); rendre(); })
+    .catch(function () { return Codec.retour(E.id, E.k, o, false).then(function (r) { V.code = r; envoye(hMax); rendre(); }); })   /* 1.30-test17, C1, GF3-9 : chiffré sans compression avant le clair */
     .catch(function () { Codec.retour(E.id, '', o).then(function (r) { r.echec = true; V.code = r; envoye(hMax); rendre(); }); }); }
 /* GT-2 : ce qui a été préparé pour l'envoi ne compte plus comme « pas encore envoyé » (l'heure de la ligne la plus récente) */
 function envoye(h) { if (E.t === 's' && h > (+ETAT.envoyeH || 0)) { ETAT.envoyeH = h; sauver(); } }
@@ -496,20 +685,24 @@ function qrDe(code) { try { return QR.svg(code, 'M'); } catch (e) { return null;
 var texteMessage = function () { return 'Mes réponses pour mon kiné (à ne pas modifier) : ' + V.code.code; };
 function ecranEnvoi() { if (!V.code) return '<p>Préparation…</p>';
   var q = qrDe(V.code.code), t = encodeURIComponent(texteMessage()), tel = String(E.tel || '').replace(/[^\d+]/g, ''), ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  var h = '<h1>Envoyer à mon kiné</h1>';
+  var h = E.t === 'c' ? '<h1>Envoyer à ma kiné</h1>' : '<h1>Envoyer à mon kiné</h1>';   /* GA-15 : le calendrier, pour Lara */
   /* GT-8 : où partent les réponses, dans un petit volet */
   h += '<details class="envoi-detail" id="envoi-adresse"><summary>' + (E.mel ? 'Vos réponses partent à : ' + esc(E.mel) : 'Ce lien ne donne pas d’adresse mail : montrez ou copiez le code') + '</summary><p>' + (E.mel ? 'C’est l’adresse que votre kiné a mise dans ce lien. Si ce n’est pas la sienne, n’envoyez rien et prévenez-le.' : 'Votre kiné le lit au cabinet, sur son ordinateur.') + ' Un lien de votre kiné vient toujours de son adresse ou du QR code montré au cabinet.</p></details>';
-  if (E.mel) h += '<a class="btn" href="mailto:' + encodeURIComponent(E.mel).replace(/%40/g, '@') + '?subject=' + encodeURIComponent(E.t === 'q' ? 'Mes réponses pour mon kiné' : 'Ma séance pour mon kiné') + '&body=' + encodeURIComponent('Bonjour,\r\n\r\n' + (E.t === 'q' ? 'Voici mes réponses.' : 'Voici ma séance.') + ' Merci de ne pas modifier la ligne ci-dessous.\r\n\r\n' + V.code.code + '\r\n') + '">Par mail</a><p class="petit">Votre messagerie s’ouvre avec le message déjà écrit : il reste à toucher « Envoyer ».</p>';
+  var cache = !V.code.chiffre && !V.clairOk;   /* 1.30-test17, C1, GF3-9 : en clair, d'office le QR code et « Copier » seulement */
+  if (E.mel && !cache) h += '<a class="btn" href="mailto:' + encodeURIComponent(E.mel).replace(/%40/g, '@') + '?subject=' + encodeURIComponent(E.t === 'c' ? 'Mon calendrier pour ma kiné' : E.t === 'q' ? 'Mes réponses pour mon kiné' : 'Ma séance pour mon kiné') + '&body=' + encodeURIComponent('Bonjour,\r\n\r\n' + (E.t === 'c' ? 'Voici mon calendrier.' : E.t === 'q' ? 'Voici mes réponses.' : 'Voici ma séance.') + ' Merci de ne pas modifier la ligne ci-dessous.\r\n\r\n' + V.code.code + '\r\n') + '">Par mail</a><p class="petit">Votre messagerie s’ouvre avec le message déjà écrit : il reste à toucher « Envoyer ».</p>';
   /* GT-6 : des mots exacts (choix à confirmer, Antoine les réécrit au besoin) : le code ne se lit qu'avec la clé du lien, que le kiné a aussi */
-  h += '<p class="petit" id="envoi-chiffre">' + (V.code.chiffre ? 'Le code est chiffré : il ne se lit qu’avec la clé contenue dans votre lien, que votre kiné a aussi. Ne transférez pas ce lien.' : !window.isSecureContext ? 'Cette page n’est pas en https : le code n’est pas chiffré.' : 'Ce téléphone n’a pas pu chiffrer le code : il part en clair.') + '</p>';
+  h += '<p class="petit" id="envoi-chiffre">' + (V.code.chiffre ? 'Le code est chiffré : il ne se lit qu’avec la clé contenue dans votre lien, que votre kiné a aussi. Ne transférez pas ce lien.' : !window.isSecureContext ? 'Cette page n’est pas en https : le code n’est pas chiffré.' : 'Ce téléphone n’a pas pu chiffrer le code : il part en clair. Qui le voit passer peut le lire : montrez-le plutôt au cabinet.') + '</p>';
   h += q ? '<h2>Au cabinet, sans mail</h2><p>Montrez ce code à la caméra de son ordinateur, luminosité de l’écran au maximum.</p><div class="qr">' + q.svg + '</div><h2>Autrement</h2>'
     : '<p class="petit" id="envoi-sans-qr">Ce message est trop long pour un code à montrer : envoyez-le par mail, par message ou copiez-le.</p><h2>Autrement</h2>';
-  if (navigator.share) h += '<button class="btn" data-act="partager">Envoyer par message</button>';
-  h += '<a class="btn sec" href="sms:' + tel + (ios ? '&' : '?') + 'body=' + t + '">Par SMS ou iMessage</a><a class="btn sec" href="https://wa.me/' + tel.replace('+', '') + '?text=' + t + '">Par WhatsApp</a><button class="btn sec" data-act="copier">Copier le code</button>';
+  if (cache) h += '<button class="btn sec" data-act="copier">Copier le code</button><button class="btn lien" id="clair-ok" data-act="clair-ok">Envoyer quand même en clair</button>';
+  else { if (navigator.share) h += '<button class="btn" data-act="partager">Envoyer par message</button>';
+  h += '<a class="btn sec" href="sms:' + tel + (ios ? '&' : '?') + 'body=' + t + '">Par SMS ou iMessage</a><a class="btn sec" href="https://wa.me/' + tel.replace('+', '') + '?text=' + t + '">Par WhatsApp</a><button class="btn sec" data-act="copier">Copier le code</button>'; }
   h += '<p class="petit">Le message ne contient ni votre nom ni le nom de l’exercice ou du questionnaire : seulement ce code.</p>';
-  h += '<button class="btn lien" data-act="' + (E.t === 's' ? 'retour-seance' : 'fin') + '">Revenir</button>';
+  h += '<button class="btn lien" data-act="' + (E.t === 'c' ? 'cal-retour' : E.t === 's' ? 'retour-seance' : 'fin') + '">Revenir</button>';
   /* GT-7 : une fois envoyé, effacer ce qui reste sur le téléphone (un téléphone prêté, une tablette de la famille) */
-  h += '<p class="petit" id="envoi-reste">Après l’envoi, ce téléphone garde ' + (E.t === 'q' ? 'vos réponses' : E.t === 's' ? 'le programme et le journal de vos séances' : 'votre séance') + ' et le lien. Sur un appareil partagé, effacez-les.</p>' + lienEffacer();
+  /* 1.30-test17, C1, T16-01 : seulement si l'écriture a réussi ; sinon l'alerte « pas gardées » suffit. GF3-6 : pour le calendrier, l'effacement en touche pleine */
+  if (!V.pasGarde) h += '<p class="petit" id="envoi-reste">Après l’envoi, ce téléphone garde ' + (E.t === 'c' ? 'les notes de votre calendrier' : E.t === 'q' ? 'vos réponses' : E.t === 's' ? 'le programme et le journal de vos séances' : 'votre séance') + ' et le lien. Sur un appareil partagé, effacez-les.</p>';
+  h += E.t === 'c' ? '<button class="btn sec effacer" id="effacer-notes" data-act="effacer">Effacer mes notes de ce téléphone</button>' : lienEffacer();
   return h; }
 
 /* AME-166 : ce que la page garde sur le téléphone, ce sont les clés « lecteur:… » du stockage du navigateur (le programme et ce qui a été noté, par envoi ;
@@ -520,7 +713,7 @@ function effacer(tout) { var l = tout ? clesLecteur() : E ? ['lecteur:' + E.id].
   try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) {}   /* sans le lien dans l'adresse, rien ne se recrée au rechargement */
   E = null; ETAT = null; V.lien = ''; V.source = ''; V.code = null; V.ecran = 'efface'; V.efface = tout ? 'tout' : 'un'; }
 function ecranEffacer() { var h = '<h1>Effacer mes données de ce téléphone</h1><p>Cela n’efface rien dans le dossier de votre kiné. Ce qui n’a pas encore été envoyé à votre kiné est perdu.</p>';
-  if (E) h += '<div class="carte"><p><b>Ce programme</b> : ' + esc(E.t === 'q' ? 'vos réponses à ce questionnaire' : E.t === 's' ? 'vos exercices à la maison et le journal de vos séances notées' : 'votre séance et les séries notées') + ', et le programme lui-même.</p><button class="btn" data-act="effacer-un">Effacer ce programme</button></div>';
+  if (E) h += '<div class="carte"><p><b>Ce programme</b> : ' + esc(E.t === 'c' ? 'les notes de votre calendrier mictionnel' : E.t === 'f' ? 'cette fiche conseil' :E.t === 'p' ? 'vos exercices à garder' : E.t === 'q' ? 'vos réponses à ce questionnaire' : E.t === 's' ? 'vos exercices à la maison et le journal de vos séances notées' : 'votre séance et les séries notées') + ', et le programme lui-même.</p><button class="btn" data-act="effacer-un">Effacer ce programme</button></div>';
   h += '<div class="carte"><p><b>Tout</b> : tous les programmes, réponses et séances que cette page garde sur ce téléphone (' + pl(clesLecteur().length, 'élément') + ').</p><button class="btn sec" data-act="effacer-tout">Tout effacer</button></div>';
   return h + '<button class="btn lien" data-act="effacer-non">Annuler</button>'; }
 var lienEffacer = function () { return '<button class="btn lien effacer" data-act="effacer">Effacer mes données de ce téléphone</button>'; };
@@ -538,6 +731,7 @@ function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essa
     'Longueur du lien reçu : ' + V.lien.length + ' caractères',
     navigator.userAgent].join('\n'); }
 
+var motPasGarde = function () { return (E.t === 'c' ? 'Vos notes ne sont pas gardées' : E.t === 'q' ?'Vos réponses ne sont pas gardées' : E.t === 's' ? 'Vos séances notées ne sont pas gardées' : 'Vos séries ne sont pas gardées') + ' sur ce téléphone (sa mémoire est pleine) : envoyez-les maintenant.'; };
 function rendre() { var h = '';
   if (V.ecran === 'vide') h = '<h1>Mon kiné</h1><p>Cette page s’ouvre avec le QR code ou le lien donné par votre kiné.</p><p class="petit">Elle ne contient rien par elle-même et n’envoie rien.</p>';
   else if (V.ecran === 'ancien') h = '<h1>Téléphone trop ancien pour ce lien</h1><p>Demandez à votre kiné le « lien pour ancien téléphone ».</p>';
@@ -546,20 +740,29 @@ function rendre() { var h = '';
   else if (V.ecran === 'refuse') h = '<h1>Lien refusé</h1><p>Ce lien n’a pas la forme de ceux que prépare l’appli de votre kiné : rien n’en est montré. Demandez-le de nouveau à votre kiné, ou scannez le QR code au cabinet.</p>';   /* AME-157 */
   else if (V.ecran === 'effacer') h = ecranEffacer();
   else if (V.ecran === 'efface') h = '<h1>C’est effacé</h1><p class="ok">' + (V.efface === 'tout' ? 'Cette page ne garde plus rien sur ce téléphone.' : 'Ce programme est effacé de ce téléphone.') + '</p><p>Le lien ou le QR code de votre kiné le rouvre si besoin. Rien n’a changé dans son dossier.</p>';
-  else if (V.ecran === 'accueil') h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.q.map(function (q) { return q.n; }).join(' et ')) + '</h1><div class="carte"><p>' + esc(E.q[0].c || 'Répondez à chaque question, puis montrez ou envoyez vos réponses à votre kiné.') + '</p></div><p class="petit">' + total() + ' questions, environ ' + Math.max(1, Math.round(total() / 5)) + ' min. Vos réponses restent sur ce téléphone jusqu’à ce que vous les montriez ou les envoyiez.</p><button class="btn" data-act="commencer">' + ((ETAT.rep[0] || []).length ? 'Reprendre où j’en étais' : 'Commencer') + '</button>';
+  else if (V.ecran === 'accueil') h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.q.map(function (q) { return q.n; }).join(' et ')) + '</h1><div class="carte"><p>' + esc(E.q[0].c || 'Répondez à chaque question, puis montrez ou envoyez vos réponses à votre kiné.') + '</p></div><p class="petit">' + total() + ' questions, environ ' + Math.max(1, Math.round(total() / 5)) + ' min. Vos réponses restent sur ce téléphone, même après l’envoi, jusqu’à ce que vous les effaciez.</p><button class="btn" data-act="commencer">' + ((ETAT.rep[0] || []).length ? 'Reprendre où j’en étais' : 'Commencer') + '</button>';
   else if (V.ecran === 'question') h = ecranQuestion();
   else if (V.ecran === 'fin' && E.t === 'q' && sansReponse().length) h = '<h1>Merci, c’est presque terminé</h1><p>Sans réponse :</p><div class="carte" id="sans-reponse">' + sansReponse().map(function (x) { return '<button class="manque" data-act="aller-q" data-i="' + x.i + '" data-j="' + x.j + '">' + esc(x.q) + (x.f ? '' : ' (nécessaire)') + ' ›</button>'; }).join('') + '</div><button class="btn" data-act="envoi">Envoyer à mon kiné</button>';
-  else if (V.ecran === 'fin') h = '<h1>Merci, c’est terminé</h1><p class="ok">' + (E.t === 'g' ? 'Votre séance est notée sur ce téléphone.' : 'Vos réponses sont notées sur ce téléphone.') + '</p><p>Il reste à ' + (E.t === 'g' ? 'la' : 'les') + ' donner à votre kiné : par mail, ou en montrant un code à son ordinateur.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">' + (E.t === 'g' ? 'Revoir ma séance' : 'Revoir mes réponses') + '</button>';
+  else if (V.ecran === 'fin') h = '<h1>Merci, c’est terminé</h1>' + (V.pasGarde ? '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' : '<p class="ok">' + (E.t === 'g' ? 'Votre séance est notée sur ce téléphone.' : 'Vos réponses sont notées sur ce téléphone.') + '</p>') + '<p>Il reste à ' + (E.t === 'g' ? 'la' : 'les') + ' donner à votre kiné : par mail, ou en montrant un code à son ordinateur.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">' + (E.t === 'g' ? 'Revoir ma séance' : 'Revoir mes réponses') + '</button>';
   else if (V.ecran === 'salle') h = ecranSalle();
   else if (V.ecran === 'salle3') { h = ecranSalle3(); eveil(); }
   else if (V.ecran === 'salle3-fin') h = finSalle3();
   else if (V.ecran === 'seance') h = ecranSeance();
+  else if (V.ecran === 'exo-fiche') h = ecranExoFiche();   /* lot 11, GA-10 */
+  else if (V.ecran === 'fiche') h = ecranFiche();
+  else if (V.ecran === 'entretien') h = ecranEntretien();
   else if (V.ecran === 'journal') h = ecranJournal();
   else if (V.ecran === 'envoi') h = ecranEnvoi();
-  if (['accueil', 'fin', 'salle3-fin', 'salle', 'seance', 'journal'].indexOf(V.ecran) >= 0 || (V.ecran === 'vide' && clesLecteur().length)) h += lienEffacer();   /* AME-166 */
+  else if (V.ecran === 'cal') h = ecranCal();   /* lot 11, GA-15 */
+  else if (V.ecran === 'cal-notes') h = ecranCalNotes();
+  if (['accueil', 'fin', 'salle3-fin', 'salle', 'seance', 'journal', 'fiche', 'entretien', 'cal', 'cal-notes'].indexOf(V.ecran) >= 0 || (V.ecran === 'vide' && clesLecteur().length)) h += lienEffacer();   /* AME-166 */
   h += '<details><summary>Essai : ce que ce téléphone sait faire</summary><pre>' + esc(diagnostic()) + '</pre></details>';
+  if (E && ETAT && V.pasGarde && V.ecran !== 'fin') h = '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' + h;
+  if (E && ETAT && V.ailleurs) h = '<p class="petit non-envoye" id="autre-onglet" role="status">Ce lien est aussi ouvert dans un autre onglet : la page a repris ce qui y a été noté de plus récent.</p>' + h;
+  V.ailleurs = false;
   var y = V.garde ? window.scrollY : 0; V.garde = false; app.innerHTML = h; window.scrollTo(0, y);
   if (V.ecran === 'salle3' && ETAT && ETAT.s3 && V.joue !== ETAT.s3.i) { V.joue = ETAT.s3.i; var sv = document.querySelector('#s3-dessin svg'); if (sv) PictosTel.jouer(sv, document.getElementById('s3-dessin').dataset.p); }   /* le geste joue une fois à l'arrivée */
+  if (V.ecran === 'exo-fiche' && V.fxJoue) { V.fxJoue = false; var fs = document.querySelector('#fx-dessin svg'); if (fs) PictosTel.jouer(fs, document.getElementById('fx-dessin').dataset.p); }   /* GA-10 : le dessin de la fiche joue à l'ouverture */
   var n = document.querySelector('#nombre[type=range]'), o = document.getElementById('nombre-v'); if (n && o) n.addEventListener('input', function () { V.touche = true; o.textContent = n.value; }); }
 
 var A = {
@@ -574,12 +777,15 @@ var A = {
   's3-liste': function () { prendre3(); V.liste = !V.liste; },
   's3-aller': function (el) { prendre3(); s3().i = +el.dataset.i; s3().rep = null; V.liste = false; sauver(); },
   's3-jouer': function (el) { var sv = el.querySelector('svg'); if (sv) PictosTel.jouer(sv, el.dataset.p); return true; },
+  /* lot 11, GA-10 : « Comment faire ? » ouvre la fiche de l'exercice ; ce qui est écrit sur l'écran d'avant est gardé ; « Revenir » y ramène, au même endroit */
+  'exo-fiche': function (el) { if (V.ecran === 'salle3') prendre3(); else if (V.ecran === 'salle') prendreSalle(); garderMot(); sauver(); V.fxAvant = V.ecran; V.fxY = window.scrollY || 0; V.fx = +el.dataset.i || 0; V.fxJoue = true; V.ecran = 'exo-fiche'; },
+  'exo-fiche-revenir': function () { V.ecran = V.fxAvant && V.fxAvant !== 'exo-fiche' ? V.fxAvant : 'vide'; rendre(); window.scrollTo(0, V.fxY || 0); return true; },
   /* ERG-190 : « Série faite » note la série, sa gêne, son RIR ou son effort d'un seul geste, puis enchaîne (le repos, ou l'exercice suivant d'un groupe) ;
      en Chrono, un chrono qui tourne s'arrête et écrit son temps d'abord, et le repos ne part pas tout seul (ERG-184) */
   's3-faite': function () { prendre3(); var b = s3(), x = E.ex[b.i], v = brouillon3(); if (!v) return; if (b.chr && b.chr.dep) { var t = ecoule(b.chr); b.chr = {t: t}; ecrireTemps3(t); }
     var s = b.x[b.i][v.j]; s.f = 1; if (x.co === 1) { s.rG = v.rG; s.kG = v.kG; s.rD = v.rD; s.kD = v.kD; } else { s.r = v.r; s.k = v.k; }
     if (v.ir !== '') s.i = v.ir; if (v.ef) s.e = v.ef; s.g = v.g || ''; if (v.g && v.o) s.o = v.o;
-    var i = b.i; b.v = null; b.ten = null; b.chr = null; avancer3(i, v.j, b.mode !== 'c'); sauver(); },
+    var i = b.i; b.v = null; b.ten = null; b.chr = null; avancer3(i, v.j, !!b.minute); sauver(); },
   's3-sauter': function () { prendre3(); var b = s3(), i = b.i, j = curJ(b.x[i]), v = b.v; if (j < 0) return; var s = {f: 2}; if (v && v.j === j && v.g) { s.g = v.g; if (v.o) s.o = v.o; }   /* la gêne choisie reste, comme « Sauter » de la vue gymnase */
     b.x[i][j] = s; b.v = null; b.ten = null; b.chr = null; avancer3(i, j, false); sauver(); },
   's3-rouvrir': function (el) { prendre3(); var b = s3(), l = b.x[b.i], k = +el.dataset.j; if (l[k] && l[k].f === 2) { l[k] = {}; b.v = null; b.rep = null; } sauver(); V.garde = true; },   /* une série sautée se reprend */
@@ -595,12 +801,11 @@ var A = {
   's3-ou': function (el) { prendre3(); var v = brouillon3(); if (v) v.o = v.o === el.dataset.v ? '' : el.dataset.v; sauver(); V.garde = true; },
   's3-passer': function () { prendre3(); s3().rep = null; sauver(); },
   's3-plus15': function () { var r = s3().rep; if (r) { r.fin += 15000; r.duree += 15; r.bip = 0; } sauver(); V.garde = true; },
-  /* ERG-184 : Repos (d'office) ou Chrono */
-  's3-mode': function (el) { prendre3(); var b = s3(); b.mode = el.dataset.v === 'c' ? 'c' : 'r'; if (b.mode === 'c') { b.rep = null; b.ten = null; } else if (b.chr && b.chr.dep) b.chr = {t: ecoule(b.chr)}; sauver(); V.garde = true; },
+  /* 1.30-test7 (point 42) : le repos minuté après « Série faite », en option (éteint d'office) ; l'éteindre arrête le repos en cours */
+  's3-minuter': function () { prendre3(); var b = s3(); b.minute = !b.minute; if (!b.minute) b.rep = null; sauver(); V.garde = true; },
   's3-chrono': function () { prendre3(); var b = s3(), c = b.chr || {}; if (c.dep) { var t = ecoule(c); b.chr = {t: t}; ecrireTemps3(t); } else b.chr = {dep: Date.now(), t: 0}; sauver(); V.garde = true; },
   's3-meme': function () { prendre3(); var b = s3(); b.mc = Array.isArray(b.mc) ? b.mc : []; b.mc[b.i] = b.mc[b.i] ? 0 : 1; var av = chargeAvant3(b.i), v = brouillon3();
     if (av && v) { if (av.k) v.k = av.k; if (av.kG) v.kG = av.kG; if (av.kD) v.kD = av.kD; } sauver(); V.garde = true; },
-  's3-tenue': function () { prendre3(); var b = s3(), v = brouillon3(), x = E.ex[b.i]; b.ten = {fin: Date.now() + Math.max(1, Math.min(3600, +(v && v.r) || +x.r || 30)) * 1000}; sauver(); V.garde = true; },
   's3-revenir': function () { prendre3(); var b = s3(); if (b.i > 0) { b.i--; b.rep = null; } sauver(); },
   's3-suivant': function () { prendre3(); var b = s3(); b.rep = null; if (b.i < E.ex.length - 1) b.i++; else V.ecran = 'salle3-fin'; sauver(); },
   's3-retour': function () { prendre3(); V.ecran = 'salle3'; sauver(); },
@@ -611,6 +816,7 @@ var A = {
   /* AME-166 : « Effacer mes données de ce téléphone » : ce programme, ou tout ce que la page garde ; rien n'est effacé dans le dossier du kiné */
   effacer: function () { V.avant = V.ecran; V.ecran = 'effacer'; },
   'effacer-non': function () { V.ecran = V.avant && V.avant !== 'effacer' ? V.avant : 'vide'; },
+  'clair-ok': function () { V.clairOk = true; },   /* 1.30-test17, C1, GF3-9 */
   'effacer-un': function () { effacer(false); },
   'effacer-tout': function () { effacer(true); },
   revoir: function () { if (E.t === 'g') { V.ecran = E.lv >= 3 ? 'salle3' : 'salle'; return; } V.i = 0; V.j = 0; V.ecran = 'question'; },
@@ -618,13 +824,14 @@ var A = {
   's-douleur': function (el) { prendreSalle(); salle().p = +el.dataset.v; V.err = ''; sauver(); V.garde = true; },
   's-effort': function (el) { prendreSalle(); salle().e = +el.dataset.v; sauver(); V.garde = true; },
   's-finir': function () { prendreSalle(); var b = salle(); if (b.p == null) { V.err = 'Notez votre douleur de 0 à 10, s’il vous plaît.'; sauver(); V.garde = true; return; } V.err = ''; ETAT.fini = true; sauver(); V.ecran = 'fin'; },
-  rep: function (el) { var v = el.dataset.v, it = item(); repDe()[V.j] = it.t === 'echelle' && v !== 'na' ? +v : v; V.err = ''; sauver(); },
+  rep: function (el) { var v = el.dataset.v, it = item(); repDe()[V.j] = it.t === 'echelle' && v !== 'na' ? +v : v; if (v === 'na') V.touche = false; V.err = ''; sauver(); },
   branche: function (el) { repDe()[V.j] = [el.dataset.v, null]; V.err = ''; sauver(); },
   rep8: function (el) { var v = repDe()[V.j]; if (Array.isArray(v)) { v[1] = el.dataset.v; V.err = ''; sauver(); } },
   suivant: function () { var it = item(); if (it.t === 'texte') prendreChamps(); if (it.t === 'nombre') prendreNombre(); if (SORTES_CHAMPS.indexOf(it.t) >= 0) prendreChamps(); var v = repDe()[V.j];
     if (it.t === 'visa8' && !(Array.isArray(v) && v[0] && v[1] != null)) v = null; if (SORTES_CHAMPS.indexOf(it.t) >= 0 && vide1(v)) v = null; ETAT.pos = {i: V.i, j: V.j};
     if ((v === undefined || v === null || v === '') && !it.f) { V.err = it.t === 'texte' ? 'Écrivez quelques mots, s’il vous plaît.' : it.t === 'nombre' ? (document.querySelector('#nombre[type=range]') ? 'Placez le curseur, s’il vous plaît.' : 'Écrivez un nombre dans les bornes, s’il vous plaît.') : 'Choisissez une réponse, s’il vous plaît.'; return; }
     V.err = ''; V.touche = false; sauver();
+    if (it.fin != null && String(v) === it.fin) V.j = quest().it.length - 1;   /* GF4-22 : la suite du questionnaire est passée */
     if (V.j + 1 < quest().it.length) V.j++; else if (V.i + 1 < E.q.length) { V.i++; V.j = 0; } else { ETAT.fini = true; ETAT.finLe = auj(); sauver(); V.ecran = 'fin'; } },
   precedent: function () { if (item().t === 'texte' || SORTES_CHAMPS.indexOf(item().t) >= 0) prendreChamps(); if (item().t === 'nombre') prendreNombre(); sauver(); V.err = ''; V.touche = false; if (V.j > 0) V.j--; else if (V.i > 0) { V.i--; V.j = quest().it.length - 1; } },
   fin: function () { V.ecran = 'fin'; },
@@ -641,11 +848,14 @@ var A = {
   copier: function (el) { var t = V.code.code, fini = function () { el.textContent = 'Code copié ✓'; };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(fini, function () { copieAncienne(t); fini(); }); else { copieAncienne(t); fini(); } return true; }
 };
+calActions(A);   /* lot 11, GA-15 : les touches du calendrier mictionnel */
 function garderMot() { var t = document.getElementById('mot'); if (t && ETAT && E.t === 's') brouillon().m = t.value.trim(); }
 function copieAncienne(t) { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); } catch (e) {} a.remove(); }
 app.addEventListener('click', function (ev) { var el = ev.target.closest('[data-act]'); if (!el || !A[el.dataset.act]) return; if (A[el.dataset.act](el) !== true) rendre(); });
 app.addEventListener('change', function () { if (V.ecran === 'salle') { prendreSalle(); sauver(); } if (V.ecran === 'salle3' || V.ecran === 'salle3-fin') { prendre3(); sauver(); } });
 window.addEventListener('hashchange', ouvrir);
+/* 1.30-test7 : un autre onglet a écrit un état plus récent pour ce lien : la page le reprend, sans rien écrire */
+window.addEventListener('storage', function (ev) { if (!E || !ETAT || (ev.key !== null && ev.key !== cleEtat())) return; var la = plusRecent(); if (!la) return; ETAT = la; V.ailleurs = true; V.garde = true; rendre(); });
 /* hors connexion : la page se garde elle-même (ses propres fichiers seulement), le réseau d'abord quand il est là */
 if ('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWorker.register('sw.js').catch(function () {});
 ouvrir();
