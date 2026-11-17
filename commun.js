@@ -4,6 +4,9 @@
       ISO 18004 et la méthode publique de Project Nayuki ; aucune bibliothèque, aucun appel réseau.
    2. Codec : le lien d'aller (après le « # ») et le code de retour (« KINE1.… »), compressés et chiffrés quand
       le navigateur le permet. */
+/* Version 6 (2.1, lot 1 de la commande v11, R10) : le numéro de version commun aux fichiers de la page ; index.html le compare au sien au chargement
+   (juste après un dépôt, l'hébergeur peut servir un fichier neuf et un ancien). QR et Codec, ci-dessous, n'ont pas changé. */
+var VERSION_COMMUN = 6;
 var QR = (function () {
   'use strict';
   var ECC = {

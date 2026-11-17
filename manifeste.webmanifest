@@ -1,0 +1,24 @@
+{
+ "name": "Mon kiné",
+ "short_name": "Mon kiné",
+ "lang": "fr",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#F4F5F7",
+ "theme_color": "#2A2D33",
+ "icons": [
+  {
+   "src": "icone.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icone.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
