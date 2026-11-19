@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
+<!-- Version 8 (2.2-test8, lot 4 : deux semaines dans un lien, « La semaine suivante »). Version 7 (2.2-test6, lot 3 B de la 2.2 : la course guidée du billet ac.g et son retour co, l’effort de 0 à 10). Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
      Revue avec la 1.30-test1 (lot 1 de la 1.30, 13 novembre) : le billet contrôlé champ par champ (AME-157), l'heure de chaque séance à la maison (AME-160),
      « Effacer mes données de ce téléphone » (AME-166), « − Une série » (AME-138), Repos · Chrono (ERG-184), la gêne sur la carte de la série (ERG-190),
      les kilos changés par le patient (AME-168), le bilan des séries avant l'envoi et l'ordre d'un circuit. Puis avec la 1.30-test3 (lot 3, l'audit du téléphone) :
@@ -12,7 +12,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-Oct8FV+7VKnDuVbef5t+6LnIooC/r/juG3Qlr/fQkkE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-U6lQbM7Xf0O2vZkymucrTY0gZEZ4tugZVxvu4QxII/o='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
@@ -455,6 +455,23 @@ html.forme-gym .v6-rr button,html.forme-gym .v6-act button{min-height:58px;font-
 .sp3-vl svg{grid-column:1/-1;display:block;width:100%;height:56px}
 .sp3-vl polyline{fill:none;stroke:var(--encre);stroke-width:2}
 .sp3-vl circle{fill:var(--encre)}
+/* 2.2-test6, lot 3 B : l'effort de 0 à 10 (colonne « à préparer », bleu ardoise) et la course guidée ; la douleur reste grise, les feux ont les couleurs des statuts */
+.rpe-l,.crs-dl{display:grid;grid-template-columns:repeat(11,1fr);gap:3px;margin:6px 0}
+.rpe-l button,.crs-dl button{min-height:44px;border:1px solid var(--filet);border-radius:8px;background:var(--carte);color:var(--encre);font:inherit;font-weight:600;padding:0}
+.rpe-l button.on{background:var(--prepbg);border-color:var(--prep);color:var(--prep)}.rpe-l button[aria-pressed=true]{background:var(--prep);color:var(--onaccent)}
+.crs-dl button.on{background:var(--wash);border-color:var(--gris)}.crs-dl button[aria-pressed=true]{background:var(--gris);color:var(--onaccent)}.crs-dl button.seuil{border-left:2px dashed var(--gris)}
+.rpe-mot{margin:2px 0 8px;font-size:15px;color:var(--prep);font-weight:600}
+.crs-t{display:flex;justify-content:space-between;align-items:center;gap:8px}.crs-se{font-size:18px;font-weight:600;margin:8px 0 6px}
+.crs-der{display:flex;gap:2px;height:16px;border-radius:6px;overflow:hidden;margin:6px 0}.crs-der i{display:block;min-width:2px}.crs-der .c{background:var(--accent)}.crs-der .m{background:var(--l3)}.crs-der .m0{background:var(--wash)}
+.crs-pt{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--gris)}.crs-pt.ok{background:var(--ok)}.crs-pt.vig{background:var(--vig)}.crs-pt.alerte{background:var(--alerte)}
+.crs-msg,.crs-dit{background:var(--watchbg);border-radius:8px;padding:8px 10px;margin:8px 0;font-size:15px}.crs-dit p{margin:0 0 4px}.crs-seuil{font-size:14.5px;color:var(--gris);margin:6px 0}
+.crs-lend{border-top:1px solid var(--filet);margin-top:8px;padding-top:6px}
+.crs-ch{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.crs-ch button{flex:1 1 30%;min-height:48px;border:1px solid var(--filet);border-radius:10px;background:var(--carte);color:var(--encre);font:inherit;font-weight:600}
+.crs-ch button[aria-pressed=true]{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.crs-pm{width:56px;margin:0;min-height:48px;font-size:22px}.crs-km{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.crs-km label{font-size:15px}
+.crs-allure{font-weight:600;min-height:1.3em;margin:6px 0 0}
+.crs-li{display:grid;grid-template-columns:28px 1fr 34px;gap:6px;padding:6px 2px;border-bottom:1px solid var(--filet);font-size:15px}.crs-li.ici{font-weight:700;background:var(--accentbg)}.crs-li.apres{color:var(--gris)}
+.crs-li svg{width:18px;height:18px;fill:none;stroke:var(--ok);stroke-width:2.4}.crs-plaf{margin:6px 0 0;padding-top:6px;border-top:2px dashed var(--gris);font-size:14px;color:var(--gris)}
 </style>
 </head>
 <body>
@@ -465,7 +482,7 @@ html.forme-gym .v6-rr button,html.forme-gym .v6-act button{min-height:58px;font-
 <script>
 (function () {
 'use strict';
-var VERSION_LECTEUR = 6;   /* 2.1, lot 1 de la commande v11 : 6, la page version 6 et ses billets (lv 6 : la date, sans consignes, les séries faites au cabinet, la semaine, le journal rendu) ; elle lit toujours les billets 2 à 4 ; le retour la renvoie (lv) : l'appli sait quelle page est en ligne, sans appel réseau */
+var VERSION_LECTEUR = 8;   /* 2.2-test8, lot 4 de la 2.2 : 8, deux semaines dans un lien (AME-193 : 28 séances, 42 rendez-vous du club au plus) ; avant, 2.2-test6, lot 3 B : 7, la course guidée (ac.g) et l’effort de 0 à 10 (rpe) ; avant,  2.1, lot 1 de la commande v11 : 6, la page version 6 et ses billets (lv 6 : la date, sans consignes, les séries faites au cabinet, la semaine, le journal rendu) ; elle lit toujours les billets 2 à 4 ; le retour la renvoie (lv) : l'appli sait quelle page est en ligne, sans appel réseau */
 var app = document.getElementById('app');
 var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); };
 var auj = function () { var d = new Date(), z = function (n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); };
@@ -552,6 +569,21 @@ var Billet = (function () {
      séance (cg), la semaine d'un athlète (se : des séances datées), le rythme de l'envoi (ry « h » : chaque semaine), l'athlète (at), le journal rendu (jr,
      T14) et « Ma progression » (pg). Jamais de nom : rien de tout cela n'en porte. */
   function jour(v) { var d = txt(v, 10); if (!dateOk(d)) non('date'); return d; }
+  /* 2.2-test6, lot 3 B (fiche de la course guidée §5.2, rapport du lot 3 A §9) : ac.g, la course guidée. pr les séances ([r, c, m], [c] ou {c, t, z}),
+     et les étapes, de le départ, n la séance, pl le plafond, ve et ro les seuils, vr les verts pour monter, ry le rythme, os, pa la pause, mo le mot, d la
+     date de l'état, ti le tissu des phrases, rr les jours sans course après un rouge, pp le post-partum, h les sorties déjà rendues (la forme du retour co) */
+  function ligneCo(s) { if (!Array.isArray(s) || s.length < 13) non('sortie'); var f = s[2], u = function (v, l) { return l.indexOf(v) >= 0 ? v : null; };
+    if (['t', 'p', 'n'].indexOf(f) < 0) non('sortie'); var o = {date: jour(s[0]), n: nb(s[1], 1, 40, true), f: f, mi: nb(s[3], 0, 300), p: nb(s[4], 0, 10, true), l: u(s[5], ['h', 'p', 'o']), rpe: nb(s[6], 0, 10, true),
+      ph: nb(s[7], 0, 1023, true), pq: u(s[8], ['d', 'f', 't', 'm', 'a']), feu: u(s[9], ['v', 'o', 'r']), n2: nb(s[10], 1, 40, true), ch: u(s[11], ['m', 's']), h: nb(s[12], 0, 9e15, true) || 0};
+    if (o.n == null) non('sortie'); if (s[13] != null) o.km = nb(s[13], 0, 100); if (s[14] != null) o.fcm = nb(s[14], 30, 230, true);
+    if (s[15] != null) o.pp = liste(s[15], 5).filter(function (k) { return ['fui', 'lou', 'sai', 'dos', 'nuit'].indexOf(k) >= 0; }); return o; }
+  function course(g) { objet(g); var pr = liste(g.pr, 40).map(function (s) { if (Array.isArray(s)) { if (s.length === 3) return [nb(s[0], 1, 60, true), nb(s[1], 0.5, 60), nb(s[2], 0, 30)]; if (s.length === 1) return [nb(s[0], 1, 300)]; non('séance'); }
+      objet(s); var o = {c: nb(s.c, 1, 300)}; if (s.t != null) o.t = txt(s.t, 160); if (s.z) o.z = 1; return o; });
+    if (!pr.length || pr.some(function (s) { return Array.isArray(s) ? s.some(function (v) { return v == null; }) : s.c == null; })) non('séance');
+    var o = {pr: pr, et: liste(g.et, 12).map(function (e) { if (!Array.isArray(e) || e.length < 3) non('étape'); return [nb(e[0], 1, 40, true), nb(e[1], 1, 40, true), txt(e[2], 80)]; }),
+      de: nb(g.de, 1, 40, true) || 1, n: nb(g.n, 1, 40, true) || 1, pl: Math.min(nb(g.pl, 1, 40, true) || pr.length, pr.length), ve: nb(g.ve, 0, 10, true), ro: nb(g.ro, 0, 10, true), vr: nb(g.vr, 1, 3, true) || 1,
+      ry: g.ry === '35' ? '35' : 'j2', os: g.os === 1 ? 1 : 0, pa: g.pa === 1 ? 1 : 0, mo: txt(g.mo, 200), d: jour(g.d), ti: txt(g.ti, 60), h: liste(g.h, 60).map(ligneCo)};
+    if (o.ve == null) o.ve = 2; if (o.ro == null) o.ro = 5; if (g.rr != null) o.rr = nb(g.rr, 0, 7, true); if (g.pp === 1) o.pp = 1; o.n = Math.min(o.n, pr.length); return o; }
   function ordre(v) { if (v !== 'c' && v !== 'e') non('mode'); return v; }
   function faites(v, ex) { return liste(v, 60).map(function (s, i) { var c = txt(s, 12); if (!/^[012]*$/.test(c) || i >= ex.length) non('faites'); return c; }); }
   function plusLigne(v) { objet(v); var o = {}, bits = function (c) { var s = txt(c, 60); if (!/^[01]*$/.test(s)) non('journal'); return s; };
@@ -596,9 +628,9 @@ var Billet = (function () {
     if (o.t === 'f') b.fi = fiche(o.fi);   /* 1.30-test12, GA-11 : la fiche conseil, à lire */
     else if (o.t === 'q') { b.q = liste(o.q, 12).map(quest); if (!b.q.length) non('vide'); }
     else if (o.t === 'c') b.jo = nb(o.jo, 1, 7, true) || 3;   /* 1.30-test12, GA-15 : le calendrier mictionnel, jo jours */
-    else { if (o.t === 'g' && o.se != null) { b.se = liste(o.se, 14).map(seanceSem); if (!b.se.length) non('vide'); }   /* version 6 : la semaine d'un athlète, une séance par date */
-      if (o.t === 'g' && b.se && o.ev != null) b.ev = liste(o.ev, 21).map(sp2Ev);   /* 2.1, lot S2 : le club et le match de la semaine */
-      b.ex = liste(o.ex, 60).map(exo); if (!b.ex.length && !b.se) non('vide');
+    else { if (o.t === 'g' && o.se != null) { b.se = liste(o.se, 28).map(seanceSem); if (!b.se.length) non('vide'); }   /* version 6 : la semaine d'un athlète, une séance par date */
+      if (o.t === 'g' && b.se && o.ev != null) b.ev = liste(o.ev, 42).map(sp2Ev);   /* 2.1, lot S2 : le club et le match de la semaine */
+      b.ex = liste(o.ex, 60).map(exo);   /* 2.2-test6 : sans exercice, la course guidée seule suffit (le refus « vide » est plus bas) */
       if (o.mo != null) b.mo = ordre(o.mo); if (o.to != null) b.to = nb(o.to, 1, 12, true);
       if (o.d != null) b.d = jour(o.d); if (o.cg != null) b.cg = txt(o.cg, 600); if (o.du != null) b.du = txt(o.du, 20);
       if (o.fa != null) b.fa = faites(o.fa, b.ex); if (o.fh != null) { b.fh = txt(o.fh, 5); if (!/^\d{1,2}:\d\d$/.test(b.fh)) non('heure'); }
@@ -606,7 +638,8 @@ var Billet = (function () {
       if (o.jr != null) b.jr = liste(o.jr, 400).map(ligneJr); if (o.pg != null) b.pg = progres(o.pg);
       if (o.ec != null) b.ec = liste(o.ec, 30).map(exo); if (o.ect != null) b.ect = txt(o.ect, 4000);
       if (o.go != null) b.go = textes(o.go, 12, 80).filter(function (z) { return z.trim(); });
-      if (o.t === 's' && o.ac != null) { objet(o.ac); b.ac = {n: txt(o.ac.n, 80), p: textes(o.ac.p, 12, 160)}; if (!b.ac.n.trim()) delete b.ac; } }   /* 2.1, lot 10 : l'activité de la phase (« Reprise de la course » et ses paliers), jamais un exercice */
+      if (o.t === 's' && o.ac != null) { objet(o.ac); b.ac = {n: txt(o.ac.n, 80), p: textes(o.ac.p, 12, 160)}; if (o.ac.g != null) b.ac.g = course(o.ac.g); if (!b.ac.n.trim()) delete b.ac; }
+      if (!b.ex.length && !b.se && !(b.ac && b.ac.g)) non('vide'); }   /* 2.1, lot 10 : l'activité de la phase (« Reprise de la course » et ses paliers), jamais un exercice */
     if (o.t === 'p' && o.qd != null) b.qd = textes(o.qd, 12, 600);   /* 1.30-test12, GA-27 : « Quand revenir nous voir » */
     if (o.z === 1) b.z = 1;   /* 1.30-test3, GT-1 : l'appli qui a fait ce billet sait lire un retour compressé (mode d) */
     return b; }
@@ -664,6 +697,7 @@ function ouvrir() {
     if (!V.ficheSeule && !salleSeule) garder('lecteur:dernier', {h: h, le: auj(), t: E.t});
     ETAT = lire(cleEtat()); if (!etatOk(ETAT)) ETAT = {rep: [], fini: false, journal: [], montre: ''};
     if (E.t === 's') rendreJournal();   /* T14 */
+    if (E.t === 's' && E.ac && E.ac.g) crsFusion();   /* 2.2-test6 : la course guidée du billet, fusionnée par g.d */
     if (E.t === 'g' && E.lv >= 3) { E.cgSem = E.cg; jourNeuf(); cabinet(); }   /* R3, puis « Finir sur son téléphone » */
     if (E.t === 'f' || E.t === 'p') V.ecran = E.t === 'f' ? 'fiche' : 'entretien';   /* 1.30-test12, GA-11 et GA-27 : à lire, sans rien à noter ni à envoyer */
     else if (E.t === 'q') { V.ecran = ETAT.fini ? 'fin' : 'accueil'; } else if (E.t === 'g') V.ecran = E.lv >= 3 && E.se ? 'semaine' : ETAT.fini ? 'fin' : E.lv >= 3 ? 'salle3' : 'salle'; else if (E.t === 'c') V.ecran = 'cal'; else V.ecran = 'seance';
@@ -821,24 +855,25 @@ function ecranSeance() { var b = brouillon(), t = auj(), n = E.ex.length, nf = b
   var h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(t) + '</span></div><h1>' + esc(maj1(dLongue(t))) + '</h1><p class="v6-sous">' + esc(E.nom || 'Votre séance du jour') + '</p>';
   h += bandeauT01();
   if (E.cg) h += '<div class="v6-consk" id="v6-cg"><small>Consigne de votre kiné</small>' + esc(E.cg) + '</div>';
-  h += '<div class="v6-ronds" id="v6-ronds" role="img" aria-label="' + nf + ' sur ' + n + '">' + E.ex.map(function (x, i) { var f = b.f[i] === 1, an = f && V.vient === i; return '<i class="' + (f && !an ? 'f' : '') + '"' + (an ? ' data-anim="f"' : '') + '>' + CK + '</i>'; }).join('') + '<span>' + (nf === n ? 'Tout est fait' : 'Encore ' + (n - nf)) + '</span></div>';
-  h += '<div class="v6-exl" id="v6-exl">' + E.ex.map(function (x, i) { var f = b.f[i] === 1, an = f && V.vient === i, c = consignesDe(x)[0];
+  if (E.ac && E.ac.g) h += crsCarte();   /* 2.2-test6, CG2 : la course passe avant les exercices */
+  if (n) h += '<div class="v6-ronds" id="v6-ronds" role="img" aria-label="' + nf + ' sur ' + n + '">' + E.ex.map(function (x, i) { var f = b.f[i] === 1, an = f && V.vient === i; return '<i class="' + (f && !an ? 'f' : '') + '"' + (an ? ' data-anim="f"' : '') + '>' + CK + '</i>'; }).join('') + '<span>' + (nf === n ? 'Tout est fait' : 'Encore ' + (n - nf)) + '</span></div>';
+  if (n) h += '<div class="v6-exl" id="v6-exl">' + E.ex.map(function (x, i) { var f = b.f[i] === 1, an = f && V.vient === i, c = consignesDe(x)[0];
     return '<div class="v6-exw"><div class="v6-ex' + (f && !an ? ' f' : '') + '"' + (an ? ' data-anim="f"' : '') + '>' + vignette(i) + '<button class="v6-tx" data-act="fait" data-i="' + i + '" aria-pressed="' + f + '"><span><b>' + esc(x.n) + '</b><small>' + esc(x.d || '') + (pcDe(i) ? '<span class="v6-pcz">pas compris</span>' : '') + '</small>' + (c ? '<small class="v6-c1">' + esc(c) + '</small>' : '') + '</span><span class="v6-ck">' + CK + '</span></button></div>'
       + (f ? '<div class="v6-gene" id="v6-gene-' + i + '"><em>Une gêne ?</em><button data-act="gene" data-i="' + i + '" data-v="" aria-pressed="' + !b.g[i] + '">Non</button><button data-act="gene" data-i="' + i + '" data-v="oui" aria-pressed="' + !!b.g[i] + '">Oui</button></div>' : '') + '</div>'; }).join('') + '</div>';
-  if (E.ac) h += '<div class="v6-consk v6-act" id="v6-act"><small>' + esc(E.ac.n) + '</small>' + (E.ac.p.length ? '<ol>' + E.ac.p.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : '') + '</div>';   /* 2.1, lot 10 : sur sa ligne, sans case ni picto */
+  if (E.ac && !E.ac.g) h += '<div class="v6-consk v6-act" id="v6-act"><small>' + esc(E.ac.n) + '</small>' + (E.ac.p.length ? '<ol>' + E.ac.p.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : '') + '</div>';   /* 2.1, lot 10 : sur sa ligne, sans case ni picto */
   /* 128 : une réponse prévue, qui ne casse pas la suite de jours */
-  h += '<div class="v6-duo2" id="v6-repos"><button data-act="repos" data-v="r" aria-pressed="' + (rp === 'r') + '">Jour de repos</button><button data-act="repos" data-v="d" aria-pressed="' + (rp === 'd') + '">Trop douloureux aujourd’hui</button></div>';
-  if (rp) h += '<p class="v6-msg" id="v6-repos-dit" role="status">' + (rp === 'r' ? 'C’est noté : jour de repos. Votre suite de jours continue, à demain.' : 'C’est noté. Votre kiné le verra. Reposez-vous ; votre suite de jours continue.') + '</p>';
-  h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="finir">Terminer la séance</button>';
+  if (n) h += '<div class="v6-duo2" id="v6-repos"><button data-act="repos" data-v="r" aria-pressed="' + (rp === 'r') + '">Jour de repos</button><button data-act="repos" data-v="d" aria-pressed="' + (rp === 'd') + '">Trop douloureux aujourd’hui</button></div>';
+  if (n && rp) h += '<p class="v6-msg" id="v6-repos-dit" role="status">' + (rp === 'r' ? 'C’est noté : jour de repos. Votre suite de jours continue, à demain.' : 'C’est noté. Votre kiné le verra. Reposez-vous ; votre suite de jours continue.') + '</p>';
+  if (n) h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="finir">Terminer la séance</button>';
   h += ligneGardees() + '<button class="v6-pil" id="v6-vers-progres" data-act="journal">Ma progression ›</button>';
   V.vient = null; return h + interrupteurSon(); }
 /* la fin de séance, la même à la maison et en salle (pre : le préfixe des touches) : cinq visages ; toucher un visage fait venir ses cinq phrases à côté de
    la colonne de douleur (grise : jamais de rouge pour une douleur) ; la colonne se remplit en glissant le pouce, ou d'un toucher */
-function finForm(b, pre) { var h = '<h2>Comment c’était ?</h2><div class="v6-vis" id="v6-vis">' + FACES.map(function (p, k) { return '<button data-act="' + pre + 'visage" data-v="' + (k + 1) + '" aria-pressed="' + (b.vi === k + 1) + '" style="--fc:var(--vis' + (k + 1) + ')" aria-label="Visage ' + (k + 1) + ' sur 5 : ' + FACES_MOTS[k] + '"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle cx="17.5" cy="20" r="1.6" fill="currentColor"/><circle cx="30.5" cy="20" r="1.6" fill="currentColor"/><path d="' + p + '"/></svg></button>'; }).join('') + '</div>';
+function finForm(b, pre) { var ath = rpeAth() && pre !== 'sp2s-', h = ath ? rpeBloc(b.rpe, pre + 'rpe') : '<h2>Comment c’était ?</h2><div class="v6-vis" id="v6-vis">' + FACES.map(function (p, k) { return '<button data-act="' + pre + 'visage" data-v="' + (k + 1) + '" aria-pressed="' + (b.vi === k + 1) + '" style="--fc:var(--vis' + (k + 1) + ')" aria-label="Visage ' + (k + 1) + ' sur 5 : ' + FACES_MOTS[k] + '"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle cx="17.5" cy="20" r="1.6" fill="currentColor"/><circle cx="30.5" cy="20" r="1.6" fill="currentColor"/><path d="' + p + '"/></svg></button>'; }).join('') + '</div>';
   h += '<div class="v6-duo"><div><h2>Douleur</h2><div class="v6-col" id="v6-col" data-pre="' + pre + '" role="group" aria-label="Douleur pendant la séance, de 0 à 10">';
   for (var n = 0; n <= 10; n++) h += '<button data-act="' + pre + 'douleur" data-v="' + n + '" class="' + (b.p >= 1 && n <= b.p ? 'on' : '') + '" aria-pressed="' + (b.p === n) + '" aria-label="' + n + ' sur 10">' + n + '</button>';
   h += '</div><div class="v6-lu"><b id="v6-dl">' + (b.p == null ? '–' : b.p) + '</b><span id="v6-dlm">' + (b.p == null ? 'Glissez le pouce' : MOTS_DOULEUR[b.p]) + '</span></div></div>';
-  h += '<div><h2>Plutôt…</h2><div class="v6-phr" id="v6-phr">' + (b.vi ? PHRASES[b.vi - 1].map(function (t, k) { return '<button data-act="' + pre + 'phrase" data-v="' + k + '" aria-pressed="' + ((b.ph || []).indexOf(t) >= 0) + '">' + t + '</button>'; }).join('') : '<p class="petit" style="margin:0">Touchez un visage</p>') + '</div></div></div>';
+  if (!ath) h += '<div><h2>Plutôt…</h2><div class="v6-phr" id="v6-phr">' + (b.vi ? PHRASES[b.vi - 1].map(function (t, k) { return '<button data-act="' + pre + 'phrase" data-v="' + k + '" aria-pressed="' + ((b.ph || []).indexOf(t) >= 0) + '">' + t + '</button>'; }).join('') : '<p class="petit" style="margin:0">Touchez un visage</p>') + '</div></div></div>';
   return h; }
 function ecranSeanceFin() { var b = brouillon(), h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(b.d) + '</span></div><h1>Séance terminée</h1>' + finForm(b, '');
   /* D11 : la raison d'un exercice pas fait, en quatre touches, seulement s'il y en a */
@@ -1169,6 +1204,7 @@ function ecranResume3() { var b = s3(), c = chiffres3(b), g = gardeeDe(b, E.se ?
 function etatSem(k) { var f = (Array.isArray(ETAT.faites) ? ETAT.faites : []).filter(function (x) { return x && x.k === k; }).pop(); return f ? (f.env ? 'env' : 'garde') : E.se[k].d === auj() ? 'auj' : 'ven'; }
 function ecranSemaine() { var t = auj(), d0 = dateDe(E.se[0].d), ouv = V.semOuv, h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(t) + '</span></div><h1>Vos séances</h1><p class="v6-sous">Semaine du ' + (d0.getDate() === 1 ? '1er' : d0.getDate()) + ' ' + MOIS[d0.getMonth()] + '</p>';
   if (ouv == null) { ouv = -1; E.se.forEach(function (s, k) { if (ouv < 0 && etatSem(k) === 'auj') ouv = k; }); }
+  var l2 = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() - ((d0.getDay() + 6) % 7) + 7), k2 = -1; E.se.forEach(function (s, k) { if (k2 < 0 && dateDe(s.d) >= l2) k2 = k; });   /* 2.2-test8, AME-193 */
   if (E.cgSem) h += '<div class="v6-consk" id="v6-cg"><small>Consigne de votre kiné</small>' + esc(E.cgSem) + '</div>';
   h += '<div class="v6-sl" id="v6-semaine">' + E.se.map(function (s, k) { var e = etatSem(k), fa = e === 'env' || e === 'garde', o = ouv === k, d = dateDe(s.d), enCours = !fa && !!(ETAT.sem && ETAT.sem['k' + k] && ETAT.sem['k' + k].ech);
     var c = '<div class="v6-sj ' + (fa ? 'fait' : e) + '" data-k="' + k + '"><button class="v6-sj-t" data-act="sem-ouvrir" data-k="' + k + '" aria-expanded="' + o + '"><span class="jr">' + maj1(JOURS[d.getDay()].slice(0, 3)) + '<b>' + d.getDate() + '</b></span><span class="tt"><b>' + esc(s.nom || 'Séance') + '</b><small>' + pl(s.ex.length, 'exercice') + (s.du ? ' · ' + esc(s.du) : '') + '</small></span><span class="et">' + (e === 'env' ? 'envoyée' : fa ? 'faite' : e === 'auj' ? 'aujourd’hui' : s.d < t ? 'pas faite' : 'à venir') + '</span></button>';
@@ -1177,7 +1213,7 @@ function ecranSemaine() { var t = auj(), d0 = dateDe(E.se[0].d), ouv = V.semOuv,
       + '<p class="petit">' + (s.mo === 'c' ? 'En circuit : choisi par votre kiné' : s.mo === 'e' ? 'Exercice par exercice : choisi par votre kiné' : 'Exercice par exercice ou en circuit : à vous de choisir') + '</p>'
       + (e === 'garde' ? '<div class="v6-sem"><span>Faite, pas encore envoyée</span><button data-act="envoi">Envoyer maintenant</button><button class="v6-doux" data-act="sem-ouvrir" data-k="' + k + '">Avec ma semaine</button></div>' : fa ? '<p class="v6-pt">Envoyée à votre kiné</p>'
         : '<button class="btn" data-act="sem-commencer" data-k="' + k + '">' + (enCours ? 'Reprendre' : e === 'auj' ? 'Commencer' : 'Faire celle-ci maintenant') + '</button>') + '</div>';
-    return c + '</div>'; }).join('') + '</div>';
+    return (k === k2 && k > 0 ? '<p class="v6-sous" id="v6-suivante">La semaine suivante</p>' : '') + c + '</div>'; }).join('') + '</div>';
   return h + ligneGardees() + '<button class="v6-pil" data-act="journal">Ma progression ›</button>' + interrupteurSon(); }
 setInterval(function () { var b = s3la(); if (!b || V.ecran !== 'salle3' || !b.ten) return; var t = b.ten, r = resteT(t), el = document.getElementById('s3-tenue-n');
   if (t.dur && r === 0) { prendre3(); arreterTenue(true); sauver(); V.garde = true; rendre(); return; }
@@ -1262,7 +1298,8 @@ function objetSeance(b, k, partielle) { var v6 = E.lv >= 6, o = {e: E.e, t: 'g',
   if (me.some(Boolean)) o.me = me;   /* 1.30-test7 (point 45) : les valeurs mesurées, une par exercice (null sinon) */
   if (!v6) return o;
   o.h = Date.now(); if (E.d && E.d !== b.d) o.bd = E.d; if (E.se) o.si = k; if (!impose3() && b.mo) o.mo = b.mo; if (b.cab) o.cab = 1;
-  if (b.vi) o.vi = b.vi; if (b.ph && b.ph.length) o.ph = b.ph.slice(0, 5); if (Array.isArray(b.pc) && b.pc.some(Boolean)) o.pc = E.ex.map(function (x, i) { return b.pc[i] ? 1 : 0; });
+  if (b.vi) o.vi = b.vi; if (b.ph && b.ph.length) o.ph = b.ph.slice(0, 5); if (rpeAth() && b.rpe >= 0 && b.rpe <= 10) o.rpe = b.rpe;   /* 2.2-test6, AME-189 */
+  if (Array.isArray(b.pc) && b.pc.some(Boolean)) o.pc = E.ex.map(function (x, i) { return b.pc[i] ? 1 : 0; });
   if (b.dc === 'a' || b.dc === 'm' || b.dc === 'p') o.dc = b.dc;   /* réservé à la forme gymnase (lot 4) : Alléger, Maintenir, Progresser */
   if (partielle) o.pa = 1; return o; }
 /* une séance finie est gardée avec les autres (faites) jusqu'à son envoi : d sa date, k son rang dans la semaine, o ce qui part, env l'heure du message
@@ -1272,7 +1309,8 @@ function garderSeance(b, k, partielle) { var o = objetSeance(b, k, partielle), l
 function objetRetour() { if (E.t === 'c') return objetCal();   /* GA-15 */
   if (E.t === 'q') return {e: E.e, t: 'q', lv: VERSION_LECTEUR, d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
   if (E.t === 'g') { var b = salle(); return {e: E.e, t: 'g', lv: VERSION_LECTEUR, d: b.d, x: b.x, p: b.p, r: b.e || 0, m: b.m || ''}; }   /* le billet de la version 2 */
-  return {e: E.e, t: 's', lv: VERSION_LECTEUR, f: 3, j: ETAT.journal}; }
+  var o = {e: E.e, t: 's', lv: VERSION_LECTEUR, f: 3, j: ETAT.journal}, co = crsRetour(); if (co.length) { o.co = co; if (!ETAT.journal.length) delete o.j; }   /* 2.2-test6 : les sorties de course (co) */
+  return o; }
 /* ce qui part : les séances de salle pas encore envoyées (sinon celles du dernier envoi, pour « La renvoyer »), chacune dans son code ; sinon un seul objet */
 function aEnvoyer() { if (!(E.t === 'g' && E.lv >= 3)) return [objetRetour()]; var l = gardees(); if (!l.length) l = (Array.isArray(ETAT.faites) ? ETAT.faites : []).filter(function (x) { return x && x.env && x.env === ETAT.dernierEnvoi; });
   if (!l.length && !E.se && ETAT.fini && ETAT.s3 && Array.isArray(ETAT.s3.x)) return [objetSeance(ETAT.s3, 0)];   /* une séance finie sous la page d'avant, jamais rangée dans « faites » */
@@ -1289,8 +1327,9 @@ function preparerEnvoi() { var l = aEnvoyer(); if (!l.length) { V.ecran = E.se ?
 function marquerRendu() { if (!E || !ETAT) return; var t = Date.now();
   if (E.t === 'g' && E.lv >= 3) { (Array.isArray(ETAT.faites) ? ETAT.faites : []).forEach(function (x) { if (x && (!x.env || x.env === ETAT.dernierEnvoi)) x.env = t; }); ETAT.dernierEnvoi = t; }
   if (E.t === 's' && V.hMax > (+ETAT.envoyeH || 0)) ETAT.envoyeH = V.hMax;
+  if (E.t === 's') ETAT.coH = crsHMax();   /* 2.2-test6 : les sorties de course rendues */
   ETAT.rendu = t; sauver(); }
-function nonEnvoyees() { var h0 = +ETAT.envoyeH || 0, rdu = ETAT.rdu || {}; return E && E.t === 's' ? ETAT.journal.filter(function (x) { return ((+x[5] || 0) > h0 || (!x[5] && !h0)) && rdu[x[0]] !== (+x[5] || 1); }).length : 0; }
+function nonEnvoyees() { var h0 = +ETAT.envoyeH || 0, rdu = ETAT.rdu || {}; return E && E.t === 's' ? ETAT.journal.filter(function (x) { return ((+x[5] || 0) > h0 || (!x[5] && !h0)) && rdu[x[0]] !== (+x[5] || 1); }).length + crsNonEnvoyees() : 0; }
 /* GT-1 : un code trop long pour un QR code (un long journal) garde le mail, le message et la copie */
 function qrDe(code) { try { return QR.svg(code, 'M'); } catch (e) { return null; } }
 var texteMessage = function () { return (V.code.n > 1 ? 'Mes séances pour mon kiné (à ne pas modifier) : ' : 'Mes réponses pour mon kiné (à ne pas modifier) : ') + V.code.code; };
@@ -1367,7 +1406,9 @@ function rendre() { var h = '';
   else if (V.ecran === 'salle3') { h = rendreSalle() + interrupteurSon(); eveil(); }
   else if (V.ecran === 'salle3-fin') h = finSalle3();
   else if (V.ecran === 'seance') h = ecranSeance();
-  else if (V.ecran === 'seance-fin') h = ecranSeanceFin();   /* version 6 */
+  else if (V.ecran === 'seance-fin') h = ecranSeanceFin();
+  else if (V.ecran === 'crs-noter') h = crsEcranNoter();   /* 2.2-test6 : la course guidée */
+  else if (V.ecran === 'crs-moi') h = crsEcranMoi();   /* version 6 */
   else if (V.ecran === 'resume') h = ecranResume();
   else if (V.ecran === 'progres') h = ecranProgres();
   else if (/^sp2/.test(V.ecran)) h = sp2Ecran();   /* 2.1, lot S2 : le cardio, la mobilité, le match, « Votre semaine » */
@@ -1395,7 +1436,7 @@ function apresRendu() { var b = s3la(), q = function (s) { return document.query
   [].forEach.call(document.querySelectorAll('[data-anim]'), function (el) { deux(function () { el.classList.add(el.dataset.anim); }); });
   [].forEach.call(document.querySelectorAll('.v6-dl .br i[data-w]'), function (el) { deux(function () { el.style.width = Math.max(0, Math.min(100, +el.dataset.w || 0)) + '%'; }); });
   if (V.monte) { V.monte = false; monter(); }
-  brancherColonne();
+  brancherColonne(); crsBrancher();
   var n = q('#nombre[type=range]'), o = document.getElementById('nombre-v'); if (n && o) n.addEventListener('input', function () { V.touche = true; majNombre(n, o); }); }
 /* 123 : les chiffres du résumé montent une fois */
 function monter() { if (REDUIT) return; [].forEach.call(document.querySelectorAll('#v6-chif [data-n]'), function (el) { var n = +el.dataset.n, t0 = 0; if (!(n > 0)) return; el.textContent = '0';
@@ -1648,8 +1689,8 @@ setInterval(function () { var b = s3la(); if (!b || V.ecran !== 'sp2m' || !b.ten
 function sp2Visages(vi, act) { return '<div class="v6-vis" id="v6-vis">' + FACES.map(function (p, k) { return '<button data-act="' + act + '" data-v="' + (k + 1) + '" aria-pressed="' + (vi === k + 1) + '" style="--fc:var(--vis' + (k + 1) + ')" aria-label="Visage ' + (k + 1) + ' sur 5 : ' + FACES_MOTS[k] + '"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle cx="17.5" cy="20" r="1.6" fill="currentColor"/><circle cx="30.5" cy="20" r="1.6" fill="currentColor"/><path d="' + p + '"/></svg></button>'; }).join('') + '</div>'; }
 function sp2Gene(g, act) { return '<div class="v6-gene" id="sp2-gene"><em>Une gêne ?</em><button data-act="' + act + '" data-v="" aria-pressed="' + !g + '">Non</button><button data-act="' + act + '" data-v="oui" aria-pressed="' + !!g + '">Oui</button></div>'; }
 function sp2EcranMatch() { var i = V.sp2j, x = (E.ev || [])[i] || {}, m = sp2E().j['i' + i] = sp2E().j['i' + i] || {}, d = dateDe(x.d || auj());
-  var h = '<div class="tete"><span>' + esc(maj1(JOURS[d.getDay()].slice(0, 3)) + '. ' + d.getDate() + ' ' + MOIS[d.getMonth()] + (x.h ? ' · ' + sp2Heure(x.h) : '')) + '</span></div><h1 id="sp2-j-nom">' + esc(x.n || 'Le match') + '</h1><p class="v6-sous">Comme une séance : un visage, une gêne.</p>';
-  h += sp2Visages(m.vi, 'sp2-j-vis') + sp2Gene(m.g, 'sp2-j-gene') + '<textarea class="sp2-mot" id="sp2-mot" maxlength="140" placeholder="Un petit mot pour votre kiné (facultatif)">' + esc(m.m || '') + '</textarea>';
+  var h = '<div class="tete"><span>' + esc(maj1(JOURS[d.getDay()].slice(0, 3)) + '. ' + d.getDate() + ' ' + MOIS[d.getMonth()] + (x.h ? ' · ' + sp2Heure(x.h) : '')) + '</span></div><h1 id="sp2-j-nom">' + esc(x.n || 'Le match') + '</h1><p class="v6-sous">Comme une séance : votre effort, une gêne.</p>';
+  h += rpeBloc(m.rpe, 'sp2-j-rpe') + sp2Gene(m.g, 'sp2-j-gene') + '<textarea class="sp2-mot" id="sp2-mot" maxlength="140" placeholder="Un petit mot pour votre kiné (facultatif)">' + esc(m.m || '') + '</textarea>';
   h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="sp2-j-env">Envoyer maintenant</button><button class="btn sec" data-act="sp2-j-garde">Avec ma semaine</button><button class="btn lien" data-act="sem-retour">‹ Vos séances</button>';
   return h; }
 /* « Votre semaine », le dimanche : un visage, ses cinq phrases sur la récupération, la douleur au pire de la semaine (la colonne grise, d'un toucher),
@@ -1710,8 +1751,8 @@ A['sp2-match'] = function (el) { V.sp2j = +el.dataset.i || 0; V.err = ''; V.ecra
 A['sp2-j-vis'] = function (el) { var m = sp2E().j['i' + V.sp2j] = sp2E().j['i' + V.sp2j] || {}, t = sp2Mot(); if (t != null) m.m = t; m.vi = +el.dataset.v; V.err = ''; sauver(); V.garde = true; };
 A['sp2-j-gene'] = function (el) { var m = sp2E().j['i' + V.sp2j] = sp2E().j['i' + V.sp2j] || {}, t = sp2Mot(); if (t != null) m.m = t; m.g = el.dataset.v ? 1 : 0; sauver(); V.garde = true; };
 function sp2GarderMatch() { var i = V.sp2j, x = (E.ev || [])[i], m = sp2E().j['i' + i] = sp2E().j['i' + i] || {}, t = sp2Mot(); if (t != null) m.m = t; if (!x) return false;
-  if (!(m.vi >= 1 && m.vi <= 5)) { V.err = 'Touchez un visage, s’il vous plaît.'; sauver(); V.garde = true; return false; }
-  var o = {e: E.e, t: 'g', lv: VERSION_LECTEUR, f: 3, d: x.d <= auj() ? x.d : auj(), h: Date.now(), ei: i, vi: m.vi, m: m.m || ''}; if (m.g) o.g = 1;
+  if (!(m.rpe >= 0 && m.rpe <= 10)) { V.err = 'Touchez votre effort, de 0 à 10, s’il vous plaît.'; sauver(); V.garde = true; return false; }   /* 2.2-test6, AME-189 : l'effort à la place du visage */
+  var o = {e: E.e, t: 'g', lv: VERSION_LECTEUR, f: 3, d: x.d <= auj() ? x.d : auj(), h: Date.now(), ei: i, rpe: m.rpe, m: m.m || ''}; if (m.g) o.g = 1;
   sp2Garder('j' + i, o); V.err = ''; ETAT.rendu = 0; sauver(); return true; }
 A['sp2-j-env'] = function () { if (!sp2GarderMatch()) return; preparerEnvoi(); return true; };
 A['sp2-j-garde'] = function () { if (!sp2GarderMatch()) return; V.plusTard = true; V.semOuv = -1; V.ecran = 'semaine'; };
@@ -1726,6 +1767,154 @@ A['sp2s-env'] = function () { var w = sp2E().sw, m = sp2Mot(); if (m != null) w.
 /* ===== fin du lot S2 de la commande v11 ===== */
 function garderMot() { var t = document.getElementById('mot'); if (t && ETAT && E.t === 's') brouillon().m = t.value.trim(); }
 function copieAncienne(t) { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); } catch (e) {} a.remove(); }
+/* ===== 2.2-test6, lot 3 B de la 2.2 : l'effort de 0 à 10 (AME-189, CG10, RC38) et la course guidée (fiche de la course guidée §3, §5.2, §5.3, §8 à §10 ;
+   rapport du lot 3 A §9). Une seule échelle d'effort, rpe, avec les mots de CG10 : l'athlète la touche à la fin de sa séance de salle et après un match (le
+   visage reste au patient et à « Votre semaine ») ; tout coureur la touche après une sortie de course. La règle est CourseRegle (commun.js), la même que KINÉ. ===== */
+function rpeMot(n) { return n <= 1 ? 'très facile' : n <= 4 ? 'facile, je pouvais faire des phrases' : n <= 6 ? 'soutenu' : n <= 8 ? 'dur' : 'à fond'; }
+function rpeAth() { return !!(E && E.t === 'g' && (E.at === 1 || E.se)); }
+function rpeBloc(v, act) { var ok = typeof v === 'number' && v >= 0 && v <= 10, h = '<h2>Effort, de 0 à 10</h2><div class="rpe-l" id="rpe-l" role="group" aria-label="Effort, de 0 à 10">';
+  for (var k = 0; k <= 10; k++) h += '<button data-act="' + act + '" data-v="' + k + '" aria-pressed="' + (v === k) + '" class="' + (ok && k <= v ? 'on' : '') + '">' + k + '</button>';
+  return h + '</div><p class="rpe-mot" id="rpe-mot">' + (ok ? v + ' sur 10 : ' + rpeMot(v) : '0-1 très facile · 2-4 facile · 5-6 soutenu · 7-8 dur · 9-10 à fond') + '</p>'; }
+A['s3-rpe'] = function (el) { prendre3(); s3().rpe = +el.dataset.v; sauver(); V.garde = true; };
+A['sp2-j-rpe'] = function (el) { var m = sp2E().j['i' + V.sp2j] = sp2E().j['i' + V.sp2j] || {}, t = sp2Mot(); if (t != null) m.m = t; m.rpe = +el.dataset.v; V.err = ''; sauver(); V.garde = true; };
+
+/* --- la course guidée : l'état (ETAT.crs, pris du billet), les sorties (ETAT.co : k, déjà chez KINÉ ; hc, l'heure de la saisie), le brouillon (ETAT.crsB) --- */
+var CRS_FEU = {v: ['Feu vert', 'ok'], o: ['Feu orange', 'vig'], r: ['Feu rouge', 'alerte']};
+var CRS_PP = [['fui', 'Des fuites'], ['lou', 'Une lourdeur ou une boule'], ['sai', 'Un saignement'], ['dos', 'Le bas du dos ou le bassin'], ['nuit', 'Une nuit très courte']];
+function crsG() { return E && E.t === 's' && E.ac && E.ac.g ? E.ac.g : null; }
+function crsCle(x) { return x.date + '|' + x.n; }
+function crsTri(l) { return (l || []).slice().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : (+a.hc || +a.h || 0) - (+b.hc || +b.h || 0); }); }
+function crsSig(g) { return JSON.stringify([g.n, g.pl, g.ve, g.ro, g.vr, g.ry, g.os, g.pa, g.de, g.rr, g.pp, g.pr.length, g.mo]); }
+function crsRegle(s) { var se = crsG().pr[s.n - 1]; return {vert: ETAT.crs.ve, rouge: ETAT.crs.ro, z: se && !Array.isArray(se) && se.z ? 1 : 0}; }
+function crsAvant(s) { var t = +s.hc || +s.h || 0; return crsTri(ETAT.co).filter(function (x) { return x !== s && (x.date < s.date || (x.date === s.date && (+x.hc || +x.h || 0) < t)); }); }
+/* la suite d'une sortie (CG5, R6, R8) : la séance suivante, la pause, le repos après un rouge ; le choix du patient (ch) l'emporte */
+function crsSuite(s) { var c = ETAT.crs, r = CourseRegle.suite({n: s.n, plafond: c.pl, nb: crsG().pr.length, verts: c.vr, rr: c.rr}, crsAvant(s), s);
+  s.n2 = r.n; c.n = s.ch === 'm' ? s.n : s.ch === 's' && r.saut ? r.saut : r.n; if (r.pause) c.pa = 1; if (r.repos) c.repos = plusJours(s.date, r.repos); return r; }
+/* §5.2 : un billet dont g.d est plus récent (ou, le même jour, d'autres réglages) remplace la séance, le plafond, les seuils, le rythme et la pause ; les
+   sorties du billet (h) et celles du téléphone se réunissent par date et séance ; les sorties d'ici que KINÉ n'a pas encore font de nouveau monter la séance */
+function crsFusion() { var g = crsG(), c = ETAT.crs && typeof ETAT.crs === 'object' ? ETAT.crs : null, sig = crsSig(g); if (!Array.isArray(ETAT.co)) ETAT.co = [];
+  ETAT.co = CourseRegle.reunir(ETAT.co, g.h.map(function (x) { var y = {}; Object.keys(x).forEach(function (k) { y[k] = x[k]; }); y.k = 1; y.hc = y.h; return y; }));
+  if (!c || g.d > c.d || (g.d === c.d && c.sig !== sig)) { var conn = {};
+    ETAT.crs = {d: g.d, sig: sig, n: g.n, pl: g.pl, ve: g.ve, ro: g.ro, vr: g.vr, ry: g.ry, os: g.os, pa: g.pa, rr: g.rr || 0, pp: g.pp || 0};
+    g.h.forEach(function (x) { conn[crsCle(x)] = 1; });
+    crsTri(ETAT.co).forEach(function (s) { if (!conn[crsCle(s)] && !s.k && s.date >= g.d && s.feu) crsSuite(s); }); }
+  if (ETAT.co.length > 120) ETAT.co = crsTri(ETAT.co).slice(-120); sauver(); }
+function crsDerniere() { var l = crsTri(ETAT.co).filter(function (x) { return x.f !== 'n'; }); return l[l.length - 1] || null; }
+/* R9 : sept jours sans sortie notée, on reprend deux séances plus bas (choix pris : seulement après une première sortie notée) */
+function crsN() { var c = ETAT.crs, d = crsDerniere(), r = d ? CourseRegle.reprise(c.n, d.date, auj()) : c.n; return {n: r, reprise: r < c.n}; }
+/* CG4 : le lendemain, en haut d'Aujourd'hui ; sans réponse, la question revient (et passe avant la sortie suivante) */
+function crsAttente() { return crsTri(ETAT.co).filter(function (x) { return !x.k && x.f !== 'n' && x.l == null && !x.feu && x.date < auj(); })[0] || null; }
+function crsMin(m) { return m === Math.floor(m) ? m + ' min' : m === 0.5 ? '30 s' : Math.floor(m) + ' min 30'; }
+function crsTxt(s) { return Array.isArray(s) && s.length === 3 ? s[0] + ' × (' + crsMin(s[1]) + ' de course / ' + crsMin(s[2]) + ' de marche)' : Array.isArray(s) ? s[0] + ' min sans arrêt' : (s.t || s.c + ' min') + (s.z ? ' · sans douleur' : ''); }
+function crsCourse(s) { return Array.isArray(s) && s.length === 3 ? s[0] * s[1] : Array.isArray(s) ? s[0] : s.c; }
+function crsMarche(s) { return Array.isArray(s) && s.length === 3 ? s[0] * s[2] : 0; }
+function crsDeroule(s) { var b = [['m0', 5]], i; if (Array.isArray(s) && s.length === 3) for (i = 0; i < s[0]; i++) { b.push(['c', s[1]]); if (s[2]) b.push(['m', s[2]]); } else b.push(['c', crsCourse(s)]); b.push(['m0', 5]);
+  return '<div class="crs-der" id="crs-der" role="img" aria-label="5 min de marche, ' + esc(crsTxt(s)) + ', 5 min de marche">' + b.map(function (x) { return '<i class="' + x[0] + '" style="flex:' + x[1] + '"></i>'; }).join('') + '</div>'
+    + '<p class="petit" id="crs-tot">' + Math.round(10 + crsCourse(s) + crsMarche(s)) + ' min en tout, marche comprise (5 min avant et après). À une allure où vous pouvez parler, sur le plat.</p>'; }
+function crsPhrase(o) { var g = crsG(), ti = g.ti || 'votre corps', s = g.pr[o.n - 1], c = ETAT.crs, reste = Math.max(1, (c.vr || 1) - (o.k || 0));
+  if (o.raison === 'pas') return 'C’est noté. La prochaine fois, la séance ' + o.n + '.';
+  if (o.raison === 'attente') return 'Notée. Demain matin, une question en haut de cette page.';
+  if (o.raison === 'avis') return 'Pause de course : un saignement, une lourdeur ou une boule demandent l’avis de votre kiné. Envoyez-lui votre retour.';
+  if (o.raison === 'deux') return 'Deux feux rouges de suite : pause de course. Gardez vos exercices et envoyez votre retour à votre kiné ; il vous dira quand reprendre.';
+  if (o.raison === 'rouge') return 'Feu rouge : on revient à la séance ' + o.n + ' pour la prochaine sortie. Ce n’est pas un échec : ' + ti + ' demande un peu plus de temps.';
+  if (o.raison === 'orange') return 'Feu orange : la prochaine fois, on refait la séance ' + o.n + '.';
+  if (o.raison === 'plafond') return 'Feu vert. C’est la dernière séance prévue avec votre kiné : refaites-la jusqu’à votre prochain rendez-vous.';
+  if (o.raison === 'verts') return 'Feu vert. Encore ' + (reste > 1 ? reste + ' feux verts' : 'un feu vert') + ' à la séance ' + o.n + ', puis vous passerez à la suivante.';
+  return 'Feu vert. Prochaine sortie : séance ' + o.n + ', ' + crsTxt(s) + '.'; }
+function crsDit(s, r) { var o = {cle: crsCle(s), feu: s.feu, raison: r.raison, n: r.n, sn: s.n, k: r.k || 0}; if (r.saut) o.saut = r.saut; return o; }
+function crsDitH(o) { var h = '<div class="crs-dit" id="crs-dit" role="status"><p>' + (o.feu ? '<i class="crs-pt ' + CRS_FEU[o.feu][1] + '" aria-hidden="true"></i>' : '') + esc(crsPhrase(o)) + '</p>';
+  if (o.r4) h += '<p class="crs-msg" id="crs-r4">' + esc(o.r4) + '</p>';
+  if (o.ch) h += '<p class="petit" id="crs-choix">Noté : ' + (o.ch === 'm' ? 'vous refaites la séance ' + o.sn : 'vous passez à la séance ' + o.saut) + '.</p>';
+  else if (o.raison === 'vert') h += (o.saut ? '<button class="btn sec" data-act="crs-sauter">Passer à la séance ' + o.saut + '</button>' : '') + '<button class="btn lien" data-act="crs-refaire">Je préfère refaire la séance ' + o.sn + '</button>';
+  return h + '</div>'; }
+function crsLendemainH(s) { var c = ETAT.crs, B = V.crsL = V.crsL && V.crsL.cle === crsCle(s) ? V.crsL : {cle: crsCle(s), os: 0, pp: []};
+  var h = '<div class="crs-lend" id="crs-lend"><p><b>' + (s.date === plusJours(auj(), -1) ? 'Ce matin au réveil' : 'Depuis votre sortie du ' + dLongue(s.date)) + ' : douleur, raideur ou gonflement ?</b></p>';
+  if (c.os) h += '<p>Une douleur sur l’os au repos ou la nuit ?</p><div class="v6-duo2" id="crs-os"><button data-act="crs-os" data-v="0" aria-pressed="' + !B.os + '">Non</button><button data-act="crs-os" data-v="1" aria-pressed="' + !!B.os + '">Oui</button></div>';
+  if (c.pp) h += '<p class="petit">Depuis la sortie, s’il y a lieu :</p><div class="crs-ch" id="crs-pp">' + CRS_PP.map(function (x) { return '<button data-act="crs-pp" data-v="' + x[0] + '" aria-pressed="' + (B.pp.indexOf(x[0]) >= 0) + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  return h + '<div class="v6-duo2" id="crs-lend-r"><button data-act="crs-lend" data-v="h">Comme d’habitude</button><button data-act="crs-lend" data-v="p">Plus que d’habitude</button></div></div>'; }
+/* CG2 : la carte du jour, avant les exercices */
+function crsCarte() { var g = crsG(), c = ETAT.crs; if (!c) return ''; var cn = crsN(), n = cn.n, s = g.pr[n - 1], att = crsAttente(), d = crsDerniere(), dit = ETAT.crsDit, h = '<div class="carte crs" id="crs-carte">';
+  h += '<div class="crs-t"><b id="crs-titre">Course · séance ' + n + ' sur ' + g.pr.length + '</b><button class="v6-pil" data-act="crs-moi">Ma course ›</button></div>';
+  if (dit) h += crsDitH(dit);
+  if (c.pa) return h + (dit && (dit.raison === 'deux' || dit.raison === 'avis') ? '' : '<p class="crs-msg" id="crs-pause"><b>Pause de course.</b> Gardez vos exercices et envoyez votre retour à votre kiné ; il vous dira quand reprendre.</p>')
+    + '<button class="btn" data-act="envoi" id="crs-envoi">Envoyer à mon kiné</button></div>';
+  if (att) return h + crsLendemainH(att) + '</div>';
+  if (cn.reprise) h += '<p class="crs-msg" id="crs-reprise">Une semaine sans courir : on reprend deux séances plus bas, à la séance ' + n + '.</p>';
+  if (c.repos && auj() <= c.repos) h += '<p class="crs-msg" id="crs-repos">Pas de course jusqu’au ' + dLongue(c.repos) + ' inclus, après le feu rouge.</p>';
+  else if (c.ry === 'j2' && d && d.date === plusJours(auj(), -1)) h += '<p class="crs-msg" id="crs-j2">Aujourd’hui, pas de course : vélo ou piscine si vous voulez bouger.</p>';
+  h += '<p class="crs-se" id="crs-se">' + esc(crsTxt(s)) + '</p>' + crsDeroule(s);
+  var fx = ETAT.co.filter(function (x) { return x.n === n && x.feu; }); if (fx.length) h += '<p class="petit" id="crs-feux">Déjà à cette séance : ' + fx.map(function (x) { return '<i class="crs-pt ' + CRS_FEU[x.feu][1] + '" title="' + CRS_FEU[x.feu][0] + '"></i>'; }).join('') + '</p>';
+  h += '<p class="crs-seuil" id="crs-seuil">Au-delà de ' + (crsRegle({n: n}).z ? 0 : c.ro) + ' sur 10 pendant la sortie : marchez et rentrez.</p>';
+  if (g.mo) h += '<p class="v6-consk" id="crs-mot">De votre kiné : ' + esc(g.mo) + '</p>';
+  return h + '<button class="btn" data-act="crs-noter">Noter ma sortie</button></div>'; }
+/* CG3, CG10, CG11, CG25 : noter la sortie ; l'allure s'affiche dès que la distance est tapée (marche-course : la marche prévue s'ajoute) */
+function crsBrouillon() { var n = crsN().n, g = crsG(); if (!ETAT.crsB || ETAT.crsB.d !== auj() || ETAT.crsB.n !== n) ETAT.crsB = {d: auj(), n: n, f: '', pq: '', mi: crsCourse(g.pr[n - 1]), km: '', fcm: '', p: null, rpe: null}; return ETAT.crsB; }
+function crsNombre(v, a, b) { v = String(v == null ? '' : v).trim().replace(',', '.'); if (!v) return null; var n = /^\d+(\.\d+)?$/.test(v) ? +v : NaN; return isFinite(n) && n >= a && n <= b ? n : NaN; }
+function crsAllure(b, s) { var km = crsNombre(b.km, 0.1, 100); if (!(km > 0) || !(b.mi > 0)) return ''; var w = crsMarche(s), t = (b.mi + w) / km, m = Math.floor(t), sec = Math.round((t - m) * 60); if (sec === 60) { m++; sec = 0; }
+  return 'Allure : ' + m + ' min ' + (sec < 10 ? '0' : '') + sec + ' s au km' + (w ? ', marche comprise' : ''); }
+function crsLire() { var b = ETAT.crsB, k = document.getElementById('crs-km'), f = document.getElementById('crs-fcm'); if (!b) return; if (k) b.km = k.value.trim(); if (f) b.fcm = f.value.trim(); }
+function crsEcranNoter() { var g = crsG(), b = crsBrouillon(), s = g.pr[b.n - 1], ro = crsRegle({n: b.n}).z ? 0 : ETAT.crs.ro, k;
+  var bt = function (act, l, v) { return l.map(function (x) { return '<button data-act="' + act + '" data-v="' + x[0] + '" aria-pressed="' + (v === x[0]) + '">' + x[1] + '</button>'; }).join(''); };
+  var h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(b.d) + '</span></div><h1 id="crs-h1">Ma sortie · séance ' + b.n + '</h1><p class="v6-sous">' + esc(crsTxt(s)) + '</p>';
+  h += '<h2>Vous l’avez faite ?</h2><div class="crs-ch" id="crs-f">' + bt('crs-f', [['t', 'En entier'], ['p', 'En partie'], ['n', 'Pas aujourd’hui']], b.f) + '</div>';
+  if (b.f === 'p' || b.f === 'n') h += '<h2>Pourquoi ? <span class="petit">(facultatif)</span></h2><div class="crs-ch" id="crs-pq">' + bt('crs-pq', b.f === 'p' ? [['d', 'Douleur'], ['f', 'Fatigue'], ['t', 'Pas le temps'], ['a', 'Autre']] : [['t', 'Pas le temps'], ['f', 'Fatigue'], ['d', 'Douleur'], ['m', 'Météo'], ['a', 'Autre']], b.pq) + '</div>';
+  if (b.f && b.f !== 'n') {
+    h += '<h2>Minutes de course</h2><div class="nb" id="crs-mi-l"><button class="btn sec crs-pm" data-act="crs-mi" data-v="-1" aria-label="Une minute de moins">−</button><output id="crs-mi">' + b.mi + '</output><button class="btn sec crs-pm" data-act="crs-mi" data-v="1" aria-label="Une minute de plus">+</button></div>';
+    h += '<div class="crs-km"><label>Distance <span class="petit">(km, facultatif)</span><input type="text" inputmode="decimal" id="crs-km" maxlength="6" value="' + esc(b.km) + '" placeholder="3,2"></label><label>Cardio moyen <span class="petit">(facultatif)</span><input type="text" inputmode="numeric" id="crs-fcm" maxlength="3" value="' + esc(b.fcm) + '"></label></div>'
+      + '<p class="crs-allure" id="crs-allure" aria-live="polite">' + esc(crsAllure(b, s)) + '</p><p class="petit">Sans les 5 min de marche avant et après.</p>';
+    h += '<h2>Douleur au pire</h2><div class="crs-dl" id="crs-dl" role="group" aria-label="Douleur au pire, de 0 à 10">';
+    for (k = 0; k <= 10; k++) h += '<button data-act="crs-p" data-v="' + k + '" aria-pressed="' + (b.p === k) + '" class="' + (b.p != null && k <= b.p && k > 0 ? 'on' : '') + (k === ro + 1 ? ' seuil' : '') + '">' + k + '</button>';
+    h += '</div><p class="petit" id="crs-dlm">' + (b.p == null ? 'Au-delà de ' + ro + ' : marchez et rentrez.' : b.p + ' sur 10 · ' + MOTS_DOULEUR[b.p]) + '</p>' + rpeBloc(b.rpe, 'crs-rpe'); }
+  return h + (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="crs-garder">Enregistrer ma sortie</button><button class="btn lien" data-act="retour-seance">‹ Aujourd’hui</button>'; }
+function crsBrancher() { var k = document.getElementById('crs-km'), a = document.getElementById('crs-allure'); if (!k || !a) return;
+  k.addEventListener('input', function () { var b = ETAT.crsB; if (!b) return; b.km = k.value.trim(); a.textContent = crsAllure(b, crsG().pr[b.n - 1]); }); }
+/* R4 : en fin de programme, une sortie qui dépasse de plus de 10 % la plus longue des 30 derniers jours (choix pris : seulement à la dernière séance) */
+function crsR4(s) { var g = crsG(); if (s.f === 'n' || !(s.mi > 0) || s.n < g.pr.length) return '';
+  var m = 0; ETAT.co.forEach(function (x) { if (x !== s && x.f !== 'n' && x.date >= plusJours(s.date, -30) && x.date <= s.date && +x.mi > m) m = +x.mi; });
+  return m > 0 && s.mi > 1.1 * m ? 'Plus de 10 % au-dessus de votre plus longue sortie du mois (' + m + ' min) : la prochaine fois, restez sous ' + Math.floor(m * 1.1) + ' min.' : ''; }
+/* « Ma course » : les sorties, le temps de course, la séance, la douleur au pire de la première et de la dernière semaine, la prochaine étape, l'échelle */
+function crsEcranMoi() { var g = crsG(), c = ETAT.crs || {}, l = crsTri(ETAT.co).filter(function (x) { return x.f !== 'n'; }), n = crsN().n, mi = 0, vert = {}, et = g.et.length ? g.et : [[1, g.pr.length, 'Les séances']];
+  l.forEach(function (x) { mi += +x.mi || 0; if (x.feu === 'v') vert[x.n] = 1; });
+  var pire = function (a, b) { var v = l.filter(function (x) { return x.date >= a && x.date <= b && x.p != null; }).map(function (x) { return x.p; }); return v.length ? Math.max.apply(null, v) : null; };
+  var p1 = l.length ? pire(l[0].date, plusJours(l[0].date, 6)) : null, p2 = pire(plusJours(auj(), -6), auj()), suiv = et.filter(function (e) { return e[0] > n; })[0];
+  var h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(auj()) + '</span></div><h1 id="crs-moi">Ma course</h1>'
+    + chiffresH([[l.length, 'sortie' + (l.length > 1 ? 's' : '')], [Math.round(mi), 'min de course'], [n, 'séance sur ' + g.pr.length]]);
+  if (p1 != null) h += '<p id="crs-pire">Douleur au pire : ' + p1 + ' sur 10 la première semaine' + (p2 != null ? ', ' + p2 + ' sur 10 ces sept derniers jours' : '') + '.</p>';
+  if (suiv) h += '<p id="crs-etape">Prochaine étape : ' + esc(suiv[2]) + ', à la séance ' + suiv[0] + '.</p>';
+  h += '<div class="crs-ech" id="crs-ech">' + et.map(function (e) { var r = '<h3>' + esc(e[2]) + '</h3>';
+    for (var k = e[0]; k <= e[1] && k <= g.pr.length; k++) { if (k === c.pl + 1) r += '<p class="crs-plaf" id="crs-plaf">Ensuite, avec votre kiné</p>';
+      r += '<div class="crs-li' + (k === n ? ' ici' : '') + (k > c.pl ? ' apres' : '') + '"><span>' + k + '</span><span>' + esc(crsTxt(g.pr[k - 1])) + '</span><span>' + (vert[k] ? CK : k === n ? 'ici' : '') + '</span></div>'; }
+    return r; }).join('') + '</div>';
+  return h + '<button class="btn lien" data-act="retour-seance">‹ Aujourd’hui</button>'; }
+/* le retour (F3) : co = [date, n, f, mi, p, l, rpe, ph, pq, feu, n2, ch, h_ms, km?, fcm?, pp?], les sorties notées ici (60 au plus) */
+function crsLigne(s) { var o = [s.date, s.n, s.f, s.mi == null ? null : s.mi, s.p == null ? null : s.p, s.l || null, s.rpe == null ? null : s.rpe, s.ph == null ? null : s.ph, s.pq || null, s.feu || null, s.n2 == null ? null : s.n2, s.ch || null, +s.h || 0];
+  if (s.km != null || s.fcm != null || (s.pp && s.pp.length)) { o.push(s.km == null ? null : s.km, s.fcm == null ? null : s.fcm); if (s.pp && s.pp.length) o.push(s.pp.slice()); } return o; }
+function crsRetour() { return crsG() && Array.isArray(ETAT.co) ? crsTri(ETAT.co).filter(function (x) { return !x.k; }).slice(-60).map(crsLigne) : []; }
+function crsHMax() { return (ETAT.co || []).reduce(function (m, x) { return x.k ? m : Math.max(m, +x.h || 0); }, +ETAT.coH || 0); }
+function crsNonEnvoyees() { if (!crsG() || !Array.isArray(ETAT.co)) return 0; var h0 = +ETAT.coH || 0; return ETAT.co.filter(function (x) { return !x.k && (+x.h || 0) > h0; }).length; }
+function crsSortie(cle) { return (ETAT.co || []).filter(function (x) { return crsCle(x) === cle; })[0] || null; }
+A['crs-noter'] = function () { if (!ETAT.crs || ETAT.crs.pa || crsAttente()) return; ETAT.crsDit = null; V.err = ''; crsBrouillon(); sauver(); V.ecran = 'crs-noter'; };
+A['crs-moi'] = function () { V.ecran = 'crs-moi'; };
+A['crs-f'] = function (el) { crsLire(); var b = crsBrouillon(); if (b.f !== el.dataset.v) b.pq = ''; b.f = el.dataset.v; V.err = ''; sauver(); V.garde = true; };
+A['crs-pq'] = function (el) { crsLire(); var b = crsBrouillon(); b.pq = b.pq === el.dataset.v ? '' : el.dataset.v; sauver(); V.garde = true; };
+A['crs-mi'] = function (el) { crsLire(); var b = crsBrouillon(); b.mi = Math.max(0, Math.min(300, (+b.mi || 0) + (+el.dataset.v || 0))); sauver(); V.garde = true; };
+A['crs-p'] = function (el) { crsLire(); crsBrouillon().p = +el.dataset.v; V.err = ''; sauver(); V.garde = true; };
+A['crs-rpe'] = function (el) { crsLire(); crsBrouillon().rpe = +el.dataset.v; V.err = ''; sauver(); V.garde = true; };
+A['crs-garder'] = function () { crsLire(); var b = crsBrouillon(), sorti = b.f && b.f !== 'n', km = crsNombre(b.km, 0, 100), fcm = crsNombre(b.fcm, 30, 230);
+  V.err = !b.f ? 'Touchez « En entier », « En partie » ou « Pas aujourd’hui », s’il vous plaît.' : sorti && b.p == null ? 'Notez votre douleur au pire, de 0 à 10, s’il vous plaît.' : sorti && b.rpe == null ? 'Notez votre effort, de 0 à 10, s’il vous plaît.'
+    : sorti && km !== km ? 'La distance : un nombre de kilomètres, par exemple 3,2.' : sorti && fcm !== fcm ? 'Le cardio moyen : un nombre entre 30 et 230.' : '';
+  if (V.err) { sauver(); V.garde = true; return; }
+  var t = Date.now(), s = {date: b.d, n: b.n, f: b.f, mi: sorti ? b.mi : null, p: sorti ? b.p : null, l: null, rpe: sorti ? b.rpe : null, ph: null, pq: b.pq || null, feu: null, n2: null, ch: null, h: t, hc: t};
+  if (sorti && km != null) s.km = Math.round(km * 100) / 100; if (sorti && fcm != null) s.fcm = Math.round(fcm);
+  ETAT.co = ETAT.co.filter(function (x) { return crsCle(x) !== crsCle(s); }); ETAT.co.push(s); var r4 = crsR4(s);
+  s.feu = CourseRegle.feu(s, crsRegle(s)); ETAT.crsDit = crsDit(s, crsSuite(s)); if (r4) ETAT.crsDit.r4 = r4; ETAT.crsB = null; sauver(); V.ecran = 'seance'; };
+A['crs-os'] = function (el) { if (V.crsL) V.crsL.os = +el.dataset.v ? 1 : 0; V.garde = true; };
+A['crs-pp'] = function (el) { if (!V.crsL) return; var l = V.crsL.pp, k = l.indexOf(el.dataset.v); if (k >= 0) l.splice(k, 1); else l.push(el.dataset.v); V.garde = true; };
+A['crs-lend'] = function (el) { var s = crsAttente(); if (!s) return; var B = V.crsL && V.crsL.cle === crsCle(s) ? V.crsL : {os: 0, pp: []};
+  s.l = B.os ? 'o' : el.dataset.v === 'p' ? 'p' : 'h'; if (B.pp.length) s.pp = B.pp.slice(); s.feu = CourseRegle.feu(s, crsRegle(s)); s.h = Date.now(); ETAT.crsDit = crsDit(s, crsSuite(s)); V.crsL = null; sauver(); };
+A['crs-refaire'] = function () { var d = ETAT.crsDit, s = d && crsSortie(d.cle); if (!s) return; s.ch = 'm'; s.h = Date.now(); ETAT.crs.n = s.n; d.ch = 'm'; sauver(); V.garde = true; };
+A['crs-sauter'] = function () { var d = ETAT.crsDit, s = d && crsSortie(d.cle); if (!s || !d.saut) return; s.ch = 's'; s.h = Date.now(); ETAT.crs.n = d.saut; d.ch = 's'; sauver(); V.garde = true; };
+/* ===== fin du lot 3 B de la 2.2 ===== */
 app.addEventListener('click', function (ev) { var el = ev.target.closest('[data-act]'); if (!el || !A[el.dataset.act]) return; if (A[el.dataset.act](el) !== true) rendre(); });
 app.addEventListener('change', function () { if (V.ecran === 'salle') { prendreSalle(); sauver(); } if (V.ecran === 'salle3' || V.ecran === 'salle3-fin') { prendre3(); sauver(); } });
 window.addEventListener('hashchange', ouvrir);

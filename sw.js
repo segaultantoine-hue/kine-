@@ -2,7 +2,7 @@
    Le réseau d'abord (une mise à jour passe tout de suite) ; version 6 (R10) : s'il ne répond pas en trois secondes (la salle, un mauvais réseau), la copie
    gardée sert tout de suite, et la réponse du réseau, quand elle arrive, remplace la copie pour la fois suivante.
    Rien d'autre que les fichiers de cette page : ce qui suit le « # » du lien n'est jamais demandé au réseau. Le numéro du cache suit la version de la page. */
-var CACHE = 'lecteur-6';
+var CACHE = 'lecteur-8';
 var FICHIERS = ['./', 'index.html', 'commun.js', 'pictos.js', 'fiches.js', 'icone.png', 'manifeste.webmanifest'];
 var ATTENTE = 3000;
 self.addEventListener('install', function (ev) { ev.waitUntil(caches.open(CACHE).then(function (c) { return Promise.all(FICHIERS.map(function (f) { return c.add(f).catch(function () {}); })); }).catch(function () {})); self.skipWaiting(); });

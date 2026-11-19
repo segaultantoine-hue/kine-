@@ -4,9 +4,43 @@
       ISO 18004 et la méthode publique de Project Nayuki ; aucune bibliothèque, aucun appel réseau.
    2. Codec : le lien d'aller (après le « # ») et le code de retour (« KINE1.… »), compressés et chiffrés quand
       le navigateur le permet. */
+/* course-regle:debut — une seule règle (F5) : du code pur, sans DOM, à copier à l'identique dans telephone/commun.js ; le contrôle compare l'empreinte. */
+const CourseRegle = (() => {
+  const ROUGE_PP = ['lou', 'sai'], ORANGE_PP = ['fui', 'dos', 'nuit'];
+  const ent = (x, a, b) => Number.isInteger(x) && x >= a && x <= b;
+  const jours = (a, b) => Math.round((Date.parse(b + 'T12:00:00Z') - Date.parse(a + 'T12:00:00Z')) / 864e5);
+  /* le feu d'une sortie (CG4, CG6, §9.3) ; s = {f, p, l, pq, pp}, r = {vert, rouge, z} ; null : pas aujourd'hui, ou en attente du lendemain */
+  function feu(s, r){ s = s || {}; r = r || {}; if (s.f === 'n') return null;
+    const v = r.z ? 0 : ent(r.vert, 0, 10) ? r.vert : 2, ro = r.z ? 0 : ent(r.rouge, 0, 10) ? r.rouge : 5, p = ent(s.p, 0, 10) ? s.p : null, pp = Array.isArray(s.pp) ? s.pp : [];
+    if ((p != null && p > ro) || (s.f === 'p' && s.pq === 'd') || s.l === 'p' || s.l === 'o' || pp.some(x => ROUGE_PP.includes(x))) return 'r';
+    if (s.l == null) return null;
+    if ((p != null && p > v) || s.f === 'p' || pp.some(x => ORANGE_PP.includes(x))) return 'o';
+    return 'v'; }
+  /* la suite (CG5, R6, R8, CG15) ; e = {n, plafond, nb, verts, rr}, h = les sorties d'avant (les plus anciennes d'abord, avec leur feu), s = la sortie
+     avec son feu ; rend {n, raison, pause?, repos?, saut?, k?} */
+  function suite(e, h, s){ e = e || {}; s = s || {}; const nb = ent(e.nb, 1, 40) ? e.nb : 40, pl = Math.min(ent(e.plafond, 1, 40) ? e.plafond : nb, nb), n = ent(s.n, 1, 40) ? s.n : ent(e.n, 1, 40) ? e.n : 1;
+    const notees = (h || []).filter(x => x && x.f !== 'n' && x.feu), pp = Array.isArray(s.pp) ? s.pp : [];
+    if (!s.feu) return {n, raison:s.f === 'n' ? 'pas' : 'attente'};
+    if (s.feu === 'r') { const avis = pp.some(x => ROUGE_PP.includes(x)), deux = notees.length > 0 && notees[notees.length - 1].feu === 'r';
+      return Object.assign({n:Math.max(1, n - 1), raison:avis ? 'avis' : deux ? 'deux' : 'rouge'}, avis || deux ? {pause:1} : {}, ent(e.rr, 1, 7) ? {repos:e.rr} : {}); }
+    if (s.feu === 'o') return {n, raison:'orange'};
+    let k = 1; for (let i = notees.length - 1; i >= 0 && notees[i].feu === 'v' && notees[i].n === n; i--) k++;
+    const vt = ent(e.verts, 1, 3) ? e.verts : 1; if (k < vt) return {n, raison:'verts', k};
+    if (n + 1 > pl) return {n, raison:'plafond'};
+    const o = {n:n + 1, raison:'vert'}; if (s.p === 0 && ent(s.rpe, 0, 3) && n + 2 <= pl) o.saut = n + 2; return o; }
+  /* R9 : une semaine sans sortie notée, on reprend deux séances plus bas */
+  function reprise(n, dernier, jour){ return dernier && jour && jours(dernier, jour) >= 7 ? Math.max(1, n - 2) : n; }
+  /* deux téléphones, ou une sortie modifiée (le lendemain répondu) : une sortie par date et par séance ; la plus complète, puis la plus récente, gagne */
+  function reunir(a, b){ const m = new Map(), cle = x => x.date + '|' + x.n, rang = x => [x.l != null ? 1 : 0, Number(x.h) || 0];
+    (a || []).concat(b || []).forEach(x => { if (!x || !x.date) return; const y = m.get(cle(x)), rx = rang(x), ry = y && rang(y); if (!y || rx[0] > ry[0] || (rx[0] === ry[0] && rx[1] > ry[1])) m.set(cle(x), x); });
+    return [...m.values()].sort((x, y) => (x.date < y.date ? -1 : x.date > y.date ? 1 : (Number(x.h) || 0) - (Number(y.h) || 0))); }
+  return {feu, suite, reprise, reunir, jours};
+})();
+/* course-regle:fin */
+/* Version 7 (2.2-test6, lot 3 B de la 2.2) : la règle de la course guidée, ci-dessus, recopiée de l’appli mot pour mot (même empreinte) ; QR et Codec inchangés. */
 /* Version 6 (2.1, lot 1 de la commande v11, R10) : le numéro de version commun aux fichiers de la page ; index.html le compare au sien au chargement
    (juste après un dépôt, l'hébergeur peut servir un fichier neuf et un ancien). QR et Codec, ci-dessous, n'ont pas changé. */
-var VERSION_COMMUN = 6;
+var VERSION_COMMUN = 8;
 var QR = (function () {
   'use strict';
   var ECC = {
