@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Version 10 (2.3.1 : plus de lien vers le manifeste, pour que l’icône ajoutée à l’écran d’accueil garde le lien entier, la semaine après le « # » comprise ; sans manifeste, l’iPhone et Android gardent l’adresse ouverte). Version 9 (2.3, T14 : d’un lien à l’autre, les séances faites et le journal gardés, rangés d’après l’étiquette de chaque séance, jamais d’après sa place). Version 8 (2.2-test8, lot 4 : deux semaines dans un lien, « La semaine suivante »). Version 7 (2.2-test6, lot 3 B de la 2.2 : la course guidée du billet ac.g et son retour co, l’effort de 0 à 10). Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
+<!-- Version 11 (2.3.2, RET-538/539). Version 10 (2.3.1 : plus de lien vers le manifeste, pour que l’icône ajoutée à l’écran d’accueil garde le lien entier, la semaine après le « # » comprise ; sans manifeste, l’iPhone et Android gardent l’adresse ouverte). Version 9 (2.3, T14 : d’un lien à l’autre, les séances faites et le journal gardés, rangés d’après l’étiquette de chaque séance, jamais d’après sa place). Version 8 (2.2-test8, lot 4 : deux semaines dans un lien, « La semaine suivante »). Version 7 (2.2-test6, lot 3 B de la 2.2 : la course guidée du billet ac.g et son retour co, l’effort de 0 à 10). Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
      Revue avec la 1.30-test1 (lot 1 de la 1.30, 13 novembre) : le billet contrôlé champ par champ (AME-157), l'heure de chaque séance à la maison (AME-160),
      « Effacer mes données de ce téléphone » (AME-166), « − Une série » (AME-138), Repos · Chrono (ERG-184), la gêne sur la carte de la série (ERG-190),
      les kilos changés par le patient (AME-168), le bilan des séries avant l'envoi et l'ordre d'un circuit. Puis avec la 1.30-test3 (lot 3, l'audit du téléphone) :
@@ -12,7 +12,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-E+iDAa6DbZ12MXJCWGXMFc/gd2jYTOashuBEoHEgKJ8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YYWvuu1ig53t4HuXS2nxW9uvFsNf+jSLpTwjsP2rZPk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
@@ -187,6 +187,7 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .v6-ecr .lig.on{background:var(--prepbg);border:1.5px solid var(--prep);height:16px}
 .v6-ecr .aj{position:absolute;right:6px;top:6px;font-size:12px;font-weight:700;color:var(--carte);background:var(--prep);border-radius:6px;padding:1px 6px}
 .v6-ecr .ic{position:absolute;left:50%;top:26px;width:34px;height:34px;margin-left:-17px;border-radius:9px;background:var(--accent);color:var(--onaccent);display:grid;place-items:center}
+.v6-ecr .ic.t11c-ic{background:none;overflow:hidden}.v6-ecr .ic.t11c-ic img{width:100%;height:100%;display:block}
 .v6-ecr .ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .v6-band .btn{margin:10px;width:calc(100% - 20px);min-height:44px}
 .v6-band p{margin:8px 12px;font-size:14.5px}
@@ -379,6 +380,25 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .v6-sj-d{padding:0 12px 12px}
 .v6-sj-d .v6-der{margin-top:0}
 .v6-sj-d .btn{margin:8px 0 0}
+/* 2.3.2, lot E (t11e), RET-546 : « Remplacer », sobre, à côté de « Sauter » ; les remplaçants s'ouvrent sur place */
+.v6-act .t11e-b{flex:0 0 auto;padding:0 12px;border:1.5px solid var(--waf);background:var(--carte);color:var(--encre);font-weight:500}
+.v6-act .t11e-b[aria-expanded=true]{background:var(--wash)}
+.t11e-pan{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.t11e-pan em{font-style:normal;font-size:14px;color:var(--gris)}
+.t11e-c{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--waf);border-radius:10px;background:var(--carte);color:var(--encre);font:inherit;font-size:16px;font-weight:600;padding:6px 8px;min-height:56px}
+.t11e-c .v6-pc{width:44px;height:44px;border-radius:8px}
+.t11e-c small{display:block;font-size:13px;font-weight:400;color:var(--gris)}
+.t11e-pan .btn.lien{width:auto;min-height:40px;margin:0;padding:0 6px;text-align:left}
+.t11e-dit{font-size:13.5px;color:var(--gris);margin:6px 2px 0}
+/* 2.3.2, lot C (t11c), RET-539 : « Je ne la ferai pas », discret sous « Commencer » ; la carte « Pas faite », sobre (pastille grise, pas d'alerte) */
+.v6-sj-d .btn.lien.t11c-lien{min-height:40px;margin:2px 0 0;font-size:14.5px;font-weight:400;color:var(--gris)}
+.t11c-pan{margin:8px 0 0;padding:10px 12px 4px;border:1px solid var(--filet);border-radius:12px;background:var(--wash)}
+.t11c-q{margin:0 0 8px;font-size:15px;font-weight:600}.t11c-q small{font-weight:400;color:var(--gris)}
+.t11c-r{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.t11c-r button{min-height:44px;border:1px solid var(--filet);border-radius:10px;background:var(--carte);color:var(--encre);font:inherit;font-size:15px}
+.t11c-r button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentbg);font-weight:600}
+.v6-sj.t11c-nf .v6-sj-t .tt b{color:var(--gris)}
+.v6-sj-d .t11c-dit{text-align:left;margin:8px 0 0}
 /* 19 : l'interrupteur (tic sonore et vibration, coupés d'origine) */
 .v6-sw{display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--gris);font:inherit;font-size:15px;padding:8px 0;min-height:44px;margin-top:18px}
 .v6-sw i{position:relative;width:42px;height:24px;border-radius:12px;background:var(--l3);flex:none;transition:background .2s}
@@ -534,6 +554,10 @@ var Billet = (function () {
     if (o.min != null && o.max != null && o.min > o.max) non('bornes'); if (it.t === 'lignes' && o.max != null) o.max = Math.max(1, Math.min(20, Math.round(o.max)));
     if (it.lg != null) o.lg = nb(it.lg, 1, 2000, true);
     if (it.fin != null) o.fin = txt(it.fin, 8);   /* 1.30-test17, GF4-22 : cette réponse finit le questionnaire */
+    /* 2.3.2, lot D (RET-543, « Avant la séance ») : si [j, valeurs], la question ne se pose que si la question j du même questionnaire a une de ces réponses ;
+       ex, les réponses exclusives d'une question à cases ; al et msg, le message montré sous une de ces réponses */
+    if (Array.isArray(it.si) && it.si.length === 2 && nb(it.si[0], 0, 149, true) != null) o.si = [nb(it.si[0], 0, 149, true), textes(it.si[1], 30, 60)];
+    if (it.ex != null) o.ex = textes(it.ex, 10, 60); if (it.al != null && it.msg != null) { o.al = textes(it.al, 10, 60); o.msg = txt(it.msg, 400); }
     if (it.t === 'visa8') { o.br = liste(it.br, 6).map(function (b) { objet(b); var r = {k: txt(b.k, 8), cond: txt(b.cond, 600), q: txt(b.q, 1000), v: textes(b.v, 20, 20)}; if (b.temps != null) r.temps = textes(b.temps, 20, 200); return r; });
       if (it.temps != null) o.temps = textes(it.temps, 20, 200); }
     if (it.t === 'groupe' || it.t === 'lignes') { o.ch = liste(it.ch, 12).map(champ); if (!o.ch.length) non('champs'); }
@@ -567,6 +591,9 @@ var Billet = (function () {
     if (x.ck != null) o.ck = txt(x.ck, 300);   /* version 6 : la consigne de programmation de l'exercice (« De votre kiné : … ») */
     if (x.ri != null && x.ri !== '') o.ri = nb(x.ri, 0, 5, true);   /* 2.1, lot S2 : le RIR visé */
     if (x.av != null) o.av = txt(x.av, 24);    /* version 6 : la valeur de la dernière fois (« avant 37,5 ») */
+    /* 2.3.2, lot E (RET-546) : un ou deux remplaçants (rm : p l'id du dessin, n le nom, f la fiche quand ce n'est pas celle du dessin) */
+    if (x.rm != null) { o.rm = liste(x.rm, 4).slice(0, 2).map(function (r) { objet(r); var z = {p: txt(r.p, 80), n: txt(r.n, 300)}; if (!/^[a-z0-9-]+$/.test(z.p) || !z.n.trim()) non('remplaçant');
+      if (r.f != null) { z.f = txt(r.f, 80); if (!/^[a-z0-9-]+$/.test(z.f)) non('fiche'); } return z; }); if (!o.rm.length) delete o.rm; }
     return o; }
   /* version 6 (FORMAT-TELEPHONE-V6.md) : la date du billet (d), l'ordre (mo : « c » en circuit, « e » exercice par exercice, absent : au choix du patient),
      les séries déjà faites au cabinet (fa : une chaîne par exercice, 1 faite, 2 sautée, 0 à faire ; fh : l'heure du début au cabinet), la consigne de la
@@ -758,7 +785,7 @@ function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '
     if (b) h += '<p class="q" style="font-size:18px;margin-top:18px">' + esc(b.q) + '</p><div class="choix">' + (b.temps || it.temps || []).map(function (t, i) { return '<button data-act="rep8" data-v="' + esc(b.v[i]) + '" aria-pressed="' + (vb[1] != null && String(vb[1]) === String(b.v[i])) + '">' + esc(t) + '</button>'; }).join('') + '</div>'; }
   else if (SORTES_CHAMPS.indexOf(it.t) >= 0) h += ecranChamps(it, v);
   else h += '<textarea id="texte" rows="4" maxlength="' + borneLg(it.lg, 240) + '" placeholder="Quelques mots' + (it.f ? ' (facultatif)' : '') + '">' + esc(v || '') + '</textarea>';
-  h += (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="suivant">' + (rang() + 1 === total() ? 'Terminer' : 'Suivant') + '</button>';
+  h += t11dMessage(it, v) + (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="suivant">' + (rang() + 1 === total() || !t11dPas(1) ? 'Terminer' : 'Suivant') + '</button>';
   if (rang() > 0) h += '<button class="btn lien" data-act="precedent">Question précédente</button>';
   return h; }
 function prendreTexte() { var t = document.getElementById('texte'); if (t) { var r = repDe(); if (t.value.trim()) r[V.j] = t.value.trim(); else r[V.j] = null; } }
@@ -794,8 +821,17 @@ function ecranChamps(it, v) { var h = '';
     if (it.autre) h += '<label class="g-l"><span>Autre</span><input type="text" id="autre" maxlength="120" value="' + esc(au ? au[1] : '') + '"></label>'; }
   return h; }
 var SORTES_CHAMPS = ['groupe', 'lignes', 'multi'];
-function manquant(req) { if (!E || E.t !== 'q') return null; for (var i = 0; i < E.q.length; i++) { var r = ETAT.rep[i] || []; for (var j = 0; j < E.q[i].it.length; j++) { var it = E.q[i].it[j], v = r[j]; if ((req ? !it.f : true) && vide1(Array.isArray(v) && it.t === 'visa8' ? (v[0] && v[1] != null ? v : null) : v)) return {i: i, j: j}; if (it.fin != null && String(v) === it.fin) break; } } return null; }
-function sansReponse() { var l = []; if (!E || E.t !== 'q') return l; E.q.forEach(function (q, i) { var r = ETAT.rep[i] || []; q.it.forEach(function (it, j) { if (vide1(r[j])) l.push({i: i, j: j, q: it.q, f: !!it.f}); }); }); return l; }
+function manquant(req) { if (!E || E.t !== 'q') return null; for (var i = 0; i < E.q.length; i++) { var r = ETAT.rep[i] || []; for (var j = 0; j < E.q[i].it.length; j++) { var it = E.q[i].it[j], v = r[j]; if (t11dVue(i, j) && (req ? !it.f : true) && vide1(Array.isArray(v) && it.t === 'visa8' ? (v[0] && v[1] != null ? v : null) : v)) return {i: i, j: j}; if (it.fin != null && String(v) === it.fin) break; } } return null; }
+function sansReponse() { var l = []; if (!E || E.t !== 'q') return l; E.q.forEach(function (q, i) { var r = ETAT.rep[i] || []; q.it.forEach(function (it, j) { if (t11dVue(i, j) && vide1(r[j])) l.push({i: i, j: j, q: it.q, f: !!it.f}); }); }); return l; }
+/* ---------- 2.3.2, lot D (RET-543) : « Avant la séance », le pré-bilan du cabinet et les questions du kiné sur le téléphone ----------
+   t11dVue : une question à condition (si) n'est posée, comptée manquante ou rendue que si sa condition est remplie ; t11dPas : la question suivante ou
+   précédente qui se pose ; t11dExclusif : « Rien » ou « Aucun » décoche les autres cases, et l'inverse ; t11dMessage : le message d'une réponse à signaler. */
+function t11dVue(i, j) { var q = E && E.q && E.q[i], it = q && q.it[j]; if (!it || !it.si) return true; var v = (ETAT.rep[i] || [])[it.si[0]], l = it.si[1];
+  if (Array.isArray(v)) return v.some(function (x) { return l.indexOf(String(x)) >= 0; }); return v != null && l.indexOf(String(v)) >= 0; }
+function t11dPas(pas) { var i = V.i, j = V.j; for (;;) { j += pas; if (j >= E.q[i].it.length) { i++; j = 0; } else if (j < 0) { i--; if (i >= 0) j = E.q[i].it.length - 1; } if (i < 0 || i >= E.q.length) return null; if (t11dVue(i, j)) return {i: i, j: j}; } }
+function t11dExclusif(it, m, k, ajoute) { var ex = it && it.ex; if (!ex || !ex.length || !ajoute) return m; return ex.indexOf(k) >= 0 ? [k] : m.filter(function (x) { return Array.isArray(x) || ex.indexOf(x) < 0; }); }
+function t11dMessage(it, v) { return it && it.msg && Array.isArray(it.al) && v != null && it.al.indexOf(String(v)) >= 0 ? '<p class="err t11d-msg" id="t11d-msg" role="alert">' + esc(it.msg) + '</p>' : ''; }
+function t11dRendu(i, j, v) { return t11dVue(i, j) ? (v === undefined ? null : v) : null; }
 
 /* ---------- lot 11 : les consignes entières (T9-03) et la fiche « Comment faire ? » (GA-10) ----------
    Les consignes : c et cs ensemble, sans doublon (un billet d'avant portait la base en c et les complémentaires seules en cs ; un billet du lot 11
@@ -847,7 +883,7 @@ function surAccueil() { return (window.matchMedia && matchMedia('(display-mode: 
 function bandeauT01() { var r = reglages(); if (E.t !== 's' || forme() !== 'tel' || surAccueil() || r.accueil) return '';
   var ios = /iPhone|iPad|iPod/.test(navigator.userAgent), o; if (V.t01 == null) V.t01 = !r.t01vu; o = !!V.t01; if (!r.t01vu) regler('t01vu', 1);
   var h = '<div class="v6-band" id="v6-t01"><button class="v6-band-t" data-act="t01" aria-expanded="' + o + '"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2.5"/><path d="M8.5 15h3"/></svg>Gardez vos exercices sur votre téléphone<span aria-hidden="true">' + (o ? '⌄' : '›') + '</span></button>';
-  if (o) h += (ios ? '<div class="v6-pas3"><figure><div class="v6-ecr"><div class="lig"></div><div class="lig"></div><div class="bar"><i></i><i class="on"></i><i></i></div></div>1. Touchez Partager</figure><figure><div class="v6-ecr"><div class="lig"></div><div class="lig on"></div><div class="lig"></div></div>2. « Sur l’écran d’accueil »</figure><figure><div class="v6-ecr"><span class="aj">Ajouter</span><div class="ic">' + CK + '</div></div>3. Ajouter</figure></div>'
+  if (o) h += (ios ? '<div class="v6-pas3"><figure><div class="v6-ecr"><div class="lig"></div><div class="lig"></div><div class="bar"><i></i><i class="on"></i><i></i></div></div>1. Touchez Partager</figure><figure><div class="v6-ecr"><div class="lig"></div><div class="lig on"></div><div class="lig"></div></div>2. « Sur l’écran d’accueil »</figure><figure><div class="v6-ecr"><span class="aj">Ajouter</span><div class="ic t11c-ic"><img src="icone.png" alt=""></div></div>3. Ajouter</figure></div>'
       : '<p>Dans le menu du navigateur (⋮), touchez « Ajouter à l’écran d’accueil » ou « Installer l’application ».</p>' + (V.installer ? '<button class="btn sec" data-act="t01-installer">Installer</button>' : ''))
     + '<button class="btn sec" data-act="t01-fait">C’est fait</button>';
   return h + '</div>'; }
@@ -1001,7 +1037,7 @@ function nSer(x) { return Math.max(1, Math.min(12, +x.s || 1)); }
 function s3neuf() { return {d: auj(), i: 0, x: E.ex.map(function (x) { var l = []; for (var j = 0; j < nSer(x); j++) l.push({}); return l; }), v: null, ten: null, p: null, m: '', ef: [], ech: false}; }
 /* l'état de la séance jouée : celui du billet, ou celui de la séance k de la semaine d'un athlète (ETAT.sem) */
 function s3() { var b; if (E.se) { ETAT.sem = ETAT.sem && typeof ETAT.sem === 'object' ? ETAT.sem : {}; b = ETAT.sem['k' + V.k] = ETAT.sem['k' + V.k] || s3neuf(); } else b = ETAT.s3 = ETAT.s3 || s3neuf();
-  if (!Array.isArray(b.ef)) b.ef = []; (Array.isArray(E.ec) ? E.ec : []).forEach(function (x, k) { if (b.ef[k] !== 1) b.ef[k] = 0; }); if (b.ech === undefined) b.ech = false; return b; }
+  if (!Array.isArray(b.ef)) b.ef = []; (Array.isArray(E.ec) ? E.ec : []).forEach(function (x, k) { if (b.ef[k] !== 1) b.ef[k] = 0; }); if (b.ech === undefined) b.ech = false; t11eAppliquer(b);   /* 2.3.2, lot E */ return b; }
 function s3la() { return !E || !ETAT || E.t !== 'g' ? null : E.se ? (ETAT.sem || {})['k' + V.k] || null : ETAT.s3 || null; }
 function choisirSeance(k) { var s = E.se[k]; if (!s) return; V.k = k; E.ex = s.ex; E.mo = s.mo; E.to = s.to; E.ec = s.ec; E.ect = s.ect; E.cg = s.cg; E.du = s.du; }
 /* l'ordre : imposé par le billet (mo : « c » en circuit, « e » exercice par exercice ; un billet d'avant la version 6 l'impose toujours), sinon choisi par
@@ -1103,7 +1139,7 @@ function pastille3(s, j) { if (s.f === 2) return 'S' + (j + 1) + ' · sautée' +
   return 'S' + (j + 1) + (s.c ? ' · au cabinet' : (s.i != null && s.i !== '' ? ' · RIR ' + (String(s.i) === '4' ? '4+' : s.i) : '') + (s.g ? ' · gêne' : '')); }
 function nb3(c, val, lab) { return '<input class="v6-nb" type="text" inputmode="decimal" id="s3-' + c + '" value="' + esc(val) + '" aria-label="' + esc(lab) + '">'; }
 function stp3(c, val, lab) { return '<span class="v6-stp"><button data-act="s3-kg" data-c="' + c + '" data-v="-1" aria-label="Moins 2,5 kg">−</button>' + nb3(c, val, lab) + '<button data-act="s3-kg" data-c="' + c + '" data-v="1" aria-label="Plus 2,5 kg">+</button></span><span>kg</span>'; }
-function actes3(ok) { return '<div class="v6-act">' + (ok ? '<button class="v6-ok" data-act="s3-faite" aria-label="Valider la série">' + CK + '<span>Valider</span></button>' : '')
+function actes3(ok) { return '<div class="v6-act">' + (ok ? '<button class="v6-ok" data-act="s3-faite" aria-label="Valider la série">' + CK + '<span>Valider</span></button>' : '') + t11eTouche()   /* 2.3.2, lot E */
   + '<button class="v6-ko" data-act="s3-sauter" aria-label="Sauter la série" aria-pressed="' + !!V.saut + '"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg><span>Sauter</span></button></div>'; }
 /* un exercice, une série : ‹ › et le rond, la consigne en une ligne, les séries faites en pastilles, la série à faire (− et + toujours visibles, le RIR
    choisi puis validé à la coche verte, la croix rouge et ses raisons), « puis … », « Ensuite : … » */
@@ -1115,6 +1151,7 @@ function tel3Seance() { var b = s3(), i = b.i, x = E.ex[i], l = b.x[i], n = E.ex
   h += '<div class="carte s3"><div class="v6-hd">' + vignette(i, 's3-dessin') + '<div>' + (circ ? '<h1 id="s3-nom" style="font-size:19px;margin:0">' + esc(x.n) + '</h1>' : '') + (cons ? '<span class="v6-cons" id="s3-cons">' + esc(cons) + '</span>' : '')
     + '<span class="petit dose">' + esc([x.d || '', x.co === 'G' ? 'côté gauche' : x.co === 'D' ? 'côté droit' : '', circ ? 'repos à la fin du tour' : reposT(x.rp)].filter(Boolean).join(' · ')) + (pcDe(i) ? '<span class="v6-pcz">pas compris</span>' : '') + '</span></div></div>';
   if (ordre) h += '<p class="s3-ordre" id="s3-ordre">' + esc(ordre) + '</p>';
+  h += t11eDit(i);   /* 2.3.2, lot E */
   var faites = []; l.forEach(function (s, k) { if (s.f && (!circ || k === tr)) faites.push(k); });
   h += '<ol class="v6-past s3-series" id="s3-series">' + faites.map(function (k) { var s = l[k]; return s.f === 2 && !s.c ? '<li class="sautee" data-j="' + k + '"><button data-act="s3-rouvrir" data-j="' + k + '" aria-label="' + esc(pastille3(s, k)) + ' : la reprendre">' + esc(pastille3(s, k)) + '</button></li>' : '<li class="' + (s.f === 2 ? 'sautee' : 'faite') + '" data-j="' + k + '">' + (s.f === 1 ? CK : '') + esc(pastille3(s, k)) + '</li>'; }).join('') + '</ol>';
   if (j >= 0) { var tenue = x.u === 's', kg = avecKilos(x) || !!(v.k || v.kG || v.kD), lab = circ ? '' : 'Série ' + (j + 1) + ' · ', un = x.u === 'm' ? 'm' : 'rép.', av = x.av ? '<span class="der" id="s3-avant">avant ' + esc(x.av) + '</span>' : '', reste = l.filter(function (s, k) { return !s.f && k !== j; });
@@ -1127,6 +1164,7 @@ function tel3Seance() { var b = s3(), i = b.i, x = E.ex[i], l = b.x[i], n = E.ex
     else { if (!tenue && (x.q === 'r' || x.q === 'e')) h += '<div class="v6-rir"><em>Encore combien en réserve ?</em><div class="v6-rr" id="s3-rir">' + ['0', '1', '2', '3', '4'].map(function (r) { return '<button data-act="s3-rir" data-v="' + r + '" aria-pressed="' + (v.ir === r) + '">' + (r === '4' ? '4+' : r) + '</button>'; }).join('') + '</div></div>';
       h += '<div class="v6-gene" id="s3-gene"><em>Une gêne ?</em><button data-act="s3-gene" data-v="" aria-pressed="' + !v.g + '">Non</button><button data-act="s3-gene" data-v="oui" aria-pressed="' + !!v.g + '">Oui</button></div>' + l4Ou(v) + (tenue ? l4Effort(v) : '') + actes3(true); }
     if (b.mal && b.mal[i] && !V.saut) h += '<div class="v6-mal" id="s3-mal">Ça fait mal : <button data-act="s3-sauter-tout">Sauter tout l’exercice</button></div>';
+    h += t11ePan(i);   /* 2.3.2, lot E */
     if (V.saut) h += '<div class="v6-sautr" id="s3-raisons"><em>Pourquoi ?</em>' + RAISONS.filter(function (r) { return r[0] !== 't'; }).map(function (r) { return '<button data-act="s3-raison" data-v="' + r[0] + '">' + r[1] + '</button>'; }).join('') + '<button class="btn lien" data-act="s3-sauter">Annuler</button></div>';
     h += '</div>';
     if (!circ && reste.length) h += '<p class="v6-puis" id="s3-puis">puis ' + reste.map(function () { return esc(doseSerie(x, x.r != null ? String(x.r) : '', tenue ? '' : x.co === 1 ? v.kG : v.k)); }).join(' · ') + '</p>'; }
@@ -1308,13 +1346,14 @@ function objetSeance(b, k, partielle) { var v6 = E.lv >= 6, o = {e: E.e, t: 'g',
   if (b.vi) o.vi = b.vi; if (b.ph && b.ph.length) o.ph = b.ph.slice(0, 5); if (rpeAth() && b.rpe >= 0 && b.rpe <= 10) o.rpe = b.rpe;   /* 2.2-test6, AME-189 */
   if (Array.isArray(b.pc) && b.pc.some(Boolean)) o.pc = E.ex.map(function (x, i) { return b.pc[i] ? 1 : 0; });
   if (b.dc === 'a' || b.dc === 'm' || b.dc === 'p') o.dc = b.dc;   /* réservé à la forme gymnase (lot 4) : Alléger, Maintenir, Progresser */
+  t11eRetour(o, b);   /* 2.3.2, lot E */
   if (partielle) o.pa = 1; return o; }
 /* une séance finie est gardée avec les autres (faites) jusqu'à son envoi : d sa date, k son rang dans la semaine, o ce qui part, env l'heure du message
    préparé (0 : pas encore) ; la refaire ou la corriger la remet à envoyer */
 function garderSeance(b, k, partielle) { var o = objetSeance(b, k, partielle), l = ETAT.faites = Array.isArray(ETAT.faites) ? ETAT.faites : [], n = -1;
   l.forEach(function (x, i) { if (x && x.k === k && x.d === o.d) n = i; }); var s = {d: o.d, k: k, o: o, env: 0}; if (n >= 0) l[n] = s; else l.push(s); if (l.length > 40) l.splice(0, l.length - 40); }
 function objetRetour() { if (E.t === 'c') return objetCal();   /* GA-15 */
-  if (E.t === 'q') return {e: E.e, t: 'q', lv: VERSION_LECTEUR, d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return r[j] === undefined ? null : r[j]; }); })};
+  if (E.t === 'q') return {e: E.e, t: 'q', lv: VERSION_LECTEUR, d: ETAT.finLe || auj(), r: E.q.map(function (q, i) { var r = ETAT.rep[i] || []; return q.it.map(function (_, j) { return t11dRendu(i, j, r[j]); }); })};
   if (E.t === 'g') { var b = salle(); return {e: E.e, t: 'g', lv: VERSION_LECTEUR, d: b.d, x: b.x, p: b.p, r: b.e || 0, m: b.m || ''}; }   /* le billet de la version 2 */
   var o = {e: E.e, t: 's', lv: VERSION_LECTEUR, f: 3, j: ETAT.journal}, co = crsRetour(); if (co.length) { o.co = co; if (!ETAT.journal.length) delete o.j; }   /* 2.2-test6 : les sorties de course (co) */
   return o; }
@@ -1469,7 +1508,7 @@ function majNombre(n, o) { var mil = document.getElementById('v6-mil'); if (!mil
 var A = {
   commencer: function () { var p = (ETAT.rep[0] || []).length ? (ETAT.pos || manquant(false)) : null; V.i = p ? p.i : 0; V.j = p ? p.j : 0; V.ecran = 'question'; },
   /* lot 5 : le pré-bilan de l'athlète */
-  multi: function (el) { prendreChamps(); var r = repDe(), m = Array.isArray(r[V.j]) ? r[V.j] : [], k = el.dataset.v, i = m.indexOf(k); if (i >= 0) m.splice(i, 1); else m.push(k); r[V.j] = m.length ? m : null; V.err = ''; sauver(); V.garde = true; },
+  multi: function (el) { prendreChamps(); var r = repDe(), m = Array.isArray(r[V.j]) ? r[V.j] : [], k = el.dataset.v, i = m.indexOf(k); if (i >= 0) m.splice(i, 1); else m.push(k); m = t11dExclusif(item(), m, k, i < 0); r[V.j] = m.length ? m : null; V.err = ''; sauver(); V.garde = true; },
   'ligne-plus': function () { prendreChamps(); var it = item(), r = repDe(), l = lignesDe(it, r[V.j]); if (l.length < (it.max || 5)) l.push(it.ch.map(function () { return null; })); r[V.j] = l; sauver(); V.garde = true; },
   'ligne-moins': function (el) { prendreChamps(); var it = item(), r = repDe(), l = lignesDe(it, r[V.j]); l.splice(+el.dataset.r, 1); r[V.j] = vide1(l) ? null : l; sauver(); V.garde = true; },
   reprendre: function () { var p = ETAT.pos || manquant(false) || {i: 0, j: 0}; V.i = p.i; V.j = p.j; V.ecran = 'question'; },
@@ -1545,8 +1584,9 @@ var A = {
     if ((v === undefined || v === null || v === '') && !it.f) { V.err = it.t === 'texte' ? 'Écrivez quelques mots, s’il vous plaît.' : it.t === 'nombre' ? (document.querySelector('#nombre[type=range]') ? 'Placez le curseur, s’il vous plaît.' : 'Écrivez un nombre dans les bornes, s’il vous plaît.') : 'Choisissez une réponse, s’il vous plaît.'; return; }
     V.err = ''; V.touche = false; sauver();
     if (it.fin != null && String(v) === it.fin) V.j = quest().it.length - 1;   /* GF4-22 : la suite du questionnaire est passée */
-    if (V.j + 1 < quest().it.length) V.j++; else if (V.i + 1 < E.q.length) { V.i++; V.j = 0; } else { ETAT.fini = true; ETAT.finLe = auj(); sauver(); V.ecran = 'fin'; } },
-  precedent: function () { if (item().t === 'texte' || SORTES_CHAMPS.indexOf(item().t) >= 0) prendreChamps(); if (item().t === 'nombre') prendreNombre(); sauver(); V.err = ''; V.touche = false; if (V.j > 0) V.j--; else if (V.i > 0) { V.i--; V.j = quest().it.length - 1; } },
+    var t11dS = t11dPas(1);   /* 2.3.2, lot D : la question suivante qui se pose */
+    if (t11dS) { V.i = t11dS.i; V.j = t11dS.j; } else { ETAT.fini = true; ETAT.finLe = auj(); sauver(); V.ecran = 'fin'; } },
+  precedent: function () { if (item().t === 'texte' || SORTES_CHAMPS.indexOf(item().t) >= 0) prendreChamps(); if (item().t === 'nombre') prendreNombre(); sauver(); V.err = ''; V.touche = false; var t11dP = t11dPas(-1); if (t11dP) { V.i = t11dP.i; V.j = t11dP.j; } },
   fin: function () { V.ecran = 'fin'; },
   /* version 6 : la maison. La coche (1) : toucher la ligne coche l'exercice (V.vient : la coche se trace, le rond se remplit) ; la gêne Non · Oui dessous */
   fait: function (el) { var b = brouillon(), i = +el.dataset.i; b.f[i] = b.f[i] === 1 ? 0 : 1; if (b.f[i] === 1) { V.vient = i; delete b.s[i]; tic(1); } else b.g[i] = 0; V.err = ''; sauver(); V.garde = true; },
@@ -1939,7 +1979,7 @@ app.addEventListener('change', function () { if (V.ecran === 'salle') { prendreS
 function t14Sorte() { return !E ? '' : E.t === 's' ? 's' : E.t === 'g' && E.se && E.lv >= 3 ? 'se' : ''; }
 function t14Hache(s) { var h = 2166136261; s = String(s); for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul ? Math.imul(h, 16777619) >>> 0 : (h * 16777619) >>> 0; } return h.toString(36); }
 function t14Lundi(d) { return dateOk(d) ? plusJours(d, -((dateDe(d).getDay() + 6) % 7)) : ''; }
-function t14Desc(B) { return {se: (B.se || []).map(function (s) { return {ci: s.ci || '', d: s.d, h: s.h || '', n: s.nom || '', so: s.so || '', g: t14Hache(JSON.stringify([s.so || '', (s.ex || []).map(function (x) { return [x.n || '', x.d || '', x.u || '', x.r || '']; })]))}; }),
+function t14Desc(B) { return {se: (B.se || []).map(function (s) { return {ci: s.ci || '', d: s.d, h: s.h || '', n: s.nom || '', so: s.so || '', g: t14Hache(JSON.stringify([s.so || '', (s.ex || []).map(function (x) { return [(x.t11e0 ? x.t11e0.n : x.n) || '', x.d || '', x.u || '', x.r || '']; })]))}; }),
   ev: (B.ev || []).map(function (x) { return {d: x.d, n: x.n || ''}; }), l0: B.se && B.se.length ? t14Lundi(B.se[0].d) : ''}; }
 function t14Pareil(a, b) { return !!a && !!b && (a.ci && b.ci ? a.ci === b.ci : a.d === b.d && a.n === b.n && (a.h === b.h || !a.h || !b.h)); }
 /* la place, dans le nouveau lien, de ce qui a été fait avec un autre : une séance (son rang), un match ('j' et son rang), « Votre semaine » ('sw') */
@@ -2023,6 +2063,93 @@ function t14Avant() { var l = (E && E.se && Array.isArray(ETAT.t14f) ? ETAT.t14f
 (function () { var s0 = ecranSemaine; ecranSemaine = function () { var h = s0.apply(this, arguments), a = t14Avant(); if (!a) return h; var i = h.indexOf('<div class="v6-sem" id="non-envoye">');
   if (i < 0) i = h.indexOf('<button class="v6-pil" data-act="journal">'); return i < 0 ? h + a : h.slice(0, i) + a + h.slice(i); }; })();
 /* ===== fin de T14 ===== */
+/* ===== 2.3.2, lot C (t11c), page version 11 : « Je ne la ferai pas » (RET-539) =====
+   Dans « Vos séances », la séance ouverte et pas encore faite porte, sous « Commencer », un lien discret « Je ne la ferai pas ». Il ouvre sur place quatre
+   raisons facultatives (Pas le temps · Fatigué · Douleur · Autre) et « C’est noté » : la carte passe « Pas faite » (pastille sobre), le lien devient
+   « Finalement je la fais », qui annule. L’information part avec le retour suivant, dans son propre code : {e, t:'g', lv, f:3, d (le jour prévu), h, ni (le rang
+   de la séance dans le lien ; pas « si » : une appli KINÉ plus ancienne ne la prend pas pour une séance faite), nf (t, f, d, a ; « - » sans raison ;
+   « x » : annulée après l’envoi), le (le jour où c’est dit)}. Jamais de nom.
+   Mémoire de la page (lecteur:<id>), facultative : ETAT.t11c = [{k, d, le, r, h, env, an, c, o}] (c : l’étiquette de la séance, pour la retrouver d’un lien
+   à l’autre comme T14 ; o : ce qui part ; env : l’heure du message préparé, 0 sinon ; an : annulée, à dire au kiné). */
+var T11C_RAISONS = [['t', 'Pas le temps'], ['f', 'Fatigué'], ['d', 'Douleur'], ['a', 'Autre']];
+function t11cListe() { return ETAT.t11c = Array.isArray(ETAT.t11c) ? ETAT.t11c : []; }
+function t11cDe(k) { return E && E.se && ETAT && Array.isArray(ETAT.t11c) ? ETAT.t11c.filter(function (x) { return x && x.k === k && !x.an; }).pop() || null : null; }
+function t11cRaison(r) { var x = T11C_RAISONS.filter(function (y) { return y[0] === r; })[0]; return x ? x[1] : ''; }
+function t11cFaite(k) { var e = etatSem(k); return e === 'env' || e === 'garde'; }
+function t11cObjet(k, nf, le) { return {e: E.e, t: 'g', lv: VERSION_LECTEUR, f: 3, d: E.se[k].d, h: Date.now(), ni: k, nf: nf, le: le}; }
+/* ce qui attend l’envoi : dit et pas encore parti (la séance faite depuis ne part plus : son retour le dira) */
+function t11cOuvertes() { return E && E.se && ETAT && Array.isArray(ETAT.t11c) ? ETAT.t11c.filter(function (x) { return x && x.o && !x.env && E.se[x.k] && (x.an || !t11cFaite(x.k)); }) : []; }
+function t11cPanneau(k) { return '<div class="t11c-pan" id="t11c-pan"><p class="t11c-q">Une raison ? <small>(facultatif)</small></p><div class="t11c-r" role="group" aria-label="La raison, facultative">'
+  + T11C_RAISONS.map(function (y) { return '<button data-act="t11c-raison" data-v="' + y[0] + '" aria-pressed="' + (V.t11cR === y[0]) + '">' + y[1] + '</button>'; }).join('')
+  + '</div><button class="btn sec" data-act="t11c-note" data-k="' + k + '" id="t11c-note">C’est noté</button><button class="btn lien t11c-lien" data-act="t11c-fermer">Annuler</button></div>'; }
+/* la carte de chaque séance pas faite : le lien sous « Commencer », le panneau des raisons, ou « Pas faite » et « Finalement je la fais » */
+function t11cHabiller(h) { if (!E || !E.se || !ETAT) return h; var t = document.createElement('template'); t.innerHTML = h; var R = t.content, mets = function (el, html) { var d = document.createElement('template'); d.innerHTML = html; el.parentNode.insertBefore(d.content, el.nextSibling); };
+  E.se.forEach(function (s, k) { var c = R.querySelector('.v6-sj[data-k="' + k + '"]'); if (!c || t11cFaite(k)) return; var nf = t11cDe(k), b = c.querySelector('[data-act="sem-commencer"]'), et = c.querySelector('.v6-sj-t .et');
+    if (nf) { c.classList.remove('auj'); c.classList.add('t11c-nf'); if (et) et.textContent = 'Pas faite';
+      if (b) { mets(b, '<p class="v6-pt t11c-dit" id="t11c-dit-' + k + '">Pas faite' + (t11cRaison(nf.r) ? ' · ' + t11cRaison(nf.r) : '') + '. ' + (nf.env ? 'Votre kiné est prévenu.' : 'Votre kiné le saura avec votre prochain envoi.') + '</p><button class="btn lien t11c-lien" data-act="t11c-annuler" data-k="' + k + '">Finalement je la fais</button>'); b.parentNode.removeChild(b); } }
+    else if (b) mets(b, V.t11cK === k ? t11cPanneau(k) : '<button class="btn lien t11c-lien" data-act="t11c-non" data-k="' + k + '">Je ne la ferai pas</button>'); });
+  var d = document.createElement('div'); d.appendChild(R); return d.innerHTML; }
+(function () { var s0 = ecranSemaine; ecranSemaine = function () { var h = s0.apply(this, arguments); try { return t11cHabiller(h); } catch (e) { return h; } }; })();
+A['t11c-non'] = function (el) { V.t11cK = +el.dataset.k; V.t11cR = ''; V.semOuv = V.t11cK; V.garde = true; };
+A['t11c-fermer'] = function () { V.t11cK = null; V.t11cR = ''; V.garde = true; };
+A['t11c-raison'] = function (el) { V.t11cR = V.t11cR === el.dataset.v ? '' : el.dataset.v; V.garde = true; };
+A['t11c-note'] = function (el) { var k = +el.dataset.k, s = E.se && E.se[k]; if (!s || t11cFaite(k)) return; var r = t11cRaison(V.t11cR) ? V.t11cR : '', l = t11cListe().filter(function (x) { return x && x.k !== k; });
+  l.push({k: k, d: s.d, le: auj(), r: r, h: Date.now(), env: 0, c: (V.t14d && V.t14d.se[k]) || null, o: t11cObjet(k, r || '-', auj())}); if (l.length > 40) l.splice(0, l.length - 40);
+  ETAT.t11c = l; ETAT.rendu = 0; V.t11cK = null; V.t11cR = ''; V.semOuv = k; sauver(); V.garde = true; };
+/* « Finalement je la fais » : rien n’était parti, la ligne s’efface ; déjà dit au kiné, l’annulation part avec le retour suivant */
+A['t11c-annuler'] = function (el) { var k = +el.dataset.k, l = t11cListe(), x = t11cDe(k); if (!x) return; var i = l.indexOf(x);
+  if (x.env) { x.an = 1; x.env = 0; x.h = Date.now(); x.o = t11cObjet(k, 'x', auj()); ETAT.rendu = 0; } else if (i >= 0) l.splice(i, 1);
+  V.semOuv = k; sauver(); V.garde = true; };
+/* l’envoi : avec les séances gardées ; « La renvoyer » reprend aussi celles du dernier envoi */
+(function () { var g0 = gardees; gardees = function () { return g0.apply(this, arguments).concat(t11cOuvertes()); }; })();
+(function () { var a0 = aEnvoyer; aEnvoyer = function () { var l = a0.apply(this, arguments); if (!E || !ETAT || !E.se || !Array.isArray(ETAT.t11c) || gardees().length) return l;
+  ETAT.t11c.forEach(function (x) { if (x && x.o && x.env && x.env === ETAT.dernierEnvoi && l.indexOf(x.o) < 0) l.push(x.o); }); return l; }; })();
+(function () { var m0 = marquerRendu; marquerRendu = function () { if (!E || !ETAT || !E.se || !Array.isArray(ETAT.t11c) || !ETAT.t11c.length) return m0.apply(this, arguments);
+  var de = ETAT.dernierEnvoi, r = m0.apply(this, arguments), t = ETAT.dernierEnvoi; if (!t) return r;
+  ETAT.t11c.forEach(function (x) { if (x && (!x.env || x.env === de)) x.env = t; }); sauver(); return r; }; })();
+/* la ligne « pas encore envoyée » : les séances gardées d’un côté, les « pas faites » à dire de l’autre */
+(function () { var l0 = ligneGardees; ligneGardees = function () { var n2 = E && E.se ? t11cOuvertes().length : 0; if (!n2) return l0.apply(this, arguments); var n = gardees().length - n2;
+  return '<div class="v6-sem" id="non-envoye"><span>' + (n ? pl(n, 'séance') + ' gardée' + (n > 1 ? 's' : '') + ', pas encore envoyée' + (n > 1 ? 's' : '') + ' · ' : '') + '<span id="t11c-a-dire">' + n2 + ' « pas faite' + (n2 > 1 ? 's' : '') + ' » à dire à votre kiné</span></span><button data-act="envoi">' + (n ? 'Envoyer ma semaine' : 'Le lui dire') + '</button></div>'; }; })();
+/* d’un lien à l’autre (T14) : une séance dite « pas faite » le reste dans le nouveau lien, retrouvée par son étiquette */
+(function () { var r0 = t14Reprendre; t14Reprendre = function (O, t) { var n = r0.apply(this, arguments); try { if (t && t.so === 'se' && O && Array.isArray(O.t11c) && E && E.se) { var l = t11cListe();
+  O.t11c.forEach(function (x) { if (!x || !x.c || !x.o || typeof x.o !== 'object') return; var p = t14Place({c: x.c}); if (typeof p !== 'number' || p < 0 || !E.se[p] || l.some(function (y) { return y && y.k === p; })) return;
+    var o = {}; Object.keys(x.o).forEach(function (q) { o[q] = x.o[q]; }); o.ni = p; o.d = E.se[p].d; l.push({k: p, d: E.se[p].d, le: x.le, r: x.r || '', h: +x.h || 0, env: +x.env || 0, an: x.an ? 1 : 0, c: x.c, o: o}); n++; }); } } catch (e) {}
+  return n; }; })();
+/* ===== fin du lot C de la 2.3.2 ===== */
+
+/* ===== 2.3.2, lot E (t11e), page version 11 : « Remplacer » un exercice de la séance (RET-546) =====
+   Le billet de salle version 6 peut donner à un exercice un ou deux remplaçants (rm : p, n, f), choisis par le kiné (même muscle, même objectif). Sur la
+   carte de l'exercice en cours, « Remplacer », à côté de « Sauter », les ouvre sur place (le nom, le dessin) avec « Garder l'exercice ». En choisir un
+   remplace l'exercice pour cette séance : son nom, son dessin, sa fiche ; les séries, les répétitions et la charge à noter restent celles prévues. Tant
+   qu'aucune série n'est validée, la touche reste, pour changer ou revenir à l'exercice prévu. Sans rm dans le billet, rien ne paraît.
+   L'état : b.rm, l'id choisi par exercice ('' : l'exercice prévu). Le retour (forme 3) : rm, un id par exercice, 0 sinon ; absent si rien n'est remplacé
+   (une appli d'avant l'ignore). Tout reste dans ce téléphone : aucun appel réseau. */
+function t11eListe(i) { var x = E && E.ex ? E.ex[i] : null; return x && Array.isArray(x.rm) ? x.rm : []; }
+function t11eChoisi(b, i) { var id = b && Array.isArray(b.rm) ? b.rm[i] : '', l = id ? t11eListe(i).filter(function (r) { return r.p === id; }) : []; return l[0] || null; }
+function t11ePeut(i) { var b = s3la(), l = b && b.x ? b.x[i] : null; return !!(E && E.t === 'g' && E.lv >= 6 && l && t11eListe(i).length && !l.some(function (s) { return s.f === 1 || s.c; })); }
+function t11eCle(i) { return V.k + ':' + i; }
+/* l'exercice montré est le remplaçant choisi ; t11e0 garde l'exercice prévu (son nom, son dessin, sa fiche, ses consignes, « avant … ») pour y revenir */
+function t11eAppliquer(b) { if (!E || E.t !== 'g' || !Array.isArray(E.ex) || !b) return;
+  E.ex.forEach(function (x, i) { if (!x || (!x.t11e0 && !Array.isArray(x.rm))) return; var r = t11eChoisi(b, i);
+    if (x.t11e0 && (!r || x.t11eP !== r.p)) { ['n', 'p', 'f', 'g', 'c', 'cs', 'av', 'kg'].forEach(function (k) { if (x.t11e0[k] === undefined) delete x[k]; else x[k] = x.t11e0[k]; }); delete x.t11e0; delete x.t11eP; }
+    if (r && !x.t11e0) { x.t11e0 = {n: x.n, p: x.p, f: x.f, g: x.g, c: x.c, cs: x.cs, av: x.av, kg: x.kg}; x.t11eP = r.p; x.n = r.n; x.p = r.p; if (r.f) x.f = r.f; else delete x.f; delete x.g; delete x.c; delete x.cs; delete x.av; delete x.kg; }   /* 2.3.2 : la charge prévue ne suit pas le remplaçant (choix 13, recommandation gardée) */ }); }
+function t11eTouche() { var b = s3la(), i = b ? b.i : -1; if (i < 0 || !t11ePeut(i)) return '';
+  return '<button class="t11e-b" id="t11e-b" data-act="t11e-ouvrir" aria-expanded="' + (V.t11e === t11eCle(i) && !V.saut) + '" aria-label="Remplacer cet exercice par un autre"><span>Remplacer</span></button>'; }
+function t11eVignette(r) { var P = window.PictosTel, p = P && P.connu(r.p) ? r.p : P && r.f && P.connu(r.f) ? r.f : ''; return p ? '<span class="v6-pc" aria-hidden="true">' + P.svg(p, 44) + '</span>' : ''; }
+function t11ePan(i) { if (V.t11e !== t11eCle(i) || V.saut || !t11ePeut(i)) { if (V.t11e === t11eCle(i) && !V.saut) V.t11e = ''; return ''; }
+  var b = s3la(), x = E.ex[i], ch = t11eChoisi(b, i), h = '<div class="t11e-pan" id="t11e-pan"><em>' + (ch ? 'Changer encore, ou revenir à l’exercice prévu' : 'Remplacer cet exercice par') + '</em>';
+  h += t11eListe(i).filter(function (r) { return !ch || r.p !== ch.p; }).map(function (r) { return '<button class="t11e-c" data-act="t11e-choisir" data-v="' + esc(r.p) + '">' + t11eVignette(r) + '<span>' + esc(r.n) + '<small>mêmes séries, la charge à noter</small></span></button>'; }).join('');
+  if (ch && x.t11e0) h += '<button class="t11e-c" id="t11e-prevu" data-act="t11e-choisir" data-v="">' + t11eVignette(x.t11e0) + '<span>' + esc(x.t11e0.n) + '<small>l’exercice prévu</small></span></button>';
+  return h + '<button class="btn lien" id="t11e-garder" data-act="t11e-fermer">' + (ch ? 'Garder ' + esc(x.n) : 'Garder l’exercice') + '</button></div>'; }
+function t11eDit(i) { var x = E.ex[i]; return x && x.t11e0 ? '<p class="t11e-dit" id="t11e-dit">À la place de : ' + esc(x.t11e0.n) + '. Votre kiné le verra.</p>' : ''; }
+function t11eRetour(o, b) { if (!b || !Array.isArray(b.rm) || !Array.isArray(E.ex)) return; var l = E.ex.map(function (x, i) { var r = t11eChoisi(b, i); return r ? r.p : 0; }); if (l.some(Boolean)) o.rm = l; }
+A['t11e-ouvrir'] = function () { prendre3(); var b = s3(), c = t11eCle(b.i); V.t11e = V.t11e === c && !V.saut ? '' : c; V.saut = false; V.garde = true; };
+A['t11e-fermer'] = function () { prendre3(); V.t11e = ''; V.garde = true; };
+A['t11e-choisir'] = function (el) { prendre3(); var b = s3(), i = b.i, id = String(el.dataset.v || ''), k; if (!t11ePeut(i)) return;
+  if (id && !t11eListe(i).some(function (r) { return r.p === id; })) return;
+  b.rm = Array.isArray(b.rm) ? b.rm : []; for (k = 0; k < E.ex.length; k++) b.rm[k] = typeof b.rm[k] === 'string' ? b.rm[k] : ''; b.rm[i] = id;
+  t11eAppliquer(b); V.t11e = ''; V.joue = ''; sauver(); V.garde = true; };
+/* ===== fin du lot E de la 2.3.2 ===== */
 window.addEventListener('hashchange', ouvrir);
 /* 1.30-test7 : un autre onglet a écrit un état plus récent pour ce lien : la page le reprend, sans rien écrire */
 window.addEventListener('storage', function (ev) { if (!E || !ETAT || (ev.key !== null && ev.key !== cleEtat())) return; var la = plusRecent(); if (!la) return; ETAT = la; V.ailleurs = true; V.garde = true; rendre(); });
