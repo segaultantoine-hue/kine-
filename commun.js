@@ -40,7 +40,8 @@ const CourseRegle = (() => {
 /* Version 7 (2.2-test6, lot 3 B de la 2.2) : la règle de la course guidée, ci-dessus, recopiée de l’appli mot pour mot (même empreinte) ; QR et Codec inchangés. */
 /* Version 6 (2.1, lot 1 de la commande v11, R10) : le numéro de version commun aux fichiers de la page ; index.html le compare au sien au chargement
    (juste après un dépôt, l'hébergeur peut servir un fichier neuf et un ancien). QR et Codec, ci-dessous, n'ont pas changé. */
-var VERSION_COMMUN = 8;
+/* Version 9 (2.3, T14) : seul le numéro change ; QR, Codec et la règle de la course sont inchangés. */
+var VERSION_COMMUN = 9;
 var QR = (function () {
   'use strict';
   var ECC = {
