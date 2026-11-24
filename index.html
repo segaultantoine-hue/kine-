@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Version 11 (2.3.2, RET-538/539). Version 10 (2.3.1 : plus de lien vers le manifeste, pour que l’icône ajoutée à l’écran d’accueil garde le lien entier, la semaine après le « # » comprise ; sans manifeste, l’iPhone et Android gardent l’adresse ouverte). Version 9 (2.3, T14 : d’un lien à l’autre, les séances faites et le journal gardés, rangés d’après l’étiquette de chaque séance, jamais d’après sa place). Version 8 (2.2-test8, lot 4 : deux semaines dans un lien, « La semaine suivante »). Version 7 (2.2-test6, lot 3 B de la 2.2 : la course guidée du billet ac.g et son retour co, l’effort de 0 à 10). Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
+<!-- Version 12 (2.3.3, RET-548/549). Version 11 (2.3.2, RET-538/539). Version 10 (2.3.1 : sans lien vers le manifeste, l’icône garde le lien entier). Version 9 (2.3, T14 : d’un lien à l’autre, les séances faites et le journal gardés, rangés d’après l’étiquette de chaque séance, jamais d’après sa place). Version 8 (2.2-test8, lot 4 : deux semaines dans un lien, « La semaine suivante »). Version 7 (2.2-test6, lot 3 B de la 2.2 : la course guidée du billet ac.g et son retour co, l’effort de 0 à 10). Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
      Revue avec la 1.30-test1 (lot 1 de la 1.30, 13 novembre) : le billet contrôlé champ par champ (AME-157), l'heure de chaque séance à la maison (AME-160),
      « Effacer mes données de ce téléphone » (AME-166), « − Une série » (AME-138), Repos · Chrono (ERG-184), la gêne sur la carte de la série (ERG-190),
      les kilos changés par le patient (AME-168), le bilan des séries avant l'envoi et l'ordre d'un circuit. Puis avec la 1.30-test3 (lot 3, l'audit du téléphone) :
@@ -12,7 +12,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YYWvuu1ig53t4HuXS2nxW9uvFsNf+jSLpTwjsP2rZPk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-pjqEkr4ZCDepv/vbln0GmlF8qpq1d4x8dJ2+zO73nYU='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
@@ -83,6 +83,22 @@ details pre{white-space:pre-wrap;word-break:break-all;background:var(--carte);bo
 .nb{display:flex;align-items:center;gap:12px;margin:8px 0}
 .nb input[type=range]{flex:1;min-height:44px;accent-color:var(--accent)}
 .nb output{min-width:64px;text-align:center;font-size:22px;font-weight:700;border:1px solid var(--filet);border-radius:10px;padding:6px 4px;background:var(--carte)}
+/* 2.3.3, lot C (RET-542) : le curseur de 0 à 100, la bulle au-dessus du rond */
+.l233c-per{display:inline-block;font-size:13.5px;font-weight:600;color:var(--prep,#3F5A80);background:var(--prepbg,#E3EAF3);border-radius:999px;padding:2px 10px;margin:0 0 4px}
+.carte.l233c-cur{padding:18px 14px 14px}
+.nb.l233c-zone{display:block;position:relative;padding-top:36px;margin:0}
+.nb.l233c-zone input[type=range]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:48px;margin:0;background:transparent;cursor:pointer;accent-color:var(--accent)}
+.nb.l233c-zone input[type=range]:focus{outline:none}.nb.l233c-zone input[type=range]:focus-visible{outline:2px solid var(--prep,#3F5A80);outline-offset:2px;border-radius:8px}
+.nb.l233c-zone input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:4px;background:var(--filet)}
+.nb.l233c-zone input[type=range]::-moz-range-track{height:8px;border-radius:4px;background:var(--filet)}
+.nb.l233c-zone input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;background:var(--accent);border:3px solid var(--carte);box-shadow:0 1px 5px rgba(26,29,34,.4);margin-top:-11px;transition:transform .15s}
+.nb.l233c-zone input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--accent);border:3px solid var(--carte);box-shadow:0 1px 5px rgba(26,29,34,.4)}
+.nb.l233c-zone input[type=range]:active::-webkit-slider-thumb{transform:scale(1.22)}
+.nb output.l233c-bulle{position:absolute;top:0;transform:translateX(-50%);min-width:0;border:0;border-radius:8px;padding:2px 10px;background:var(--accent);color:var(--onaccent);font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.4}
+.nb output.l233c-bulle::after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--accent)}
+.nb output.l233c-bulle.l233c-vide{background:var(--wash);color:var(--gris)}.nb output.l233c-bulle.l233c-vide::after{border-top-color:var(--wash)}
+.l233c-bouts{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--gris);margin-top:4px}.l233c-bouts span:last-child{text-align:right}.l233c-bouts b{display:block;color:var(--encre);font-size:15px}
+@media (prefers-reduced-motion:reduce){.nb.l233c-zone input[type=range]::-webkit-slider-thumb{transition:none}}
 input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:10px;padding:8px 6px;font:inherit;background:var(--carte);color:var(--encre);width:100%;min-height:44px;text-align:center}
 .series{grid-column:1 / -1;display:grid;gap:6px;margin-top:4px}
 .serie{display:grid;grid-template-columns:52px 1fr 1fr;gap:6px;align-items:center}
@@ -399,6 +415,49 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .t11c-r button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentbg);font-weight:600}
 .v6-sj.t11c-nf .v6-sj-t .tt b{color:var(--gris)}
 .v6-sj-d .t11c-dit{text-align:left;margin:8px 0 0}
+/* 2.3.3, lot A (l233a), page version 12. RET-548 : « Sauter » ouvre « Cette série · Tout l'exercice · Annuler », puis la raison. RET-549 : dans « Vos
+   séances », la séance faite s'ouvre en résumé ; chaque série faite se touche et se corrige sur place. Les jetons de la page seulement (clair et sombre). */
+.l233a-pan{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding:10px;border-radius:12px;background:var(--wash)}
+.l233a-pan em{font-style:normal;font-size:14px;color:var(--gris)}
+.l233a-ch{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:100%;text-align:left;border:1px solid var(--filet);border-radius:10px;padding:8px 12px;min-height:54px;background:var(--carte);color:var(--encre);font:inherit}
+.l233a-ch b{font-size:16.5px}
+.l233a-ch small{font-size:13px;color:var(--gris)}
+.l233a-ch:active{border-color:var(--alerte);background:var(--alertbg)}
+.l233a-pan .btn.lien{width:auto;align-self:flex-start;min-height:40px;margin:0;padding:0 6px}
+.v6-sautr .l233a-quoi{flex:1 0 100%}
+.l233a-quoi b{color:var(--encre)}
+.btn.lien.l233a-rv{width:auto;min-height:40px;margin:0;padding:0;text-align:left;text-decoration:none;font-weight:600}
+.l233a-etl{margin:0 0 4px}
+.l233a-st{display:inline-block;font-size:13px;font-weight:600;border-radius:999px;padding:2px 10px}
+.l233a-st.ok{background:var(--okbg);color:var(--ok)}
+.l233a-st.vig{background:var(--watchbg);color:var(--vig)}
+.l233a-aide{font-size:14px;color:var(--prep);font-weight:600;margin:6px 0}
+.l233a-nm{font-size:17px}
+.l233a-nm span{font-size:14px;color:var(--gris)}
+.l233a-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.l233a-chip{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:76px;min-height:46px;padding:5px 10px;border-radius:10px;border:1px solid var(--filet);background:var(--carte);color:var(--encre);font:inherit;font-size:15px;font-weight:600;text-align:left;font-variant-numeric:tabular-nums}
+.l233a-chip small{font-size:12px;color:var(--gris);font-weight:400}
+button.l233a-chip{border-color:var(--l3)}
+.l233a-chip.sau{background:var(--watchbg);border-color:var(--watchbg);color:var(--vig)}
+.l233a-chip.sau small{color:var(--vig)}
+.l233a-chip.nn{color:var(--gris);border-style:dashed;font-weight:400}
+button.l233a-chip.cor{border-color:var(--waf);background:var(--watchbg)}
+button.l233a-chip[aria-expanded=true]{border-color:var(--prep);box-shadow:0 0 0 3px var(--prepbg)}
+.l233a-edi{margin-top:10px;padding:10px 12px;border:1.5px solid var(--prep);border-radius:12px;background:var(--wash)}
+.l233a-et{font-size:13.5px;color:var(--gris);margin-bottom:6px}
+.l233a-eg{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px;color:var(--gris)}
+.l233a-eg>span:first-child{width:58px;flex:none}
+.l233a-rr{display:flex;gap:4px}
+.l233a-rr button{width:40px;height:38px;border:1.5px solid var(--filet);border-radius:8px;background:var(--carte);color:var(--encre);font:inherit;font-weight:600;padding:0}
+.l233a-eb{display:flex;align-items:center;gap:10px;margin-top:8px}
+.l233a-ok{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 20px;border-radius:10px;border:0;background:var(--ok);color:var(--onaccent);font:inherit;font-weight:600}
+.l233a-ok svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.l233a-eb .btn.lien{width:auto;min-height:44px;margin:0;padding:0 6px}
+.l233a-bas{background:var(--watchbg);color:var(--vig);border-radius:10px;padding:10px 12px;font-size:14.5px;margin:10px 0}
+.l233a-bas b{color:var(--encre)}
+.l233a-bas .btn.lien{display:inline;width:auto;min-height:28px;margin:0;padding:0;color:var(--vig);font-size:inherit}
+.v6-sj.l233a-cor .v6-sj-t .et{background:var(--watchbg);color:var(--vig)}
+.l233a-dit{margin:0 0 10px}
 /* 19 : l'interrupteur (tic sonore et vibration, coupés d'origine) */
 .v6-sw{display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--gris);font:inherit;font-size:15px;padding:8px 0;min-height:44px;margin-top:18px}
 .v6-sw i{position:relative;width:42px;height:24px;border-radius:12px;background:var(--l3);flex:none;transition:background .2s}
@@ -562,7 +621,7 @@ var Billet = (function () {
       if (it.temps != null) o.temps = textes(it.temps, 20, 200); }
     if (it.t === 'groupe' || it.t === 'lignes') { o.ch = liste(it.ch, 12).map(champ); if (!o.ch.length) non('champs'); }
     return o; }
-  function quest(q) { objet(q); var o = {n: txt(q.n, 300), c: txt(q.c, 4000), it: liste(q.it, 150).map(item)}; if (!o.it.length) non('vide'); return o; }
+  function quest(q) { objet(q); var o = {n: txt(q.n, 300), c: txt(q.c, 4000), it: liste(q.it, 150).map(item)}; if (!o.it.length) non('vide'); if (q.rap != null) o.rap = txt(q.rap, 200); return o; }   /* 2.3.3, lot C (RET-542) : rap, la période rappelée sur chaque question (« Considérez les 3 derniers mois. ») */
   /* 1.30-test12, GA-11 : la fiche conseil (FICHES_EDU de l'appli) : titre, phrase, parties ; chaque ligne a sa sorte (num, li, p, feu, case, palier) ;
      cs : les lignes « case » cochées par le kiné ; src, fin : le pied de la fiche */
   var LIGNES = ['num', 'li', 'p', 'feu', 'case', 'palier'];
@@ -767,6 +826,7 @@ function total() { var n = 0; E.q.forEach(function (q) { n += q.it.length; }); r
 function rang() { var n = 0; for (var i = 0; i < V.i; i++) n += E.q[i].it.length; return n + V.j; }
 function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '';
   h += '<div class="tete"><span>' + esc(q.n) + '</span><span>' + (rang() + 1) + ' sur ' + total() + '</span></div><div class="barre"><i style="width:' + Math.round(100 * rang() / total()) + '%"></i></div>';
+  if (q.rap) h += '<p class="l233c-per">' + esc(q.rap) + '</p>';   /* 2.3.3, lot C (RET-542) */
   if (it.intro) h += '<p class="intro">' + esc(it.intro) + '</p>';
   h += '<p class="q">' + esc(it.q) + '</p>' + (it.f && it.t !== 'texte' ? '<p class="petit">Facultatif : « Suivant » passe la question.</p>' : '') + (!it.f && E.q[0].it.some(function (x) { return x.f; }) ? '<p class="petit">Nécessaire.</p>' : '');
   if (it.t === 'echelle') { var mn = (it.a || []).map(function (x) { return /^(\d+)\s*min(utes)?$/.exec(String(x).trim()); }), enMin = mn.length === 2 && mn[0] && mn[1];   /* 1.30-test17, GF4-36 : les minutes sur les boutons quand les deux bouts en sont ; les points restent la réponse */
@@ -775,8 +835,8 @@ function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '
     h += '</div>' + (it.na ? '<div class="choix" style="margin-top:8px"><button data-act="rep" data-v="na" aria-pressed="' + (v === 'na') + '">' + esc(it.na) + '</button></div>' : ''); }
   else if (it.t === 'choix') h += '<div class="choix">' + (it.o || []).map(function (o) { return '<button data-act="rep" data-v="' + esc(o[0]) + '" aria-pressed="' + (v != null && String(v) === String(o[0])) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
   else if (it.t === 'nombre') { var mi = it.min != null ? +it.min : 0, ma = it.max != null ? +it.max : 100, mil = mi < 0 && ma === -mi && ma <= 10, cur = ma - mi >= 50 && !mil;   /* un curseur pour les échelles de 0 à 100, un champ pour un petit nombre (des jours) */
-    if (!mil && Array.isArray(it.a) && it.a.length === 2) h += '<div class="ancres"><span>' + mi + ' · ' + esc(it.a[0]) + '</span><span>' + esc(it.a[1]) + ' · ' + ma + '</span></div>';
-    if (cur) h += '<div class="nb"><input type="range" id="nombre" min="' + mi + '" max="' + ma + '" step="1" value="' + (typeof v === 'number' ? v : Math.round((mi + ma) / 2)) + '" aria-label="' + esc(it.q) + '"><output id="nombre-v">' + (typeof v === 'number' ? v : '–') + '</output></div><p class="petit">Faites glisser le curseur' + (it.unite ? ' (' + esc(it.unite) + ')' : '') + '.</p>';
+    if (!mil && !cur && Array.isArray(it.a) && it.a.length === 2) h += '<div class="ancres"><span>' + mi + ' · ' + esc(it.a[0]) + '</span><span>' + esc(it.a[1]) + ' · ' + ma + '</span></div>';
+    if (cur) h += l233cCurseur(it, v, mi, ma);   /* 2.3.3, lot C (RET-542, piste A) : le curseur libre, la valeur dans une bulle au-dessus du rond, les deux bouts dessous */
     else if (mil) h += curseurMilieu(it, v, mi, ma) + '<p class="petit">Faites glisser le curseur.</p>';   /* version 6, idée 144 */
     else h += '<input type="number" id="nombre" inputmode="numeric" min="' + mi + '" max="' + ma + '" value="' + (typeof v === 'number' ? v : '') + '" aria-label="' + esc(it.q) + '"><p class="petit">De ' + mi + ' à ' + ma + (it.unite ? ' ' + esc(it.unite) : '') + '.</p>';
     if (it.na) h += '<div class="choix" style="margin-top:8px"><button data-act="rep" data-v="na" aria-pressed="' + (v === 'na') + '">' + esc(it.na) + '</button></div>'; }   /* 1.30-test7, T1-05 : « Cela ne me concerne pas » sous un nombre (la Q9 de l'iHOT traduit) */
@@ -788,6 +848,14 @@ function ecranQuestion() { var q = quest(), it = item(), v = repDe()[V.j], h = '
   h += t11dMessage(it, v) + (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="suivant">' + (rang() + 1 === total() || !t11dPas(1) ? 'Terminer' : 'Suivant') + '</button>';
   if (rang() > 0) h += '<button class="btn lien" data-act="precedent">Question précédente</button>';
   return h; }
+/* 2.3.3, lot C (RET-542, piste A de tel.json) : une échelle de 0 à 100 (le BPII 2.0, l'iHOT, le WOSI) : le rond suit le doigt de 1 en 1, la valeur
+   dans une bulle au-dessus de lui ; les deux bouts sous la ligne, le nombre en gras puis le mot ; rien n'est compté tant qu'il n'a pas été touché (V.touche) */
+function l233cLeft(n) { var mi = +n.min, ma = +n.max, k = ma > mi ? (+n.value - mi) / (ma - mi) : .5; return 'calc(15px + (100% - 30px) * ' + Math.max(0, Math.min(1, k)) + ')'; }
+function l233cCurseur(it, v, mi, ma) { var a = Array.isArray(it.a) && it.a.length === 2 ? it.a : null, x = typeof v === 'number' ? v : Math.round((mi + ma) / 2), k = ma > mi ? (x - mi) / (ma - mi) : .5;
+  return '<div class="carte l233c-cur"><div class="nb l233c-zone"><output id="nombre-v" class="l233c-bulle' + (typeof v === 'number' ? '' : ' l233c-vide') + '" style="left:calc(15px + (100% - 30px) * ' + k + ')">' + (typeof v === 'number' ? v : '–') + '</output>'
+    + '<input type="range" id="nombre" min="' + mi + '" max="' + ma + '" step="1" value="' + x + '" aria-label="' + esc(it.q) + (a ? ' (de ' + mi + ', ' + esc(a[0]) + ', à ' + ma + ', ' + esc(a[1]) + ')' : '') + '"></div>'
+    + (a ? '<div class="l233c-bouts"><span><b>' + mi + '</b>' + esc(a[0]) + '</span><span><b>' + ma + '</b>' + esc(a[1]) + '</span></div>' : '') + '</div>'
+    + '<p class="petit">' + (typeof v === 'number' ? 'Pas de bonne ou de mauvaise réponse : placez le rond là où vous en êtes.' : 'Faites glisser le rond' + (it.unite ? ' (' + esc(it.unite) + ')' : '') + ' : pas de bonne ou de mauvaise réponse.') + '</p>'; }
 function prendreTexte() { var t = document.getElementById('texte'); if (t) { var r = repDe(); if (t.value.trim()) r[V.j] = t.value.trim(); else r[V.j] = null; } }
 /* un nombre : le curseur ne compte que s'il a été touché (V.touche), le champ que s'il est rempli et dans les bornes */
 function prendreNombre() { var n = document.getElementById('nombre'), it = item(); if (!n || it.t !== 'nombre') return; var r = repDe();
@@ -1502,7 +1570,7 @@ function motMil(it, v) { var o = (it.o || []).filter(function (x) { return Strin
 function curseurMilieu(it, v, mi, ma) { var a = Array.isArray(it.a) ? it.a : [], val = typeof v === 'number' ? v : 0, pc = (val - mi) / (ma - mi) * 100;
   return '<div class="v6-mil" id="v6-mil"><div class="piste"><div class="rem" style="left:' + Math.min(50, pc) + '%;width:' + Math.abs(pc - 50) + '%"></div><div class="bt" style="left:' + pc + '%"></div><input type="range" id="nombre" min="' + mi + '" max="' + ma + '" step="1" value="' + val + '" aria-label="' + esc(it.q) + '"></div>'
     + '<div class="bornes"><span>' + esc(a[0] || '') + '</span><span>' + esc(a[1] || '') + '</span></div><div class="mot" id="nombre-v">' + (typeof v === 'number' ? esc(motMil(it, v)) : '–') + '</div></div>'; }
-function majNombre(n, o) { var mil = document.getElementById('v6-mil'); if (!mil) { o.textContent = n.value; return; } var mi = +n.min, ma = +n.max, v = +n.value, pc = (v - mi) / (ma - mi) * 100, r = mil.querySelector('.rem');
+function majNombre(n, o) { var mil = document.getElementById('v6-mil'); if (!mil) { o.textContent = n.value; if (o.classList.contains('l233c-bulle')) { o.classList.remove('l233c-vide'); o.style.left = l233cLeft(n); } return; } var mi = +n.min, ma = +n.max, v = +n.value, pc = (v - mi) / (ma - mi) * 100, r = mil.querySelector('.rem');
   mil.querySelector('.bt').style.left = pc + '%'; r.style.left = Math.min(50, pc) + '%'; r.style.width = Math.abs(pc - 50) + '%'; o.textContent = motMil(item(), v); }
 
 var A = {
@@ -2150,6 +2218,103 @@ A['t11e-choisir'] = function (el) { prendre3(); var b = s3(), i = b.i, id = Stri
   b.rm = Array.isArray(b.rm) ? b.rm : []; for (k = 0; k < E.ex.length; k++) b.rm[k] = typeof b.rm[k] === 'string' ? b.rm[k] : ''; b.rm[i] = id;
   t11eAppliquer(b); V.t11e = ''; V.joue = ''; sauver(); V.garde = true; };
 /* ===== fin du lot E de la 2.3.2 ===== */
+/* ===== 2.3.3, lot A (l233a), page version 12 : sauter tout l'exercice (RET-548), corriger une séance enregistrée (RET-549) =====
+   RET-548 : « Sauter » ouvre sur place « Cette série · Tout l'exercice · Annuler » (V.l233aQ : '' le choix, 's' la série, 't' tout l'exercice), puis la
+   raison comme avant. « Tout l'exercice » saute les séries qui restent avec la raison choisie (t : 1, comme « Sauter tout l'exercice » après « Ça fait
+   mal », qui reste). Une seule série à faire : pas de choix, la raison tout de suite.
+   RET-549 : dans « Vos séances », une séance de salle faite s'ouvre en résumé (V.l233aK, son rang) : un exercice par carte, une pastille par série ; une
+   série faite se touche, se corrige sur place (répétitions ou secondes, charge, RIR ; V.l233aE, le brouillon), puis « OK ». La série dit « corrigée ✎ »
+   (z : 1 dans la mémoire de la page, jamais dans le retour), la séance repasse « à envoyer » (« corrigée ✎ » dans la liste) : elle part avec le prochain
+   envoi. « Annuler la correction » rend la séance d'avant tant que rien n'est reparti.
+   Le retour (forme 3) : cr, le jour de la correction, seulement quand la séance était déjà partie ; l'appli KINÉ remplace alors la séance rangée (même
+   jour, même rang), sans doublon ; une appli d'avant l'ignore. Mémoire de la page, facultative : ETAT.l233a = {k<rang> : {d, x, f, cr}} (la séance d'avant
+   la correction, pour l'annuler), b.l233aCr, faites[].cz. Une séance faite avec un lien d'avant (T14), un cardio, une mobilité : comme avant. Aucun appel réseau. */
+function l233aReste(i, j) { var b = s3la(), l = b && b.x ? b.x[i] : null; return l ? l.filter(function (s, k) { return !s.f && k !== j; }).length : 0; }
+function l233aPan(j, n) { return '<div class="l233a-pan" id="l233a-pan" role="group" aria-label="Que voulez-vous sauter ?"><em>Que voulez-vous sauter ?</em>'
+  + '<button class="l233a-ch" data-act="l233a-qs"><b>Cette série</b><small>S' + (j + 1) + ' · il en restera ' + n + '</small></button>'
+  + '<button class="l233a-ch" data-act="l233a-qt"><b>Tout l’exercice</b><small>les ' + (n + 1) + ' séries qui restent</small></button>'
+  + '<button class="btn lien" data-act="s3-sauter">Annuler</button></div>'; }
+(function () { var s0 = A['s3-sauter']; A['s3-sauter'] = function (el) { var r = s0(el); V.l233aQ = ''; if (V.saut) { var b = s3(), j = jCur3(b.i); if (j < 0 || !l233aReste(b.i, j)) V.l233aQ = 's'; } return r; }; })();
+A['l233a-qs'] = function () { prendre3(); V.l233aQ = 's'; V.garde = true; };
+A['l233a-qt'] = function () { prendre3(); V.l233aQ = 't'; V.garde = true; };
+(function () { var r0 = A['s3-raison']; A['s3-raison'] = function (el) { if (V.l233aQ !== 't') { V.l233aQ = ''; return r0(el); }
+  prendre3(); var b = s3(), i = b.i, r = el.dataset.v, j0 = -1; if (['d', 'm', 'a'].indexOf(r) < 0) return;
+  b.x[i].forEach(function (s, j) { if (!s.f) { b.x[i][j] = {f: 2, s: r, t: 1}; if (j0 < 0) j0 = j; } });
+  if (Array.isArray(b.mal)) b.mal[i] = 0; b.v = null; b.ten = null; V.saut = false; V.l233aQ = ''; if (j0 >= 0) avancer3(i, j0); sauver(); V.garde = true; }; })();
+(function () { var t0 = tel3Seance; tel3Seance = function () { var h = t0.apply(this, arguments); if (!V.saut) return h;
+  var deb = '<div class="v6-sautr" id="s3-raisons">', fin = '<button class="btn lien" data-act="s3-sauter">Annuler</button></div>', a = h.indexOf(deb), z = a < 0 ? -1 : h.indexOf(fin, a); if (z < 0) return h; z += fin.length;
+  var b = s3(), i = b.i, j = jCur3(i), n = j < 0 ? 0 : l233aReste(i, j); if (!n) return h;
+  if (V.l233aQ === 's' || V.l233aQ === 't') return h.slice(0, a) + h.slice(a, z).replace('<em>Pourquoi ?</em>', '<em class="l233a-quoi" id="l233a-quoi">' + (V.l233aQ === 't' ? '<b>Tout l’exercice</b>, les ' + (n + 1) + ' séries qui restent. Pourquoi ?' : '<b>Cette série</b> (S' + (j + 1) + '). Pourquoi ?') + '</em>') + h.slice(z);
+  return h.slice(0, a) + l233aPan(j, n) + h.slice(z); }; })();
+/* RET-549 : la séance faite, son état, ce qui se corrige */
+function l233aFaite(k) { var l = (ETAT && Array.isArray(ETAT.faites) ? ETAT.faites : []).filter(function (x) { return x && x.k === k; }); return l[l.length - 1] || null; }
+function l233aEtat(k) { return E && E.se && ETAT && ETAT.sem && typeof ETAT.sem === 'object' ? ETAT.sem['k' + k] || null : null; }
+function l233aPeut(k) { var s = E && E.t === 'g' && E.lv >= 6 && E.se ? E.se[k] : null, b = s ? l233aEtat(k) : null, f = b ? l233aFaite(k) : null;
+  return !!(s && s.so !== 'c' && s.so !== 'm' && Array.isArray(s.ex) && b && b.fini && Array.isArray(b.x) && f && f.o && f.d === b.d); }
+function l233aB(k) { choisirSeance(k); return s3(); }
+function l233aAvant(k) { var m = ETAT && ETAT.l233a && typeof ETAT.l233a === 'object' ? ETAT.l233a['k' + k] : null, b = l233aEtat(k), f = l233aFaite(k); return m && Array.isArray(m.x) && b && m.d === b.d && f && !f.env ? m : null; }
+function l233aNb(k) { var m = l233aAvant(k), b = l233aEtat(k), n = 0; if (!m || !b) return 0; b.x.forEach(function (l, i) { l.forEach(function (s, j) { if (JSON.stringify(s) !== JSON.stringify((m.x[i] || [])[j] || null)) n++; }); }); return n; }
+function l233aVal(x, s) { return x.co === 1 ? 'G ' + doseSerie(x, s.rG, s.kG) + ' · D ' + doseSerie(x, s.rD, s.kD) : doseSerie(x, s.r, s.k); }
+function l233aRir(x) { return x.u !== 's' && (x.q === 'r' || x.q === 'e'); }
+function l233aChip(x, s, i, j, on) { var S = 'S' + (j + 1);
+  if (s.f === 2) return '<span class="l233a-chip sau">sautée<small>' + S + (s.c ? ' · au cabinet' : s.s === 'd' ? ' · ça fait mal' : s.s === 'm' ? ' · pas le matériel' : '') + '</small></span>';
+  if (s.f !== 1) return '<span class="l233a-chip nn">non notée<small>' + S + '</small></span>';
+  var v = esc(l233aVal(x, s)), sous = S + (s.c ? ' · au cabinet' : s.z ? ' · corrigée ✎' : (s.i != null && s.i !== '' ? ' · RIR ' + (String(s.i) === '4' ? '4+' : esc(s.i)) : '') + (s.g ? ' · gêne' : ''));
+  if (s.c) return '<span class="l233a-chip">' + v + '<small>' + sous + '</small></span>';
+  return '<button class="l233a-chip' + (s.z ? ' cor' : '') + '" data-act="l233a-serie" data-i="' + i + '" data-j="' + j + '" aria-expanded="' + !!on + '" aria-label="Série ' + (j + 1) + ' : ' + v + ', la corriger">' + v + '<small>' + sous + '</small></button>'; }
+function l233aLigne(c, lab, val, un, pas) { return '<div class="l233a-eg"><span>' + lab + '</span><span class="v6-stp"><button data-act="l233a-pm" data-c="' + c + '" data-v="-' + pas + '" aria-label="' + lab + ', moins">−</button>'
+  + '<input class="v6-nb" type="text" inputmode="decimal" id="l233a-' + c + '" value="' + esc(val == null ? '' : val) + '" aria-label="' + lab + '"><button data-act="l233a-pm" data-c="' + c + '" data-v="' + pas + '" aria-label="' + lab + ', plus">+</button></span>' + (un ? '<span>' + un + '</span>' : '') + '</div>'; }
+function l233aEdi(x, s, e) { var un = x.u === 's' ? 's' : x.u === 'm' ? 'm' : '', nr = x.u === 's' ? 'Tenue' : x.u === 'm' ? 'Distance' : 'Rép.', pr = x.u === 's' ? 5 : 1, kg = function (c) { return avecKilos(x) || (s[c] != null && s[c] !== ''); };
+  var h = '<div class="l233a-edi" id="l233a-edi"><div class="l233a-et" id="l233a-et">Série ' + (e.j + 1) + ' · avant : ' + esc(l233aVal(x, s)) + '</div>';
+  if (x.co === 1) [['G', 'Gauche'], ['D', 'Droite']].forEach(function (c) { h += l233aLigne('r' + c[0], c[1], e['r' + c[0]], un || 'rép.', pr) + (kg('k' + c[0]) ? l233aLigne('k' + c[0], 'Charge', e['k' + c[0]], 'kg', 2.5) : ''); });
+  else h += l233aLigne('r', nr, e.r, un, pr) + (kg('k') ? l233aLigne('k', 'Charge', e.k, 'kg', 2.5) : '');
+  if (l233aRir(x)) h += '<div class="l233a-eg"><span>RIR</span><span class="l233a-rr" id="l233a-rir">' + ['0', '1', '2', '3', '4'].map(function (r) { return '<button data-act="l233a-rir" data-v="' + r + '" aria-pressed="' + (String(e.ir) === r) + '">' + (r === '4' ? '4+' : r) + '</button>'; }).join('') + '</span></div>';
+  return h + '<div class="l233a-eb"><button class="l233a-ok" data-act="l233a-ok" aria-label="Valider la correction">' + CK + '<span>OK</span></button><button class="btn lien" data-act="l233a-annuler">Annuler</button></div></div>'; }
+function l233aResume(k) { var b = l233aB(k), s = E.se[k], f = l233aFaite(k), d = dateDe(dateOk(b.d) ? b.d : s.d), e = V.l233aE, n = l233aNb(k);
+  var h = '<button class="btn lien l233a-rv" data-act="l233a-fermer">‹ Vos séances</button><h1 id="l233a-titre">' + esc(s.nom || 'Séance') + ' · ' + JOURS[d.getDay()] + ' ' + (d.getDate() === 1 ? '1er' : d.getDate()) + '</h1>';
+  h += '<p class="l233a-etl"><span class="l233a-st ' + (f.env ? 'ok' : 'vig') + '" id="l233a-etat">' + (f.env ? 'Envoyée à votre kiné' : f.cz ? 'Corrigée · partira avec votre prochain envoi' : 'Faite, pas encore envoyée') + '</span></p><p class="l233a-aide" id="l233a-aide">Touchez une série pour la corriger.</p>';
+  E.ex.forEach(function (x, i) { var l = b.x[i] || [], on = !!e && e.i === i;
+    h += '<div class="carte l233a-ex" data-i="' + i + '"><div class="l233a-nm"><b>' + esc(x.n) + '</b>' + (x.d ? ' <span>· ' + esc(x.d) + '</span>' : '') + '</div><div class="l233a-chips">' + l.map(function (y, j) { return l233aChip(x, y, i, j, on && e.j === j); }).join('') + '</div>' + (on && l[e.j] ? l233aEdi(x, l[e.j], e) : '') + '</div>'; });
+  if (n) h += '<div class="l233a-bas" id="l233a-bas" role="status"><b>' + pl(n, 'série') + ' corrigée' + (n > 1 ? 's' : '') + '.</b> ' + (n > 1 ? 'Elles partiront' : 'Elle partira') + ' avec votre prochain envoi. <button class="btn lien" data-act="l233a-defaire">Annuler la correction</button></div>';
+  if (!f.env) h += '<div class="v6-sem" id="l233a-envoi"><span>' + (f.cz ? 'Corrigée, pas encore envoyée' : 'Faite, pas encore envoyée') + '</span><button data-act="envoi">Envoyer maintenant</button><button class="v6-doux" data-act="l233a-fermer">Avec ma semaine</button></div>';
+  return h; }
+/* la liste : la carte d'une séance faite dit « touchez pour revoir » ; corrigée et pas repartie, « corrigée ✎ » ; au retour du résumé, « Correction enregistrée » */
+function l233aHabiller(h) { if (!E || !E.se || !ETAT) return h; var t = document.createElement('template'); t.innerHTML = h; var R = t.content, n = 0;
+  E.se.forEach(function (s, k) { if (!l233aPeut(k)) return; var c = R.querySelector('.v6-sj[data-k="' + k + '"]'), f = l233aFaite(k); if (!c) return; n++;
+    var et = c.querySelector('.v6-sj-t .et'), sm = c.querySelector('.v6-sj-t .tt small'), bt = c.querySelector('button.v6-sj-t'); if (et && f.cz && !f.env) { et.textContent = 'corrigée ✎'; c.classList.add('l233a-cor'); }
+    if (sm) sm.textContent += ' · touchez pour revoir'; if (bt) bt.removeAttribute('aria-expanded'); });
+  if (V.l233aDit) { V.l233aDit = 0; var sl = R.querySelector('#v6-semaine'); if (sl) { var p = document.createElement('p'); p.className = 'v6-msg l233a-dit'; p.id = 'l233a-dit'; p.setAttribute('role', 'status'); p.innerHTML = '<b>Correction enregistrée.</b> Elle partira avec votre prochain envoi.'; sl.parentNode.insertBefore(p, sl); n++; } }
+  if (!n) return h; var d = document.createElement('div'); d.appendChild(R); return d.innerHTML; }
+(function () { var s0 = ecranSemaine; ecranSemaine = function () { if (V.l233aK != null) { if (l233aPeut(V.l233aK)) { try { return l233aResume(V.l233aK); } catch (e) {} } V.l233aK = null; V.l233aE = null; }
+  var h = s0.apply(this, arguments); try { return l233aHabiller(h); } catch (e) { return h; } }; })();
+(function () { var o0 = A['sem-ouvrir']; A['sem-ouvrir'] = function (el) { var k = +el.dataset.k; if (!l233aPeut(k)) return o0(el); V.l233aK = k; V.l233aE = null; V.l233aDit = 0; }; })();
+['envoi', 'sem-retour', 'sem-commencer', 'sem-plus-tard', 'journal'].forEach(function (n) { var a0 = A[n]; if (!a0) return; A[n] = function (el) { V.l233aK = null; V.l233aE = null; return a0.call(this, el); }; });
+function l233aPrendre() { var e = V.l233aE; if (!e) return; ['r', 'k', 'rG', 'kG', 'rD', 'kD'].forEach(function (c) { var el = document.getElementById('l233a-' + c); if (el) e[c] = el.value.trim().replace(',', '.').slice(0, 6); }); }
+A['l233a-fermer'] = function () { var k = V.l233aK; V.l233aDit = k != null && l233aNb(k) > 0 ? 1 : 0; V.l233aK = null; V.l233aE = null; V.semOuv = -1; };
+A['l233a-serie'] = function (el) { var k = V.l233aK, i = +el.dataset.i, j = +el.dataset.j, e = V.l233aE; V.garde = true; if (k == null || !l233aPeut(k)) return; if (e && e.i === i && e.j === j) { V.l233aE = null; return; }
+  var s = (l233aB(k).x[i] || [])[j]; if (!s || s.f !== 1 || s.c) return; e = V.l233aE = {i: i, j: j, ir: s.i != null ? String(s.i) : ''}; ['r', 'k', 'rG', 'kG', 'rD', 'kD'].forEach(function (c) { e[c] = s[c] != null ? String(s[c]) : ''; }); };
+A['l233a-pm'] = function (el) { l233aPrendre(); var e = V.l233aE, c = el.dataset.c; V.garde = true; if (!e || ['r', 'k', 'rG', 'kG', 'rD', 'kD'].indexOf(c) < 0) return; e[c] = String(Math.max(0, Math.round((num3(e[c]) + (+el.dataset.v || 0)) * 100) / 100)); };
+A['l233a-rir'] = function (el) { l233aPrendre(); var e = V.l233aE; V.garde = true; if (e) e.ir = e.ir === el.dataset.v ? '' : el.dataset.v; };
+A['l233a-annuler'] = function () { V.l233aE = null; V.garde = true; };
+/* « OK » : seulement ce qui a changé ; la séance d'avant est gardée une fois (pour « Annuler la correction »), puis la séance est rangée de nouveau, à envoyer */
+A['l233a-ok'] = function () { l233aPrendre(); var k = V.l233aK, e = V.l233aE; V.l233aE = null; V.garde = true; if (k == null || !e || !l233aPeut(k)) return;
+  var b = l233aB(k), s = (b.x[e.i] || [])[e.j], x = E.ex[e.i], f = l233aFaite(k), ch = []; if (!s || !x || s.f !== 1 || s.c) return;
+  (x.co === 1 ? ['rG', 'kG', 'rD', 'kD'] : ['r', 'k']).forEach(function (c) { var nv = e[c] == null ? '' : String(e[c]), av = s[c] == null ? '' : String(s[c]); if (nv !== '' && !/^\d{1,4}(\.\d{1,2})?$/.test(nv)) return;
+    if (nv === '' ? c.charAt(0) === 'r' || av === '' : av !== '' && num3(av) === num3(nv)) return; ch.push([c, nv]); });
+  if (l233aRir(x) && ['', '0', '1', '2', '3', '4'].indexOf(e.ir) >= 0 && e.ir !== (s.i != null ? String(s.i) : '')) ch.push(['i', e.ir]);
+  if (!ch.length) return;
+  var m = ETAT.l233a = ETAT.l233a && typeof ETAT.l233a === 'object' && !Array.isArray(ETAT.l233a) ? ETAT.l233a : {};
+  if (!l233aAvant(k)) m['k' + k] = {d: b.d, x: JSON.parse(JSON.stringify(b.x)), f: JSON.parse(JSON.stringify(f)), cr: b.l233aCr || ''};
+  ch.forEach(function (c) { if (c[1] === '') delete s[c[0]]; else s[c[0]] = c[1]; }); s.z = 1; if (f.env || (f.o && f.o.cr)) b.l233aCr = auj();
+  garderSeance(b, k); var g = l233aFaite(k); if (g) g.cz = 1; ETAT.rendu = 0; sauver(); };
+A['l233a-defaire'] = function () { var k = V.l233aK, m = k != null ? l233aAvant(k) : null; V.l233aE = null; V.garde = true; if (!m || !l233aPeut(k)) return; var b = l233aB(k), l = ETAT.faites, n = -1;
+  b.x = JSON.parse(JSON.stringify(m.x)); if (m.cr) b.l233aCr = m.cr; else delete b.l233aCr; l.forEach(function (y, i) { if (y && y.k === k) n = i; }); if (n >= 0 && m.f) l[n] = m.f; delete ETAT.l233a['k' + k]; sauver(); };
+/* le retour : cr, le jour de la correction d'une séance déjà partie */
+(function () { var o0 = objetSeance; objetSeance = function (b, k, partielle) { var o = o0.apply(this, arguments); if (o && o.f === 3 && b && dateOk(b.l233aCr)) o.cr = b.l233aCr; return o; }; })();
+/* une fois la correction repartie, la séance d'avant n'est plus gardée */
+(function () { var m0 = marquerRendu; marquerRendu = function () { var r = m0.apply(this, arguments); try { var m = ETAT && ETAT.l233a; if (m && typeof m === 'object') { var ch = false;
+  Object.keys(m).forEach(function (c) { var f = l233aFaite(+c.slice(1)); if (!f || f.env) { delete m[c]; ch = true; } }); if (ch) sauver(); } } catch (e) {} return r; }; })();
+/* ===== fin du lot A de la 2.3.3 ===== */
 window.addEventListener('hashchange', ouvrir);
 /* 1.30-test7 : un autre onglet a écrit un état plus récent pour ce lien : la page le reprend, sans rien écrire */
 window.addEventListener('storage', function (ev) { if (!E || !ETAT || (ev.key !== null && ev.key !== cleEtat())) return; var la = plusRecent(); if (!la) return; ETAT = la; V.ailleurs = true; V.garde = true; rendre(); });
