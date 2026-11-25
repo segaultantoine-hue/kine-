@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<!-- Praticien, version 1 (2.3.3, lot F, RET-557, piste B « l’examen d’abord »). La page du téléphone du praticien, à côté de celle du patient (index.html),
+<!-- Praticien, version 2 (2.5, lot H, RET-632) : un second billet, la réévaluation rapide (m « r ») : les lignes de la réévaluation ouverte au Mac et leurs valeurs
+     d’avant, sous initiales, la douleur d’abord ; un appui par ligne, la décision, la note ; le retour par le même code KINE1 chiffré.
+     Praticien, version 1 (2.3.3, lot F, RET-557, piste B « l’examen d’abord »). La page du téléphone du praticien, à côté de celle du patient (index.html),
      dans le même dépôt. Elle est vide : ni patient, ni test. Tout arrive par le lien, après le « # », que le navigateur n’envoie jamais à un serveur :
      les initiales et l’âge, la région, les tests et les amplitudes de l’examen, rien d’autre. Trois écrans : les tests à coter + / − à gauche et à droite
      (ou la valeur), les amplitudes (« Mesurer avec le téléphone » : l’inclinomètre, sinon la saisie au pouce) et un chrono, la note (dictée du clavier)
@@ -20,9 +22,9 @@
 <link rel="icon" type="image/png" href="icone.png">
 <title>KINÉ · praticien</title>
 <style>
-:root{--encre:#1A1D22;--accent:#2A2D33;--ok:#3A5D52;--vig:#7C6A35;--alerte:#9B100E;--prep:#3F5A80;--prepbg:#E3EAF3;--okbg:#E6EFEB;--fond:#F4F5F7;--carte:#FFFFFF;--filet:#E0E2E6;--filet2:#EEEFF2;--gris:#4E535C;--onaccent:#FFFFFF;--wash:#EEEFF2;--l3:#BEC3C9;--onplein:#FFFFFF}
+:root{--encre:#1A1D22;--accent:#2A2D33;--ok:#3A5D52;--vig:#7C6A35;--alerte:#9B100E;--prep:#3F5A80;--prepbg:#E3EAF3;--okbg:#E6EFEB;--fond:#F4F5F7;--carte:#FFFFFF;--filet:#E0E2E6;--filet2:#EEEFF2;--gris:#4E535C;--onaccent:#FFFFFF;--wash:#EEEFF2;--l3:#BEC3C9;--onplein:#FFFFFF;--alertbg:#F6E4E2}
 @media (prefers-color-scheme:dark){
-  :root{--encre:#ECEDEF;--accent:#E6E5E2;--ok:#9DBAB1;--vig:#DCD29C;--alerte:#FD7964;--prep:#A9C0E0;--prepbg:#273244;--okbg:#26352F;--fond:#101215;--carte:#1B1E23;--filet:#2F343C;--filet2:#262A30;--gris:#A9AFB8;--onaccent:#141519;--wash:#24272C;--l3:#5C626B;--onplein:#141519;color-scheme:dark}
+  :root{--encre:#ECEDEF;--accent:#E6E5E2;--ok:#9DBAB1;--vig:#DCD29C;--alerte:#FD7964;--prep:#A9C0E0;--prepbg:#273244;--okbg:#26352F;--fond:#101215;--carte:#1B1E23;--filet:#2F343C;--filet2:#262A30;--gris:#A9AFB8;--onaccent:#141519;--wash:#24272C;--l3:#5C626B;--onplein:#141519;--alertbg:#3B2421;color-scheme:dark}
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -130,6 +132,141 @@ textarea:focus{outline:2px solid var(--prep);outline-offset:1px}
 .qr{display:block;width:230px;max-width:100%;margin:10px auto;border:1px solid var(--filet);border-radius:12px;padding:6px;background:#fff}
 .qr svg{display:block;width:100%;height:auto}
 .code{display:block;width:100%;min-height:64px;max-height:90px;font:12px/1.3 ui-monospace,Menlo,monospace;word-break:break-all;color:var(--gris)}
+/* 2.5, lot H, RET-632 : la réévaluation rapide (un appui par ligne, la carte se range, l'écart s'écrit) */
+main.rmode{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+.rtete{position:sticky;top:0;z-index:3;background:var(--fond);margin:0 -16px;padding:0 16px 8px;border-bottom:1px solid var(--filet)}
+.rtete h1{margin:10px 0 2px}
+.rtete .petit b{color:var(--encre)}
+.rbarre{height:4px;border-radius:4px;background:var(--wash);margin-top:6px;overflow:hidden}
+.rbarre i{display:block;height:100%;background:var(--accent);border-radius:4px;transition:width .3s ease}
+.rf{margin:16px 2px 6px}
+.rc{background:var(--carte);border:1px solid var(--filet);border-radius:14px;padding:14px 14px 12px;margin:8px 0;box-shadow:0 1px 2px rgba(26,29,34,.05)}
+.rc h2{margin:0;font-size:17px;line-height:1.25;overflow-wrap:anywhere}
+.rav{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px;font-size:13.5px;color:var(--gris)}
+.rav span{background:var(--wash);border-radius:999px;padding:3px 9px}
+.rav b{color:var(--encre);font-weight:600}
+.reva{display:grid;grid-template-columns:repeat(11,1fr);gap:3px}
+.reva button{position:relative;height:44px;border:1px solid var(--filet);border-radius:9px;background:var(--carte);font-weight:600;font-size:15px;padding:0}
+.reva button.avant::after{content:"";position:absolute;left:50%;bottom:4px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--l3)}
+.reva button[aria-pressed=true],.rpm button[aria-pressed=true],.rchoix button[aria-pressed=true],.rmac button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--onaccent)}
+.rleg{display:flex;justify-content:space-between;gap:6px;font-size:12px;color:var(--gris);margin-top:5px}
+.rleg i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--l3);margin-right:4px;vertical-align:1px}
+.rpm{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center}
+.rpm.r3{grid-template-columns:repeat(3,1fr)}
+.rpm.cote{grid-template-columns:16px 1fr 1fr}
+.rpm+.rpm{margin-top:8px}
+.rpm button{min-height:52px;border:1px solid var(--filet);border-radius:12px;background:var(--carte);font-size:18px;font-weight:700;line-height:1.1;padding:4px 6px}
+.rpm button small{display:block;font-size:12px;font-weight:500;opacity:.8}
+.rpm.r3 button{font-size:15px}
+.rpm em,.rnum em{font-style:normal;font-size:13px;font-weight:700;color:var(--gris);text-align:center}
+.rnum{display:flex;align-items:center;gap:8px}
+.rnum.cote em{width:16px;flex:none}
+.rnum+.rnum{margin-top:6px}
+.rnum button{width:52px;height:52px;flex:none;border:1px solid var(--filet);border-radius:12px;background:var(--carte);font-size:24px;font-weight:600;padding:0}
+.rval{flex:1;min-width:0;display:flex;align-items:baseline;justify-content:center;gap:2px}
+.rnb{width:100%;min-width:0;max-width:130px;border:0;border-bottom:1.5px solid var(--filet);background:none;text-align:center;font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;padding:0 2px}
+.rnb:focus{outline:none;border-bottom-color:var(--prep)}
+.rval small{flex:none;font-size:15px;color:var(--gris)}
+.rinc{display:flex;gap:8px;margin-top:10px}
+.rinc button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border:1.5px solid var(--prep);border-radius:999px;background:var(--prepbg);color:var(--prep);font-size:14px;font-weight:600;padding:0 10px}
+.rinc button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.rinc button.prim{background:var(--accent);border-color:var(--accent);color:var(--onaccent)}
+.rmac{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gris)}
+.rmac button{margin-left:auto;flex:none;min-height:44px;padding:0 14px;border:1.5px solid var(--prep);border-radius:999px;background:var(--prepbg);color:var(--prep);font-size:14px;font-weight:600}
+.rc.range{padding:0;background:transparent;box-shadow:none}
+.rres{display:flex;align-items:center;gap:8px;width:100%;min-height:48px;border:0;background:none;padding:10px 14px;text-align:left;font-size:15px}
+.rres b{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rres em,.rrel em{font-style:normal;font-weight:700;white-space:nowrap}
+.rres i,.rrel i{font-style:normal;font-size:12px;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+i.mieux{background:var(--okbg);color:var(--ok)}
+i.pire{background:var(--alertbg);color:var(--alerte)}
+i.pareil,i.neutre{background:var(--wash);color:var(--gris)}
+.rok{color:var(--ok);font-weight:700}
+.rail{color:var(--prep);font-weight:700}
+.rc.vient{animation:range .3s ease-out}
+.rchoix{display:grid;gap:6px}
+.rchoix button{min-height:46px;border:1px solid var(--filet);border-radius:12px;background:var(--carte);font-size:15px;font-weight:600;text-align:left;padding:0 14px}
+.rnote{display:flex;gap:8px;align-items:flex-start;margin-top:10px}
+.rnote textarea{flex:1;min-height:48px}
+.rnote .micb{width:48px;height:48px;margin:0;flex:none}
+.rnote .micb svg{width:22px;height:22px}
+.rpied{position:fixed;left:0;right:0;bottom:0;z-index:4;display:flex;align-items:center;gap:12px;background:var(--carte);border-top:1px solid var(--filet);padding:10px 16px calc(12px + env(safe-area-inset-bottom))}
+.rpied p{flex:1;min-width:0;margin:0;font-size:12.5px;color:var(--gris);line-height:1.3}
+.rpied p b{display:block;color:var(--encre);font-size:14px}
+.rpied .btn{width:auto;flex:none;margin:0;border-radius:999px;padding:0 18px;min-height:48px;white-space:nowrap;font-size:16px}
+.rrel{list-style:none;margin:10px 0;padding:0;border:1px solid var(--filet);border-radius:12px}
+.rrel li{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--filet2);font-size:14.5px}
+.rrel li:last-child{border-bottom:0}
+.rrel li span{flex:1;min-width:0}
+.rrel li.rln em{font-weight:500;white-space:normal;text-align:right}
+@keyframes range{from{opacity:.4;transform:scale(.98)}to{opacity:1;transform:none}}
+/* 2.5, lot J : la tablette, l'iPad du cabinet (réflexion du 24/11, point 1). html.l25j-tab : au moins 700 × 600, tout en plus grand ;
+   html.l25j-pay : en paysage (au moins 1 000 de large), les trois écrans côte à côte (praticien.js, l25jColonnes). Pas d'inclinomètre sur l'iPad. */
+html.l25j-tab body{font-size:19px}
+html.l25j-tab main{max-width:820px;padding-left:28px;padding-right:28px}
+html.l25j-tab h1{font-size:26px;margin-top:18px}
+html.l25j-tab h2{font-size:20px}
+html.l25j-tab .hp{font-size:16px}
+html.l25j-tab .petit{font-size:16px}
+html.l25j-tab .onglets button{min-height:58px;font-size:17px}
+html.l25j-tab .onglets button small{font-size:14px}
+html.l25j-tab .tsts{padding:8px 18px}
+html.l25j-tab .gt{font-size:14px;margin-top:14px}
+html.l25j-tab .tr{padding:10px 0}
+html.l25j-tab .tn{font-size:19px}
+html.l25j-tab .pm{gap:6px}
+html.l25j-tab .pm em{font-size:16px;font-weight:700;width:20px}
+html.l25j-tab .pm button{width:58px;height:58px;border-radius:12px;font-size:28px}
+html.l25j-tab .pm+.pm{margin-left:20px}
+html.l25j-tab .tv{font-size:16px;gap:8px 16px}
+html.l25j-tab .nb{width:96px;min-height:52px;font-size:22px}
+html.l25j-tab .tv button,html.l25j-tab .cibles button{min-height:52px;font-size:16px;padding:0 16px}
+html.l25j-tab .mes{display:none}
+html.l25j-tab .am>b{font-size:19px}
+html.l25j-tab .cg label{font-size:16px}
+html.l25j-tab .anneau,html.l25j-tab .anneau svg{width:150px;height:150px}
+html.l25j-tab .anneau b{font-size:32px}
+html.l25j-tab .anneau small{font-size:15px}
+html.l25j-tab .tps{font-size:17px}
+html.l25j-tab .micb{width:88px;height:88px}
+html.l25j-tab .micb svg{width:36px;height:36px}
+html.l25j-tab textarea{font-size:19px;min-height:150px}
+html.l25j-tab .rec{font-size:15px}
+html.l25j-tab .rec b{font-size:28px}
+html.l25j-tab .btn{min-height:60px;font-size:19px}
+html.l25j-tab .feuille{max-width:640px}
+html.l25j-tab .qr{width:300px}
+html.l25j-pay main{max-width:1240px}
+.l25j-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+.l25j-cols [data-a=ecran],.l25j-g .rien{display:none}
+/* le point 2 : « Examen » | « Douleurs », le schéma des douleurs (corps.js) ; les types de douleur de KINÉ (--t1 à --t5, --tq sans type) */
+:root{--t1:#376AC6;--t2:#AB3A0B;--t3:#B38D11;--t4:#37A496;--t5:#665E68;--tq:#ADB6C2;--l25j-fond:#F8F9FA;--l25j-img:.6;--l25j-filtre:none;--l25j-bord:#A7AFBA;--l25j-lim:#9EA7B3}
+@media (prefers-color-scheme:dark){:root{--t1:#6893DE;--t2:#D77E4E;--t3:#E5C35C;--t4:#8DE5CA;--t5:#A4ACB0;--tq:#8290A3;--l25j-fond:#414A56;--l25j-img:.27;--l25j-filtre:invert(1) brightness(1.35);--l25j-bord:#748090;--l25j-lim:#9EA9B8}}
+.l25j-vues{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0 4px;max-width:520px}
+.l25j-vues button{min-height:52px;border:1px solid var(--filet);border-radius:12px;background:var(--carte);font-size:17px;font-weight:700;color:var(--gris);line-height:1.15}
+.l25j-vues button small{display:block;font-size:13px;font-weight:500}
+.l25j-vues button[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:var(--onaccent)}
+.l25j-dl{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
+html.l25j-pay .l25j-dl{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+.l25j-sch{background:var(--carte);border:1px solid var(--filet);border-radius:14px;padding:8px;margin-top:10px}
+.l25j-corps{display:block;width:100%;height:auto;aspect-ratio:1296/1216;touch-action:manipulation}
+.l25j-fond{fill:var(--l25j-fond)}
+.l25j-img{opacity:var(--l25j-img);filter:var(--l25j-filtre);pointer-events:none}
+.l25j-z{fill:transparent;cursor:pointer;pointer-events:all}
+.l25j-z.note{fill-opacity:.9}
+.l25j-bord{fill:none;stroke:var(--l25j-bord);stroke-width:.8;vector-effect:non-scaling-stroke;pointer-events:none}
+.l25j-lims path{fill:none;stroke:var(--l25j-lim);stroke-width:.7;stroke-opacity:.55;vector-effect:non-scaling-stroke;pointer-events:none}
+.l25j-lab text{font-size:34px;fill:var(--gris);font-weight:600}
+.l25j-types{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:10px 0}
+.l25j-types button{display:flex;align-items:center;gap:10px;min-height:54px;border:1.5px solid var(--filet);border-radius:12px;background:var(--carte);font-size:17px;font-weight:600;padding:0 12px;text-align:left}
+.l25j-types button i,.l25j-liste i{width:18px;height:18px;border-radius:50%;flex:none}
+.l25j-types button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.l25j-liste{list-style:none;margin:6px 0 0;padding:0}
+.l25j-liste li{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--filet2);font-size:17px}
+.l25j-liste span{flex:1;min-width:0}
+.l25j-liste small{display:block;font-size:14px;color:var(--gris)}
+.l25j-liste button{border:0;background:none;color:var(--gris);text-decoration:underline;min-height:44px;font-size:15px}
+.rec.l25j-5{grid-template-columns:repeat(5,1fr)}
 @keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.08)}100%{transform:none}}
 @keyframes monte{from{transform:translateY(40%);opacity:.4}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

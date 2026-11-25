@@ -12,7 +12,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-pjqEkr4ZCDepv/vbln0GmlF8qpq1d4x8dJ2+zO73nYU='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-wpfAKUzl65W3sD5RaYggDzLEpci3UbAoI6NuU05vJTg='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
@@ -500,6 +500,33 @@ html.forme-gym .v6-rr button,html.forme-gym .v6-act button{min-height:58px;font-
 .l4-dc.pris{grid-template-columns:minmax(0,1fr)}
 .l4-dc button{min-height:60px;border:1.5px solid var(--filet);border-radius:10px;background:var(--carte);color:var(--encre);font:inherit;font-size:19px;font-weight:700}
 .l4-dc button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--onaccent)}
+/* 2.5, lot J : la tablette, l'iPad du cabinet (points 3 et 4 de la réflexion du 24/11). html.l25j-tab : une séance de salle ou un questionnaire sur un
+   grand écran (la forme gymnase, au moins 700 × 600) ; html.l25j-q : un questionnaire ; html.l25j-por : en portrait. */
+html.l25j-q body{font-size:19px}
+html.l25j-q main{max-width:820px;padding:32px 32px calc(32px + env(safe-area-inset-bottom))}
+html.l25j-q h1{font-size:30px}
+html.l25j-q .tete{font-size:16px}
+html.l25j-q .barre{height:8px;border-radius:4px}
+html.l25j-q .q{font-size:27px;line-height:1.28;margin:16px 0 22px}
+html.l25j-q .intro{font-size:18px}
+html.l25j-q .petit{font-size:16px}
+html.l25j-q .ancres{font-size:16px}
+html.l25j-q .ech{grid-template-columns:repeat(11,minmax(0,1fr));gap:8px}
+html.l25j-q .ech button{min-height:72px;font-size:24px;font-weight:600}
+html.l25j-q .choix{gap:10px}
+html.l25j-q .choix button{min-height:64px;font-size:20px;padding:12px 18px}
+html.l25j-q .btn{min-height:64px;font-size:20px}
+html.l25j-q textarea{font-size:19px}
+html.l25j-q .carte{padding:18px 20px}
+html.forme-gym.l25j-por .l4-cadre{grid-template-columns:minmax(0,1fr);gap:16px}
+html.forme-gym.l25j-por .l4-col{position:static;max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px}
+html.forme-gym.l25j-por .l4-col h2{grid-column:1/-1}
+html.forme-gym.l25j-por .l4-main .v6-hd .v6-pc{width:200px;height:200px}
+@media (min-width:1100px) and (min-height:760px){html.forme-gym.l25j-tab:not(.l25j-por) .l4-main .v6-hd .v6-pc{width:200px;height:200px}html.forme-gym.l25j-tab:not(.l25j-por) .l4-cadre{grid-template-columns:320px minmax(0,1fr)}}
+.l25j-fin{margin-top:22px;border-color:var(--accent)}
+.l25j-fin>b{font-size:19px}
+.l25j-fin .btn{margin-bottom:0}
+.l25j-fin~.effacer{display:none}
 /* 2.1, lot S2 de la commande v11 : la semaine du sportif (les jours, la sorte, le club, le contrôle du matin, le cardio, la mobilité). Jetons de la page seuls ;
    la douleur en gris, jamais en rouge ; l'ocre pâle (watchbg) pour un conseil du matin. */
 .sp2-jour{font-size:14px;font-weight:600;color:var(--gris);margin:14px 0 2px}
@@ -1262,7 +1289,7 @@ function mesure3(x, b) { var m = (Array.isArray(b.me) ? b.me[b.i] : null) || {},
    change la forme sans perdre la place (l'état est gardé à chaque geste). */
 var L4_FORME = null;
 function l4Gym() { return !!(E && E.t === 'g' && forme() === 'gym'); }
-function l4Classe() { L4_FORME = forme(); document.documentElement.classList.toggle('forme-gym', l4Gym()); }
+function l4Classe() { L4_FORME = forme(); document.documentElement.classList.toggle('forme-gym', l4Gym()); l25jClasse(); }
 function l4Liste() { var b = s3();
   return '<h2>La séance</h2>' + E.ex.map(function (y, k) { var l = b.x[k], f = l.filter(function (s) { return s.f; }).length, cab = l.length > 0 && l.every(function (s) { return s.c; });
     return '<button class="v6-ovl' + (f === l.length ? ' fini' : '') + (k === b.i ? ' ici' : '') + (cab ? ' cab' : '') + '" data-act="s3-aller" data-i="' + k + '" title="' + esc(y.n) + '"><span class="t"><b>' + (k + 1) + '. ' + esc(y.n) + '</b><small>' + (cab ? 'fait au cabinet' : esc(y.d || '')) + '</small></span><span class="k">' + (f === l.length ? CK : f + ' / ' + l.length) + '</span></button>'; }).join(''); }
@@ -1538,7 +1565,7 @@ function rendre() { var h = '';
   if (E && ETAT && V.pasGarde && V.ecran !== 'fin') h = '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' + h;
   if (E && ETAT && V.ailleurs) h = '<p class="petit non-envoye" id="autre-onglet" role="status">Ce lien est aussi ouvert dans un autre onglet : la page a repris ce qui y a été noté de plus récent.</p>' + h;
   V.ailleurs = false;
-  var y = V.garde ? window.scrollY : 0; V.garde = false; l4Classe(); app.innerHTML = h; window.scrollTo(0, y); apresRendu(); }
+  var y = V.garde ? window.scrollY : 0; V.garde = false; l4Classe(); app.innerHTML = h; l25jPoser(); window.scrollTo(0, y); apresRendu(); }
 /* après le rendu : ce qui joue une fois (le geste d'un dessin, la coche qui se trace, les chiffres qui montent, les barres qui se remplissent) et ce qui
    s'écoute (la colonne au pouce, le curseur) */
 function apresRendu() { var b = s3la(), q = function (s) { return document.querySelector(s); }, deux = function (f) { requestAnimationFrame(function () { requestAnimationFrame(f); }); };
@@ -1698,6 +1725,26 @@ calActions(A);   /* lot 11, GA-15 : les touches du calendrier mictionnel */
 /* 2.1, lot 4 : les touches de la forme gymnase */
 A['l4-ou'] = function (el) { prendre3(); var v = brouillon3(); if (v) v.o = v.o === el.dataset.v ? '' : el.dataset.v; sauver(); V.garde = true; };
 A['l4-eff'] = function (el) { prendre3(); var v = brouillon3(), n = +el.dataset.v; if (v && n >= 0 && n <= 10) { if (v.e === n) delete v.e; else v.e = n; } sauver(); V.garde = true; };
+/* ===== 2.5, lot J : la tablette, l'iPad du cabinet (réflexion du 24/11, points 3 et 4) =====
+   La séance de salle près du rack (la forme gymnase du lot 4 de la 2.1, en plus grand : en portrait, la liste au-dessus et l'exercice en pleine largeur)
+   et les questionnaires remplis par le patient (une question par écran, en grand). Même page, mêmes données, même retour. L'iPad passe d'un patient à
+   l'autre : à la fin (le résumé, l'envoi), « Effacer de l'iPad » vide tout ce que la page garde (en deux touches). Rien de nouveau dans le billet. */
+function l25jTab() { return !!(E && (E.t === 'g' || E.t === 'q') && forme() === 'gym'); }
+function l25jClasse() { var r = document.documentElement.classList, t = l25jTab(); r.toggle('l25j-tab', t); r.toggle('l25j-q', t && E.t === 'q'); r.toggle('l25j-por', t && (window.innerHeight || 0) > (window.innerWidth || 0)); }
+var L25J_FIN = ['fin', 'salle3-fin', 'envoi'];
+function l25jCarte() { var deux = V.l25jEff === 1;
+  return '<div class="carte l25j-fin" id="l25j-fin"><b>Patient suivant</b><p class="petit">' + (E.t === 'q' ? 'Une fois les réponses montrées ou envoyées' : 'Une fois la séance montrée ou envoyée') + ' au Mac, effacez tout : l’iPad ne garde rien d’un patient à l’autre.</p>'
+    + '<button class="btn sec l25j-eff" id="l25j-effacer" data-act="l25j-effacer">' + (deux ? 'Toucher encore pour tout effacer' : 'Effacer de l’iPad') + '</button></div>'; }
+/* la carte se pose au-dessus du petit lien « Effacer mes données » (qui reste), sinon en fin de page ; après l'effacement, l'iPad est dit prêt */
+function l25jPoser() { var app = document.getElementById('app'); if (!app) return;
+  if (V.ecran === 'efface' && V.l25jEff === 2) { var ok = app.querySelector('p.ok'); if (ok) { ok.id = 'l25j-pret'; ok.textContent = 'L’iPad ne garde plus rien : il est prêt pour le patient suivant.'; } return; }
+  if (!l25jTab()) return;
+  /* sur l'iPad, « ce téléphone » se dit « cet iPad » (hors du volet « Essai ») */
+  var w = document.createTreeWalker(app, NodeFilter.SHOW_TEXT, null), n; while ((n = w.nextNode())) { if (/ce téléphone/.test(n.nodeValue) && !(n.parentNode.closest && n.parentNode.closest('details'))) n.nodeValue = n.nodeValue.replace(/ce téléphone/g, 'cet iPad'); }
+  if (L25J_FIN.indexOf(V.ecran) < 0 || (V.ecran === 'fin' && E.t === 'q' && sansReponse().length)) return;
+  var ou = app.querySelector('.effacer') || app.querySelector('details:last-of-type'); if (ou) ou.insertAdjacentHTML('beforebegin', l25jCarte()); else app.insertAdjacentHTML('beforeend', l25jCarte()); }
+A['l25j-effacer'] = function () { if (!E) return; if (V.l25jEff !== 1) { V.l25jEff = 1; V.garde = true; setTimeout(function () { if (V.l25jEff === 1) { V.l25jEff = 0; if (E && ETAT) { V.garde = true; rendre(); } } }, 4000); return; }
+  effacer(true); V.l25jEff = 2; };
 A['l4-dc'] = function (el) { prendre3(); var b = s3(); b.dc = b.dc === el.dataset.v ? '' : el.dataset.v; if (!b.dc) delete b.dc; sauver(); V.garde = true; };
 /* ===== 2.1, lot S2 de la commande v11 : la semaine du sportif (sportif-distance.md, tours 1 à 3 ; FORMAT-TELEPHONE-V6.md, section « Lot S2 ») =====
    « Vos séances » jour par jour, à l'heure, avec la sorte écrite (Salle, Cardio, Mobilité), le club et le match dans la semaine ; la consigne de la semaine ;
