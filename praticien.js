@@ -16,7 +16,13 @@ var txt = function (v, n) { return typeof v === 'string' ? v.replace(/[\u0000-\u
 var auj = function () { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 var mmss = function (s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
 var pl = function (n, mot) { return n + ' ' + mot + (n > 1 ? 's' : ''); };
-var LOGO = '<svg viewBox="0 0 22 16" aria-hidden="true"><path d="M5 1h3L5 15H2z"/><path d="M11 1h3l-3 14H8z"/><path d="M17 1h3l-3 14h-3z"/></svg>';
+/* 2.6, lot E1, RET-715 et DES-297 point 4 : la marque de l'appli (MARQUE : trois barres qui montent, tournées de 22°, aux gris --mk1 à --mk3), à la place des trois barres égales */
+var LOGO = '<svg class="l26e1-mk" viewBox="-12 0 80 62" aria-hidden="true"><rect class="mk1" x="6" y="0" width="8" height="21" rx="2" transform="rotate(22 6 0)"/><rect class="mk2" x="22" y="0" width="8" height="30" rx="2" transform="rotate(22 22 0)"/><rect class="mk3" x="37" y="0" width="8" height="38" rx="2" transform="rotate(22 37 0)"/></svg>';
+var L26E1_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+/* ERG-206 point 6 : l'examen prend la barre du bas de la réévaluation : le compte, « Renvoyer au Mac », sur les trois onglets */
+function l26e1Compte(c) { return (c.tc + c.a) + ' sur ' + (c.tot + B.A.length) + ' notés'; }
+function l26e1Pied() { var c = comptes(), rien = !c.t && !c.a && !c.c && !c.n && !c.z;
+  return '<footer class="rpied" id="l26e1-pied"><p><b id="l26e1-p1">' + esc(l26e1Compte(c)) + '</b><span>Rien ne part avant « Renvoyer au Mac »</span></p><button class="btn" id="pr-renvoyer" data-a="renvoyer"' + (rien ? ' disabled' : '') + '>Renvoyer au Mac</button></footer>'; }
 var COCHE = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>';
 var TEL = '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2"/><path d="M8 15h4"/></svg>';
 var MICRO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>';
@@ -53,7 +59,7 @@ function comptes() { var t = 0, tc = 0, tot = 0, a = 0;
   return {t: t, tc: tc, tot: tot, a: a, c: S.c.length, n: S.n.trim() ? 1 : 0, z: Object.keys(S.z || {}).length}; }
 
 /* --- les écrans --- */
-function tete() { return '<div class="hp">' + LOGO + '<b>KINÉ</b><span>· praticien</span>' + (B.ini ? '<span class="pt" id="pr-qui">' + esc(B.ini) + (B.age != null ? ', ' + B.age + ' ans' : '') + '</span>' : '') + '</div>'; }
+function tete() { return '<div class="hp">' + LOGO + '<b>KINÉ</b><span class="l26e1-role">praticien</span>' + (B.ini ? '<span class="pt" id="pr-qui">' + esc(B.ini) + (B.age != null ? ', ' + B.age + ' ans' : '') + '</span>' : '') + '</div>'; }
 function onglets() { var c = comptes(), l = [[1, 'Tests', c.tc + ' / ' + c.tot], [2, 'Amplitudes', pl(c.a, 'notée') + (c.c ? ' · ' + pl(c.c, 'chrono') : '')], [3, 'Note et envoi', c.n ? '1 note' : 'pas de note']];
   return '<div class="onglets" role="tablist">' + l.map(function (x) { return '<button role="tab" id="pr-on-' + x[0] + '" data-a="ecran" data-v="' + x[0] + '" aria-selected="' + (V.ecran === x[0]) + '">' + x[1] + '<small>' + esc(x[2]) + '</small></button>'; }).join('') + '</div>'; }
 function pmBtn(i, c, v, on) { var s = v === 'pos' ? '+' : '−'; return '<button class="' + (v === 'pos' ? 'p' : 'm') + '" data-a="res" data-i="' + i + '" data-c="' + c + '" data-v="' + v + '" aria-pressed="' + on + '" aria-label="' + esc(B.T[i].n + (libCote(c) ? ', ' + libCote(c) : '') + ' : ' + (v === 'pos' ? 'positif' : 'négatif')) + '">' + s + '</button>'; }
@@ -66,12 +72,12 @@ function compteTxt(c) { return c.tc + ' sur ' + c.tot + ' notés · touchez + ou
 function recHtml(c) { return '<div><b>' + c.t + '</b>' + (c.t > 1 ? 'tests' : 'test') + '</div><div><b>' + c.a + '</b>' + (c.a > 1 ? 'amplitudes' : 'amplitude') + '</div><div><b>' + c.c + '</b>' + (c.c > 1 ? 'chronos' : 'chrono') + '</div><div><b>' + c.n + '</b>note</div>' + (c.z ? '<div id="l25j-rec-z"><b>' + c.z + '</b>' + (c.z > 1 ? 'zones' : 'zone') + '</div>' : ''); }
 /* une valeur tapée : les comptes suivent sans redessiner l'écran (le clavier reste ouvert, la touche visée ensuite reste sous le doigt) */
 function majComptes() { if (B.m === 'r') { majPiedR(); return; } var c = comptes(), o = app.querySelector('.onglets'), p = document.getElementById('pr-compte'), r = document.getElementById('pr-rec'), b = document.getElementById('pr-renvoyer');
-  if (o) o.outerHTML = onglets(); if (p) p.textContent = compteTxt(c); if (r) r.innerHTML = recHtml(c); if (b) b.disabled = !c.t && !c.a && !c.c && !c.n && !c.z; }
+  if (o) o.outerHTML = onglets(); if (p) p.textContent = compteTxt(c); var l26e1p = document.getElementById('l26e1-p1'); if (l26e1p) l26e1p.textContent = l26e1Compte(c); if (r) r.innerHTML = recHtml(c); if (b) b.disabled = !c.t && !c.a && !c.c && !c.n && !c.z; }
 function ecranTests() { var c = comptes(), h = '', g0 = null;
   if (!B.T.length) return '<h1>Tests</h1><p class="petit" id="pr-sans-tests">Aucun test dans cet examen : passez aux amplitudes ou à la note.</p><button class="btn sec" data-a="ecran" data-v="2">Amplitudes et chrono ›</button>';
   B.T.forEach(function (x, i) { if (x.g !== g0) { g0 = x.g; if (x.g) h += '<div class="gt">' + esc(x.g) + '</div>'; } h += ligneTest(x, i); });
   return '<h1>Tests</h1><div class="carte tsts">' + h + '</div><p class="petit" id="pr-compte">' + esc(compteTxt(c)) + '</p>'
-    + '<button class="btn sec" data-a="ecran" data-v="2">Amplitudes et chrono ›</button><p class="rien">Rien ne part d’ici avant « Renvoyer au Mac ».</p>'; }
+    + '<button class="btn sec" data-a="ecran" data-v="2">Amplitudes et chrono ›</button>'; }
 function ligneAmpl(x, i) { var a = S.a[i] || {}, cs = cotesA(x), u = x.u === 'niv' ? '' : x.u, mesurable = x.u === '°';
   return '<div class="am" id="pr-a-' + i + '"><b>' + esc(x.n) + '</b>' + (x.r ? '<span class="ref">attendu ' + esc(x.r) + (u === '°' ? '°' : u ? ' ' + esc(u) : '') + '</span>' : '')
     + '<div class="cg">' + cs.map(function (c) { return '<label>' + (c === 'v' ? 'Valeur' : c.toUpperCase()) + '<input class="nb" inputmode="' + (x.u === 'niv' ? 'text' : 'decimal') + '" data-s="a" data-i="' + i + '" data-c="' + c + '" value="' + esc(propre(a[c])) + '" aria-label="' + esc(x.n + (libCote(c) ? ', ' + libCote(c) : '')) + '"><i>' + esc(u) + '</i>' + (a['m' + c] ? '<small>mesuré</small>' : '') + '</label>'; }).join('') + '</div>'
@@ -88,7 +94,6 @@ function ecranNote() { var c = comptes(), rien = !c.t && !c.a && !c.c && !c.n &&
   return '<h1>Note</h1><div class="carte mic"><button class="micb" data-a="dicter" aria-label="Écrire ou dicter la note">' + MICRO + '</button><p class="mt">Touchez, puis le micro du clavier pour dicter</p>'
     + '<textarea id="pr-note" data-s="n" rows="4" maxlength="4000" placeholder="La note s’écrit ici." aria-label="Note de l’examen">' + esc(S.n) + '</textarea><p class="petit">La dictée est celle ' + (l25jIci() === 'ce téléphone' ? 'du téléphone' : 'de l’iPad') + ' : le texte s’écrit ici, rien d’autre ne part.</p></div>'
     + '<h2>Ce qui part au Mac</h2><div class="carte rec' + (c.z ? ' l25j-5' : '') + '" id="pr-rec">' + recHtml(c) + '</div>'
-    + '<button class="btn" id="pr-renvoyer" data-a="renvoyer"' + (rien ? ' disabled' : '') + '>Renvoyer au Mac</button>'
     + '<p class="rien">Le Mac range tout dans l’examen de ' + esc(B.ini || 'ce dossier') + ', à relire avant de valider.</p>'
     + '<button class="btn rouge" id="pr-effacer" data-a="effacer">' + (V.efface ? 'Toucher encore pour tout effacer' : 'Effacer de ' + l25jIci()) + '</button>'; }
 
@@ -103,9 +108,9 @@ function feuilleInc() { var d = V.inc, x = B.A[d.i], cs = cotesA(x), ang = d.ang
     + '<button class="btn okb" id="pr-inc-garder" data-a="inc-garder"' + (ang == null ? ' disabled' : '') + '>' + COCHE + '<span id="pr-inc-garder-t">Garder ' + (ang == null ? '' : ang + '°') + '</span></button>'
     + '<div class="duo"><button class="btn sec" data-a="inc-zero"' + (ang == null ? ' disabled' : '') + ' id="pr-inc-zero">Zéro</button><button class="btn sec" data-a="inc-fermer">Annuler</button></div>';
   return h; }
-function feuilleRetour() { var r = V.code, h = B.m === 'r' ? '<h1>Prêt à renvoyer</h1>' + relectureR() : '<h1>Renvoyer au Mac</h1>';
+function feuilleRetour() { var r = V.code, h = '<div class="l26e1-ft"><button class="l26e1-ret" data-a="fermer" aria-label="Retour">' + L26E1_CHEV + '</button>' + (B.m === 'r' ? '<h1>Prêt à renvoyer</h1></div>' + relectureR() : '<h1>Renvoyer au Mac</h1></div>');
   if (!r) return h + '<p class="gros" id="pr-prep">Préparation du code…</p>';
-  if (r.err) return h + '<p class="err" id="pr-code-err">' + esc(r.err) + '</p><button class="lien" data-a="fermer">Fermer</button>';
+  if (r.err) return h + '<p class="err" id="pr-code-err">' + esc(r.err) + '</p>';
   h += '<p class="gros">Au Mac, dans KINÉ : <b>Copier le code</b> ici puis ⌘V là-bas (presse-papiers partagé), ou montrez ce QR code à la caméra du Mac (« Retours du téléphone »).</p>';
   h += r.qr ? '<div class="qr" id="pr-qr">' + r.qr + '</div>' : '<p class="petit" id="pr-qr-long">Trop long pour un QR code : copiez le code.</p>';
   h += '<button class="btn" id="pr-copier" data-a="copier">' + (V.msg === 'copie' ? COCHE + 'Code copié' : 'Copier le code') + '</button>';
@@ -113,12 +118,12 @@ function feuilleRetour() { var r = V.code, h = B.m === 'r' ? '<h1>Prêt à renvo
   if (plus.length) h += '<div class="' + (plus.length > 1 ? 'duo' : '') + '">' + plus.join('') + '</div>';
   h += '<textarea class="code" id="pr-code" readonly aria-label="Le code à coller dans KINÉ">' + esc(r.code) + '</textarea>';
   h += '<p class="petit">' + (r.chiffre ? 'Code chiffré, sans nom : seul votre Mac sait le lire.' : 'Ce téléphone ne chiffre pas : le code part en clair, sans nom.') + ' Une fois rangé au Mac, effacez ce téléphone.</p>';
-  h += '<button class="btn rouge" data-a="effacer">' + (V.efface ? 'Toucher encore pour tout effacer' : 'Effacer de ' + l25jIci()) + '</button><button class="lien" data-a="fermer">Fermer</button>';
+  h += '<button class="btn rouge" data-a="effacer">' + (V.efface ? 'Toucher encore pour tout effacer' : 'Effacer de ' + l25jIci()) + '</button>';
   return h; }
 
-function rendre(garde) { if (!B) return; if (B.m === 'r') { rendreR(garde); return; } app.className = ''; var y = window.scrollY, f = V.feuille === 'inc' ? feuilleInc() : V.feuille === 'retour' ? feuilleRetour() : '', f25 = l25jClasse(), pay = f25 === 'pay', dl = f25 !== 'tel' && V.l25jVue === 'dl';
+function rendre(garde) { if (!B) return; if (B.m === 'r') { rendreR(garde); return; } app.className = 'rmode'; var y = window.scrollY, f = V.feuille === 'inc' ? feuilleInc() : V.feuille === 'retour' ? feuilleRetour() : '', f25 = l25jClasse(), pay = f25 === 'pay', dl = f25 !== 'tel' && V.l25jVue === 'dl';
   app.innerHTML = tete() + '<p class="petit" id="pr-sous">' + esc([B.bl, B.rg, B.h ? 'reçu du Mac à ' + B.h.replace(':', ' h ') : ''].filter(Boolean).join(' · ')) + '</p>' + (f25 !== 'tel' ? l25jVues() : '') + (pay || dl ? '' : onglets())
-    + (dl ? l25jDouleurs() : pay ? l25jColonnes() : '<section id="pr-ecran" data-ecran="' + V.ecran + '">' + (V.ecran === 1 ? ecranTests() : V.ecran === 2 ? ecranAmpl() : ecranNote()) + '</section>')
+    + (dl ? l25jDouleurs() : pay ? l25jColonnes() : '<section id="pr-ecran" data-ecran="' + V.ecran + '">' + (V.ecran === 1 ? ecranTests() : V.ecran === 2 ? ecranAmpl() : ecranNote()) + '</section>') + l26e1Pied()
     + (f ? '<div class="voile" data-a="' + (V.feuille === 'inc' ? 'inc-fermer' : 'fermer') + '"></div><div class="feuille" id="pr-feuille" role="dialog" aria-modal="true">' + f + '</div>' : '');
   if (garde) window.scrollTo(0, y); else window.scrollTo(0, 0); }
 
@@ -168,7 +173,7 @@ function effacer() { if (!V.efface) { V.efface = 1; rendre(true); setTimeout(fun
   try { localStorage.removeItem(CLE); } catch (z) { /* rien à retirer */ }
   B = null; S = null; V.code = null; V.inc = null; V.feuille = null;
   try { history.replaceState(null, '', location.pathname + location.search); } catch (z) { try { location.hash = ''; } catch (y) { /* le lien reste dans la barre */ } }
-  app.className = ''; app.innerHTML = '<div class="hp">' + LOGO + '<b>KINÉ</b><span>· praticien</span></div><h1 id="pr-vide">Tout est effacé</h1><p>' + l25jMaj(l25jIci()) + ' ne garde plus rien ' + quoi + '.</p><p class="petit">Pour un autre examen : au Mac, dans le dossier, « ⋯ » puis « Sur mon téléphone ».</p>'; }
+  app.className = ''; app.innerHTML = '<div class="hp">' + LOGO + '<b>KINÉ</b><span class="l26e1-role">praticien</span></div><h1 id="pr-vide">Tout est effacé</h1><p>' + l25jMaj(l25jIci()) + ' ne garde plus rien ' + quoi + '.</p><p class="petit">Pour un autre examen : au Mac, dans le dossier, « ⋯ » puis « Sur mon téléphone ».</p>'; }
 
 /* --- 2.5, lot H, RET-632 (audit 2.4.0, point 7 ; G2) : la réévaluation rapide. Le billet porte m:'r' et R, les lignes de la réévaluation du Mac, chacune avec
    ses valeurs d'avant (b : au bilan, d : dernière fois, j : sa date, a : le chiffre d'avant), sa sorte (y) et ses côtés (c). La douleur d'abord (l'ordre
@@ -240,7 +245,7 @@ function rendreR(garde) { var y = window.scrollY, c = comptesR(), f0 = null, h =
   h += '<p class="rien">Rien ne part d’ici avant « Renvoyer au Mac ».</p><button class="btn rouge" id="pr-effacer" data-a="effacer">' + (V.efface ? 'Toucher encore pour tout effacer' : 'Effacer de ce téléphone') + '</button>';
   var f = V.feuille === 'inc' ? feuilleIncR() : V.feuille === 'retour' ? feuilleRetour() : '';
   app.className = 'rmode';
-  app.innerHTML = '<header class="rtete"><div class="hp">' + LOGO + '<b>KINÉ</b><span>· praticien</span>' + (B.ini ? '<span class="pt" id="pr-qui">' + esc(B.ini) + (B.age != null ? ', ' + B.age + ' ans' : '') + '</span>' : '') + '</div>'
+  app.innerHTML = '<header class="rtete"><div class="hp">' + LOGO + '<b>KINÉ</b><span class="l26e1-role">praticien</span>' + (B.ini ? '<span class="pt" id="pr-qui">' + esc(B.ini) + (B.age != null ? ', ' + B.age + ' ans' : '') + '</span>' : '') + '</div>'
     + '<h1>' + esc(B.ti || 'Réévaluation rapide') + '</h1><p class="petit" id="pr-sous">' + esc(B.bl || B.rg) + ' · <b id="pr-n">' + c.n + '</b> sur ' + c.tot + '</p><div class="rbarre"><i style="width:' + (c.tot ? Math.round(100 * c.n / c.tot) : 0) + '%"></i></div></header>'
     + '<section id="pr-ecran" data-ecran="r">' + h + '</section>' + piedR()
     + (f ? '<div class="voile" data-a="' + (V.feuille === 'inc' ? 'inc-fermer' : 'fermer') + '"></div><div class="feuille" id="pr-feuille" role="dialog" aria-modal="true">' + f + '</div>' : '');
@@ -364,7 +369,7 @@ app.addEventListener('input', function (ev) { var t = ev.target; if (!B || !t ||
   garder(); majComptes(); });
 
 /* --- l'ouverture --- */
-function dire(titre, texte) { app.className = ''; app.innerHTML = '<div class="hp">' + LOGO + '<b>KINÉ</b><span>· praticien</span></div><h1 id="pr-msg">' + esc(titre) + '</h1><p>' + esc(texte) + '</p>'; }
+function dire(titre, texte) { app.className = ''; app.innerHTML = '<div class="hp">' + LOGO + '<b>KINÉ</b><span class="l26e1-role">praticien</span></div><h1 id="pr-msg">' + esc(titre) + '</h1><p>' + esc(texte) + '</p>'; }
 function ouvrir() { var h = location.hash;
   if (typeof Codec !== 'object' || typeof QR !== 'object') { dire('Page incomplète', 'Rechargez la page : un de ses fichiers n’est pas arrivé.'); return; }
   if (!h || h === '#') { dire('Le téléphone du praticien', 'Cette page s’ouvre depuis KINÉ, au Mac : dans le dossier, « ⋯ » puis « Sur mon téléphone », et visez le QR code. Elle ne garde rien.'); return; }

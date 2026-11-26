@@ -10,7 +10,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
@@ -270,6 +270,46 @@ html.l25j-pay .l25j-dl{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
 @keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.08)}100%{transform:none}}
 @keyframes monte{from{transform:translateY(40%);opacity:.4}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== 2.6, lot E1 (l26e1) : la page du praticien suit le téléphone homogène (DES-297 à DES-301, ERG-205, ERG-206, RET-715) et le modèle du Mac
+   (DES-317, DES-318, ERG-228, ERG-229). ===== */
+@font-face{font-family:'Source Sans 3';font-style:normal;font-display:swap;font-weight:400;src:url(source-sans-3-400.woff2) format('woff2')}
+@font-face{font-family:'Source Sans 3';font-style:normal;font-display:swap;font-weight:600;src:url(source-sans-3-600.woff2) format('woff2')}
+@font-face{font-family:'Source Sans 3';font-style:normal;font-display:swap;font-weight:700;src:url(source-sans-3-700.woff2) format('woff2')}
+:root{--mk1:#6B717B;--mk2:#5A606B;--mk3:#23262D;--t-retour:.15s;--t-deplace:.22s;--t-remplit:.3s;--t-signal:1.2s}
+@media (prefers-color-scheme:dark){:root{--mk1:#9AA0AA;--mk2:#9AA0AA;--mk3:#E8EAED}}
+main{padding-top:0}
+/* DES-297 : le bandeau, 50 px, collé en haut : la marque, « KINÉ », « praticien », la pastille du patient */
+.hp{position:sticky;top:0;z-index:5;gap:8px;min-height:calc(50px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 16px 0;margin:0 -16px 6px;background:var(--fond);border-bottom:1px solid var(--filet);font-size:16px}
+.hp svg.l26e1-mk{width:34px;height:26px;margin-left:-4px;fill:none}
+.l26e1-mk .mk1{fill:var(--mk1)}.l26e1-mk .mk2{fill:var(--mk2)}.l26e1-mk .mk3{fill:var(--mk3)}
+.hp b{font-weight:700;letter-spacing:0}
+.l26e1-role{font-size:14px;color:var(--gris)}
+.onglets{top:calc(50px + env(safe-area-inset-top))}
+.rtete .hp{margin:0 -16px 0}
+html.l25j-tab .hp{font-size:17px;margin:0 -28px 8px;padding-left:28px;padding-right:28px}
+/* ERG-206 point 6 : la barre du bas de l'examen ; DES-300 point 4 : rectangles arrondis de 10 px, cartes sans ombre */
+.rpied .btn,.rinc button,.rinc button.prim,.rmac button{border-radius:10px}
+.rpied{justify-content:center}.rpied p,.rpied .btn{max-width:528px}
+.carte,.rc{box-shadow:none}
+/* ERG-205 : le retour d'une feuille, en haut à gauche */
+.l26e1-ft{display:flex;align-items:center;gap:4px;margin:-4px 0 6px}
+.l26e1-ft h1{margin:0}
+.l26e1-ret{flex:none;width:44px;height:44px;margin-left:-12px;border:0;border-radius:10px;background:none;color:var(--encre);display:grid;place-items:center;padding:0}
+.l26e1-ret svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* DES-318 : 10 px pour une touche ou un champ, 14 px pour une case */
+.pm button,.nb,.tv button,.reva button,.rpm button,.rnum button,.rchoix button,.l25j-vues button,.l25j-types button,.duo .btn,html.l25j-tab .pm button{border-radius:10px}
+.rrel,.l25j-sch{border-radius:14px}
+/* ERG-228 : sous le doigt ; ERG-229 : les durées du Mac */
+.btn{transition:transform var(--t-retour),background-color var(--t-retour)}
+.btn:active:not(:disabled){transform:scale(.97);transition-duration:.1s}
+.pm button,.reva button,.rpm button,.rnum button,.rchoix button,.cibles button,.onglets button,.l25j-vues button,.l25j-types button,.tv button,.mes,.rres,.rinc button,.rmac button,.l26e1-ret,.tps button,.l25j-liste button{transition:background-color var(--t-retour)}
+.pm button:active:not([aria-pressed=true]),.reva button:active:not([aria-pressed=true]),.rpm button:active:not([aria-pressed=true]),.rnum button:active,.rchoix button:active:not([aria-pressed=true]),.cibles button:active:not([aria-pressed=true]),.onglets button:active:not([aria-selected=true]),.l25j-vues button:active:not([aria-selected=true]),.l25j-types button:active:not([aria-pressed=true]),.rres:active,.l26e1-ret:active{background-color:var(--wash);transition-duration:.1s}
+.tv button:active,.mes:active,.rinc button:not(.prim):active,.rmac button:active:not([aria-pressed=true]){filter:brightness(.96)}
+.pm button.pop{animation-duration:var(--t-deplace)}
+.rbarre i{transition-duration:var(--t-remplit)}
+.feuille{animation-duration:var(--t-deplace)}
+.rc.vient{animation-duration:var(--t-remplit)}
+/* ===== fin du lot E1 de la 2.6 ===== */
 </style>
 </head>
 <body>

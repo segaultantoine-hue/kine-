@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Version 12 (2.3.3, RET-548/549). Version 11 (2.3.2, RET-538/539). Version 10 (2.3.1 : sans lien vers le manifeste, l’icône garde le lien entier). Version 9 (2.3, T14 : d’un lien à l’autre, les séances faites et le journal gardés, rangés d’après l’étiquette de chaque séance, jamais d’après sa place). Version 8 (2.2-test8, lot 4 : deux semaines dans un lien, « La semaine suivante »). Version 7 (2.2-test6, lot 3 B de la 2.2 : la course guidée du billet ac.g et son retour co, l’effort de 0 à 10). Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
+<!-- Version 13 (2.6, lot E1). Version 12 (2.3.3, RET-548/549). Version 11 (2.3.2, RET-538/539). Version 10 (2.3.1 : sans lien vers le manifeste, l’icône garde le lien entier). Version 9 (2.3, T14 : d’un lien à l’autre, les séances faites et le journal gardés, rangés d’après l’étiquette de chaque séance, jamais d’après sa place). Version 8 (2.2-test8, lot 4 : deux semaines dans un lien, « La semaine suivante »). Version 7 (2.2-test6, lot 3 B de la 2.2 : la course guidée du billet ac.g et son retour co, l’effort de 0 à 10). Version 6 (2.1, lot 1 de la commande v11 : le moteur de séance unique, la maison en ronds et en coches, la fin de séance en visages, « Ma progression », les séances de l'athlète, « Finir sur son téléphone », le retour forme 3 ; format : FORMAT-TELEPHONE-V6.md). Version 5 (1.30-test23, lot C5 : la charte de l’appli et un mode sombre, celui du téléphone, DES-254). Version 4 (1.30-test12, lot 11 : la fiche conseil et les exercices à garder, à lire). Version 3 (12 novembre 2026, avec le lot 4 b : échauffement, supersets, circuits ; et le lot 5 : le pré-bilan de l'athlète ; la version 2 du 11 novembre).
      Revue avec la 1.30-test1 (lot 1 de la 1.30, 13 novembre) : le billet contrôlé champ par champ (AME-157), l'heure de chaque séance à la maison (AME-160),
      « Effacer mes données de ce téléphone » (AME-166), « − Une série » (AME-138), Repos · Chrono (ERG-184), la gêne sur la carte de la série (ERG-190),
      les kilos changés par le patient (AME-168), le bilan des séries avant l'envoi et l'ordre d'un circuit. Puis avec la 1.30-test3 (lot 3, l'audit du téléphone) :
@@ -12,7 +12,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-wpfAKUzl65W3sD5RaYggDzLEpci3UbAoI6NuU05vJTg='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-5Wkc9bccPs6H3Q0DuZXwYQvoKdcDeF7icoHlAFx0uyk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
@@ -22,6 +22,7 @@
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="icon" type="image/png" href="icone.png">
 <title>Mon kiné</title>
+<!-- Version 13 (2.6, lot E1 : le téléphone homogène, piste B, DES-297 à DES-302, ERG-205 à ERG-208 ; la jauge ou le RIR, « Où ? », l’aperçu dessiné, l’appareil du cabinet effacé, ERG-211 à ERG-215, DES-304 ; les encarts de fin, DES-309, ERG-223 ; les ronds et les mouvements du Mac, DES-317, DES-318, ERG-228, ERG-229 ; la police Source Sans 3 en fichiers). Le format du billet ne monte pas (VERSION_LECTEUR = 9) : ses champs neufs sont facultatifs. -->
 <style>
 :root{--encre:#1A1D22;--accent:#2A2D33;--ok:#3A5D52;--vig:#7C6A35;--alerte:#9B100E;--fond:#F4F5F7;--carte:#FFFFFF;--filet:#E0E2E6;--gris:#4E535C;--onaccent:#FFFFFF;--wash:#EEEFF2;--accentbg:#E4E5E8;--watchbg:#F1EFE9;--alertbg:#F4E5E4;--l3:#BEC3C9}
 /* version 5 (1.30-test23, lot C5, DES-254) : les jetons de l'appli (DES-249) ; le mode sombre, celui du téléphone (sans réglage dans la page). Les dessins :
@@ -33,7 +34,7 @@ html:root{--pk-encre:var(--encre);--pk-accent:#50545C;--pk-decor-fond:var(--wash
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--fond);color:var(--encre);font:17px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Source Sans 3",sans-serif}
+body{margin:0;background:var(--fond);color:var(--encre);font:17px/1.45 "Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 main{max-width:560px;margin:0 auto;padding:18px 16px calc(28px + env(safe-area-inset-bottom))}
 h1{font-size:22px;line-height:1.2;margin:4px 0 10px}
 h2{font-size:18px;margin:22px 0 8px}
@@ -43,7 +44,7 @@ p{margin:8px 0}
 .carte{background:var(--carte);border:1px solid var(--filet);border-radius:14px;padding:14px;margin:10px 0}
 .btn{display:block;width:100%;min-height:52px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:var(--onaccent);font:inherit;font-weight:600;padding:12px 14px;margin:10px 0;text-align:center;text-decoration:none}
 .btn.sec{background:var(--carte);color:var(--accent)}
-.btn.lien{border:0;background:none;color:var(--accent);min-height:44px;font-weight:500;text-decoration:underline}
+.btn.lien{border:0;background:none;color:var(--accent);min-height:44px;font-weight:600;text-decoration:underline}
 .btn:disabled{opacity:.4}
 .barre{height:6px;border-radius:3px;background:var(--filet);overflow:hidden;margin:6px 0 16px}
 .barre i{display:block;height:100%;background:var(--accent)}
@@ -397,7 +398,7 @@ input[type=number],input[type=text]{border:1px solid var(--filet);border-radius:
 .v6-sj-d .v6-der{margin-top:0}
 .v6-sj-d .btn{margin:8px 0 0}
 /* 2.3.2, lot E (t11e), RET-546 : « Remplacer », sobre, à côté de « Sauter » ; les remplaçants s'ouvrent sur place */
-.v6-act .t11e-b{flex:0 0 auto;padding:0 12px;border:1.5px solid var(--waf);background:var(--carte);color:var(--encre);font-weight:500}
+.v6-act .t11e-b{flex:0 0 auto;padding:0 12px;border:1.5px solid var(--waf);background:var(--carte);color:var(--encre);font-weight:600}
 .v6-act .t11e-b[aria-expanded=true]{background:var(--wash)}
 .t11e-pan{display:flex;flex-direction:column;gap:6px;margin-top:8px}
 .t11e-pan em{font-style:normal;font-size:14px;color:var(--gris)}
@@ -582,6 +583,120 @@ html.forme-gym.l25j-por .l4-main .v6-hd .v6-pc{width:200px;height:200px}
 .t14-av{margin-top:16px;display:flex;flex-direction:column;gap:8px}
 .t14-av h3{margin:0;font-size:15px;font-weight:600;color:var(--gris)}
 .t14-av .v6-sj-t{min-height:56px;cursor:default}
+/* ===== 2.6, lot E1 (l26e1), page version 10 : le téléphone homogène (piste B : DES-297 à DES-302, ERG-205 à ERG-208), les encarts de fin de séance
+   (DES-309, ERG-223), le même modèle qu'au Mac (DES-317, DES-318, ERG-228, ERG-229). Les jetons de la page seulement, clair et sombre. ===== */
+@font-face{font-family:'Source Sans 3';font-style:normal;font-display:swap;font-weight:400;src:url(source-sans-3-400.woff2) format('woff2')}
+@font-face{font-family:'Source Sans 3';font-style:normal;font-display:swap;font-weight:600;src:url(source-sans-3-600.woff2) format('woff2')}
+@font-face{font-family:'Source Sans 3';font-style:normal;font-display:swap;font-weight:700;src:url(source-sans-3-700.woff2) format('woff2')}
+:root{--t-retour:.15s;--t-deplace:.22s;--t-remplit:.3s;--t-signal:1.2s;--l26e1-sauge:#3A5D52;--l26e1-ardoise:#3F5A80;--l26e1-jaune:#7C6A35;--l26e1-sur:#FFFFFF;--l26e1-pt:18px;--l26e1-px:16px;--l26e1-w:560px}
+@media (prefers-color-scheme:dark){:root{--l26e1-sauge:#2F4D44;--l26e1-ardoise:#334B6C;--l26e1-jaune:#655629;--l26e1-sur:#ECEDEF}}
+html.forme-gym{--l26e1-pt:22px;--l26e1-px:28px;--l26e1-w:1180px}
+html.l25j-q{--l26e1-pt:32px;--l26e1-px:32px;--l26e1-w:820px}
+button,input,textarea,select{font-family:inherit}
+/* DES-297 : le bandeau commun, collé en haut ; ERG-205 : le retour à gauche ; ERG-207 : « ⋯ » à droite */
+.l26e1-h{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;min-height:calc(50px + env(safe-area-inset-top));padding:env(safe-area-inset-top) var(--l26e1-px) 0;margin:calc(-1 * var(--l26e1-pt)) calc(-1 * var(--l26e1-px)) 14px;background:var(--fond);border-bottom:1px solid var(--filet)}
+.l26e1-h b{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.l26e1-ctx{margin-left:auto;font-size:14px;color:var(--gris);white-space:nowrap;font-variant-numeric:tabular-nums}
+.l26e1-ret,.l26e1-pts{flex:none;width:44px;height:44px;border:0;border-radius:10px;background:none;color:var(--encre);display:grid;place-items:center;padding:0;transition:background-color var(--t-retour)}
+.l26e1-ret{margin-left:-12px;margin-right:-6px}.l26e1-pts{margin-right:-12px}
+.l26e1-ret svg,.l26e1-pts svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.l26e1-pts svg circle{fill:currentColor}
+.l26e1-sur{font-size:14px;font-weight:600;color:var(--gris);margin:0 0 4px}
+.tete{display:none!important}
+.l26e1-menu{position:fixed;top:calc(46px + env(safe-area-inset-top));right:max(10px, calc((100vw - var(--l26e1-w)) / 2 + 10px));z-index:7;background:var(--carte);border:1px solid var(--filet);border-radius:14px;box-shadow:0 8px 28px rgba(16,18,21,.18);padding:6px;min-width:260px;max-width:calc(100vw - 20px)}
+.l26e1-menu[hidden]{display:none}
+.l26e1-menu button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:46px;border:0;background:none;color:var(--encre);font:inherit;font-size:16px;text-align:left;padding:8px 12px;border-radius:10px}
+.l26e1-menu button+button{border-top:1px solid var(--filet)}
+.l26e1-menu .l26e1-rouge{color:var(--alerte)}
+.l26e1-menu small{color:var(--gris);font-size:14px}
+details.l26e1-essai{display:none}details.l26e1-essai.l26e1-vu{display:block}
+/* ERG-206 : le bouton principal dans la barre du bas */
+.l26e1-bas{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--carte);border-top:1px solid var(--filet);padding:10px var(--l26e1-px) calc(12px + env(safe-area-inset-bottom))}
+.l26e1-bas-i{max-width:calc(var(--l26e1-w) - 2 * var(--l26e1-px));margin:0 auto;display:flex;gap:8px}
+.l26e1-bas .btn{margin:0}
+.l26e1-bas .v6-act{margin:0;flex:1}
+main.l26e1-avec-bas{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+html.l26e1-clavier .l26e1-bas{display:none}
+/* DES-299 : un seul dessin pour « choisi » ; DES-300 : les mêmes boutons */
+.v6-gene button[aria-pressed=true],.v6-gene button[aria-pressed=true][data-v=""],.v6-mode button[aria-pressed=true],.v6-phr button[aria-pressed=true],.v6-pq button[aria-pressed=true],.sp2-ech button[aria-pressed=true],.rpe-l button[aria-pressed=true],.crs-dl button[aria-pressed=true],.t11c-r button[aria-pressed=true],.l233a-rr button[aria-pressed=true]{background:var(--accent)!important;border-color:var(--accent)!important;color:var(--onaccent)!important;font-weight:600}
+.v6-ok{background:var(--accent);color:var(--onaccent)}
+.btn.l26e1-al{background:var(--carte);border-color:var(--alerte);color:var(--alerte)}
+.l25j-eff{border-color:var(--alerte)!important;color:var(--alerte)!important}
+/* DES-301 : une seule échelle de 0 à 10, onze cases sur une ligne */
+.ech{grid-template-columns:repeat(11,minmax(0,1fr));gap:4px}
+.ech button{min-height:44px;padding:0;font-size:17px;border-radius:10px;font-variant-numeric:tabular-nums}
+.rpe-l,.crs-dl{gap:4px}.rpe-l button,.crs-dl button{border-radius:10px}
+/* DES-302 : le bleu réservé à ce qui vient du kiné */
+.rpe-l button.on{background:var(--wash);border-color:var(--l3);color:var(--encre)}
+.rpe-mot{color:var(--gris)}
+.v6-band{background:var(--wash);color:var(--gris)}.v6-band-t svg{stroke:var(--gris)}.v6-band-t span{color:var(--gris)}
+/* ERG-211 : la jauge, cinq touches sans chiffre ; ERG-212 : « Où ? » sur une ligne */
+.l26e1-jg button{font-size:14.5px;line-height:1.15;padding:2px 2px;font-variant-numeric:normal}
+.l26e1-ou{flex-wrap:nowrap;overflow-x:auto}
+/* DES-304 : la vignette dans l'aperçu */
+#s3-deroule li{align-items:center}#s3-deroule .v6-pc{width:44px;height:44px;border-radius:10px}
+/* DES-317 : les ronds du Mac */
+.v6-ck{width:32px;height:32px;transition:background-color var(--t-deplace),border-color var(--t-deplace)}
+.v6-ck path{transition:stroke-dashoffset var(--t-deplace) ease-out}
+.v6-ex.f .v6-ck{transform:none}
+.v6-ronds i{width:24px;height:24px;border-width:2px;transition:background-color var(--t-deplace),border-color var(--t-deplace)}
+.v6-ronds i svg{width:13px;height:13px}
+.v6-pts i{width:24px;height:24px;border:2px solid var(--l3)}
+.v6-an circle{stroke-width:3;stroke-linecap:round}
+.v6-an .pl{stroke:var(--encre);transition:stroke-dasharray var(--t-remplit) ease-out}
+.v6-an.l26e1-plein .pl{stroke:var(--ok)}.v6-an.l26e1-zero .pl{stroke-opacity:0}
+.v6-nav .fl{border:0;background:var(--wash);border-radius:50%}
+.v6-mois button{border:0;background:var(--wash);border-radius:50%}
+/* DES-318 : deux rayons d'angle, 14 px pour une case, 10 px pour une touche */
+.ligne,.v6-pq,.v6-consk,.v6-impose,.v6-msg,.v6-p4,.v6-revenu,.v6-mal,.v6-band,.non-envoye,.pas-garde,.sp2-prop,.crs-msg,.crs-dit,.t11c-pan,.l233a-pan,.l233a-edi,.l233a-bas,.v6-palier{border-radius:14px}
+.choix button,.puce,.cal-e button,textarea,.v6-stp button,.sp2-ech button,.l233a-rr button,.v6-trois button,.nb output{border-radius:10px}
+/* ERG-228 : sous le doigt */
+.btn,.v6-act button,.l233a-ok,.v6-sem button{transition:transform var(--t-retour),background-color var(--t-retour)}
+.btn:active:not(:disabled),.v6-act button:active:not(:disabled),.l233a-ok:active,.v6-sem button:active{transform:scale(.97);transition-duration:.1s}
+.ech button,.choix button,.puce,.v6-gene button,.v6-mode button,.v6-phr button,.v6-pq button,.v6-rr button,.v6-stp button,.sp2-ech button,.sp2-choix button,.rpe-l button,.crs-dl button,.crs-ch button,.cal-e button,.l4-dc button,.v6-tx,.v6-ovl,.s3-liste button,.v6-sj-t,.manque,.v6-nav .fl,.v6-mois button,.t11e-c,.l233a-ch,.l233a-chip,.v6-duo2 button,.v6-b5 button,.l26e1-menu button,.sp2-ctl button,.t11c-r button,.v6-ck,.l26e1-salle{transition:background-color var(--t-retour)}
+.ech button:active:not(:disabled):not([aria-pressed=true]),.choix button:active:not(:disabled):not([aria-pressed=true]),.puce:active:not([aria-pressed=true]),.v6-gene button:active:not([aria-pressed=true]),.v6-mode button:active:not([aria-pressed=true]),.v6-phr button:active:not([aria-pressed=true]),.v6-pq button:active:not([aria-pressed=true]),.v6-rr button:active:not([aria-pressed=true]),.v6-stp button:active,.sp2-ech button:active:not([aria-pressed=true]),.sp2-choix button:active:not([aria-pressed=true]),.rpe-l button:active:not([aria-pressed=true]),.crs-dl button:active:not([aria-pressed=true]),.crs-ch button:active:not([aria-pressed=true]),.cal-e button:active:not([aria-pressed=true]),.l4-dc button:active:not([aria-pressed=true]),.v6-ex:not(.f) .v6-tx:active,.v6-ovl:active,.s3-liste button:active,.v6-sj-t:active,.manque:active,.v6-nav .fl:active:not(:disabled),.v6-mois button:active:not(:disabled),.t11e-c:active,.l233a-ch:active,.l233a-chip:active,.v6-duo2 button:active:not([aria-pressed=true]),.v6-b5 button:active,.l26e1-menu button:active,.l26e1-ret:active,.l26e1-pts:active,.sp2-ctl button:active,.t11c-r button:active:not([aria-pressed=true]),.l26e1-salle:active{background-color:var(--wash)!important;transition-duration:.1s}
+.v6-ex:not(.f) .v6-ck:active{background-color:var(--okbg)}
+/* ERG-229 : la coche se trace et le rond bat une fois ; l'écran suivant arrive en fondu, 5 px de glissement */
+@keyframes l26e1-bat{0%{transform:scale(1)}45%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes l26e1-trace{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+@keyframes l26e1-vient{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.v6-ex[data-anim].f .v6-ck,.v6-ronds i[data-anim].f{animation:l26e1-bat var(--t-deplace) ease-out}
+/* la série qui vient d'être validée (data-l26e1, sans toucher à sa classe) */
+.v6-past li[data-l26e1=vient]{animation:l26e1-bat var(--t-deplace) ease-out}
+.v6-past li[data-l26e1=vient] path{stroke-dasharray:24;animation:l26e1-trace var(--t-deplace) ease-out both}
+main.l26e1-arr>:not(.l26e1-h):not(.l26e1-bas):not(.l26e1-menu){animation:l26e1-vient var(--t-deplace) ease-out both}
+.v6-tx b::after{transition:width var(--t-remplit) ease-out}
+.v6-vis button{transition:background-color var(--t-deplace)}
+.v6-sw i,.v6-sw i::after{transition-duration:var(--t-deplace)}
+.v6-dl .br i{transition:width var(--t-signal) var(--mouv)}
+.v6-trois.choisi button[aria-pressed=true]{animation-duration:var(--t-deplace)}
+.nb.l233c-zone input[type=range]::-webkit-slider-thumb{transition:transform var(--t-retour)}
+@media (prefers-reduced-motion:reduce){main.l26e1-arr>*,.v6-past li[data-l26e1=vient],.v6-past li[data-l26e1=vient] path,.v6-ex[data-anim].f .v6-ck,.v6-ronds i[data-anim].f{animation:none!important}.btn:active,.v6-act button:active{transform:none!important}}
+/* DES-309 : les encarts pleins de « C'est enregistré » */
+.l26e1-enc{display:flex;flex-direction:column;gap:8px;margin:14px 0 6px}
+.l26e1-e{border-radius:14px;padding:16px;color:var(--l26e1-sur);min-width:0}
+.l26e1-gr{background:var(--l26e1-sauge);display:flex;align-items:flex-end;gap:12px}
+.l26e1-gt{flex:1;min-width:0}
+.l26e1-gr small{display:block;font-size:14.5px;line-height:1.25}
+.l26e1-gr b{display:flex;align-items:baseline;gap:6px;font-size:40px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+.l26e1-gr b i{font-style:normal;font-size:17px;font-weight:600}
+.l26e1-gr p{margin:4px 0 0;font-size:15px;font-weight:600;line-height:1.3}
+.l26e1-bars{display:flex;align-items:flex-end;gap:5px;height:64px;flex:none}
+.l26e1-bars i{display:block;width:13px;border-radius:3px;background:var(--l26e1-sur);opacity:.38}
+.l26e1-bars i.l26e1-auj{opacity:1}
+.l26e1-pt2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.l26e1-pt2.l26e1-n1{grid-template-columns:1fr}
+.l26e1-pe svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-bottom:6px}
+.l26e1-pe small{display:block;font-size:13.5px;line-height:1.25}
+.l26e1-pe b{display:block;font-size:19px;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.l26e1-pe span{display:block;font-size:14px;line-height:1.3;margin-top:2px}
+.l26e1-pe.l26e1-c1{background:var(--l26e1-ardoise)}.l26e1-pe.l26e1-c2{background:var(--l26e1-jaune)}
+.l26e1-lig{font-size:15px;color:var(--gris);text-align:center;margin:6px 0 10px;font-variant-numeric:tabular-nums}
+@media (min-width:700px){.l26e1-enc{display:grid;grid-template-columns:2fr 1fr 1fr;align-items:stretch}.l26e1-enc.l26e1-n1{grid-template-columns:2fr 1fr}.l26e1-enc.l26e1-n0{grid-template-columns:1fr}.l26e1-pt2{display:contents}}
+/* le constat « lien maison / séance de salle » : la séance de salle pas encore envoyée, retrouvée depuis le programme maison */
+.l26e1-salle{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;margin:12px 0 0;padding:8px 12px;border:1px solid var(--filet);border-radius:14px;background:var(--carte);color:var(--encre);font:inherit;font-size:15px;text-align:left}
+.l26e1-salle>span:first-child{flex:1;min-width:0}.l26e1-salle>span:last-child{flex:none;font-size:20px;color:var(--gris)}.l26e1-salle small{display:block;color:var(--gris);font-size:13.5px}
+/* ===== fin du lot E1 de la 2.6 ===== */
 </style>
 </head>
 <body>
@@ -592,7 +707,7 @@ html.forme-gym.l25j-por .l4-main .v6-hd .v6-pc{width:200px;height:200px}
 <script>
 (function () {
 'use strict';
-var VERSION_LECTEUR = 9;   /* 2.3, T14 : 9, un nouveau lien garde les séances faites et le journal des liens d’avant (le billet ne change pas : ci, l’étiquette d’une séance, facultative) ; avant, 2.2-test8, lot 4 de la 2.2 : 8, deux semaines dans un lien (AME-193 : 28 séances, 42 rendez-vous du club au plus) ; avant, 2.2-test6, lot 3 B : 7, la course guidée (ac.g) et l’effort de 0 à 10 (rpe) ; avant,  2.1, lot 1 de la commande v11 : 6, la page version 6 et ses billets (lv 6 : la date, sans consignes, les séries faites au cabinet, la semaine, le journal rendu) ; elle lit toujours les billets 2 à 4 ; le retour la renvoie (lv) : l'appli sait quelle page est en ligne, sans appel réseau */
+var VERSION_LECTEUR = 9;   /* 2.6, lot E1 : reste 9 (les champs ef, ca, ta, tu, da, ns du billet sont facultatifs : une page d'avant les ignore) ; 2.3, T14 : 9, un nouveau lien garde les séances faites et le journal des liens d’avant (le billet ne change pas : ci, l’étiquette d’une séance, facultative) ; avant, 2.2-test8, lot 4 de la 2.2 : 8, deux semaines dans un lien (AME-193 : 28 séances, 42 rendez-vous du club au plus) ; avant, 2.2-test6, lot 3 B : 7, la course guidée (ac.g) et l’effort de 0 à 10 (rpe) ; avant,  2.1, lot 1 de la commande v11 : 6, la page version 6 et ses billets (lv 6 : la date, sans consignes, les séries faites au cabinet, la semaine, le journal rendu) ; elle lit toujours les billets 2 à 4 ; le retour la renvoie (lv) : l'appli sait quelle page est en ligne, sans appel réseau */
 var app = document.getElementById('app');
 var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); };
 var auj = function () { var d = new Date(), z = function (n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); };
@@ -741,6 +856,7 @@ var Billet = (function () {
     if (o.k != null && o.k !== '') { b.k = txt(o.k, 64); if (!/^[A-Za-z0-9_-]{16,64}$/.test(b.k)) non('clé'); }
     if (o.e != null) { b.e = txt(o.e, 40); if (!/^[A-Za-z0-9-]*$/.test(b.e)) non('repère'); }
     if (o.cab != null) b.cab = txt(o.cab, 200);
+    l26e1Billet(o, b, non, nb, liste);   /* 2.6, lot E1 */
     if (o.mel != null && o.mel !== '') { b.mel = txt(o.mel, 200); if (!/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(b.mel)) non('adresse'); }   /* la forme que l'appli accepte (telMelOk) */
     if (o.tel != null && o.tel !== '') b.tel = txt(o.tel, 40);
     if (o.lv != null) b.lv = nb(o.lv, 1, 99, true); if (o.nom != null) b.nom = txt(o.nom, 300); if (o.mot != null) b.mot = txt(o.mot, 2000);
@@ -815,6 +931,7 @@ function ouvrir() {
     var salleSeule = E.t === 'g' && !!der.h && der.h !== h && der.t !== 'g';   /* version 6, R6 : un billet de salle non plus ; il ne cède sa place qu'à un autre billet de salle */
     if (!V.ficheSeule && !salleSeule) garder('lecteur:dernier', {h: h, le: auj(), t: E.t});
     ETAT = lire(cleEtat()); if (!etatOk(ETAT)) ETAT = {rep: [], fini: false, journal: [], montre: ''};
+    l26e1Ouvrir(h);   /* 2.6, lot E1 */
     t14Ouvrir(der);   /* 2.3, T14 : les séances faites et le journal des liens d’avant, du même dossier */
     if (E.t === 's') rendreJournal();   /* T14 */
     if (E.t === 's' && E.ac && E.ac.g) crsFusion();   /* 2.2-test6 : la course guidée du billet, fusionnée par g.d */
@@ -975,9 +1092,9 @@ function pcDe(i) { var l = E.t === 's' ? ETAT.pc : (s3la() || {}).pc; return !!(
 /* T01 : tant que la page n'est pas sur l'écran d'accueil, un bandeau discret ; touché, il pousse trois dessins (iPhone) ou le mot du menu (Android, avec
    « Installer » quand le navigateur le propose) ; ouvert au premier lancement ; « C'est fait » le retire. T13 : seulement pour le programme de la maison. */
 function surAccueil() { return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
-function bandeauT01() { var r = reglages(); if (E.t !== 's' || forme() !== 'tel' || surAccueil() || r.accueil) return '';
+function bandeauT01() { var r = reglages(); if (!(E.t === 's' || (E.t === 'g' && E.se)) || forme() !== 'tel' || surAccueil() || r.accueil) return '';
   var ios = /iPhone|iPad|iPod/.test(navigator.userAgent), o; if (V.t01 == null) V.t01 = !r.t01vu; o = !!V.t01; if (!r.t01vu) regler('t01vu', 1);
-  var h = '<div class="v6-band" id="v6-t01"><button class="v6-band-t" data-act="t01" aria-expanded="' + o + '"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2.5"/><path d="M8.5 15h3"/></svg>Gardez vos exercices sur votre téléphone<span aria-hidden="true">' + (o ? '⌄' : '›') + '</span></button>';
+  var h = '<div class="v6-band" id="v6-t01"><button class="v6-band-t" data-act="t01" aria-expanded="' + o + '"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2.5"/><path d="M8.5 15h3"/></svg>' + (E.se ? 'Gardez vos séances sur ce téléphone' : 'Gardez vos exercices sur ce téléphone') + '<span aria-hidden="true">' + (o ? '⌄' : '›') + '</span></button>';
   if (o) h += (ios ? '<div class="v6-pas3"><figure><div class="v6-ecr"><div class="lig"></div><div class="lig"></div><div class="bar"><i></i><i class="on"></i><i></i></div></div>1. Touchez Partager</figure><figure><div class="v6-ecr"><div class="lig"></div><div class="lig on"></div><div class="lig"></div></div>2. « Sur l’écran d’accueil »</figure><figure><div class="v6-ecr"><span class="aj">Ajouter</span><div class="ic t11c-ic"><img src="icone.png" alt=""></div></div>3. Ajouter</figure></div>'
       : '<p>Dans le menu du navigateur (⋮), touchez « Ajouter à l’écran d’accueil » ou « Installer l’application ».</p>' + (V.installer ? '<button class="btn sec" data-act="t01-installer">Installer</button>' : ''))
     + '<button class="btn sec" data-act="t01-fait">C’est fait</button>';
@@ -1036,8 +1153,8 @@ function chiffresH(l) { return '<div class="v6-chif" id="v6-chif">' + l.map(func
 function ecranResume() { var t = auj(), l = ligneDu(t) || [t, '', null, 0, ''], nf = String(l[1]).split('1').length - 1, lun = plusJours(t, -((dateDe(t).getDay() + 6) % 7)), o = joursTenus(), sem = 0, n = nonEnvoyees();
   for (var k = 0; k < 7; k++) if (o[plusJours(lun, k)] === 'f') sem++;
   var h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span><span>' + dCourte(t) + '</span></div><h1 id="v6-resume">C’est enregistré</h1>'
-    + (V.pasGarde ? '' : '<p class="v6-sous">Gardée sur votre téléphone.' + (E.ry === 'h' ? ' Elle partira avec votre semaine.' : '') + '</p>');
-  h += chiffresH([[nf, 'exercice' + (nf > 1 ? 's' : '')], [sem, 'séance' + (sem > 1 ? 's' : '') + ' cette semaine'], [suite(), 'jour' + (suite() > 1 ? 's' : '') + ' de suite']]) + palierH(V.palier);
+    + (V.pasGarde ? '' : '<p class="ok" id="l26e1-garde">Gardé sur ce téléphone.</p>' + (E.ry === 'h' ? '<p class="v6-sous">Elle partira avec votre semaine.</p>' : ''));
+  h += l26e1EncMaison(nf, sem, lun);   /* 2.6, DES-309 et ERG-223 point 5 */
   if (n) h += '<button class="btn" data-act="envoi">' + (E.ry === 'h' ? 'Envoyer ma semaine · ' + pl(n, 'séance') : 'Envoyer à mon kiné') + '</button>' + (E.ry === 'h' ? '<p class="v6-pt">Ou plus tard : tout part ensemble.</p>' : '');
   return h + '<button class="btn lien" data-act="retour-seance">‹ Aujourd’hui</button><button class="v6-pil" data-act="journal">Ma progression ›</button>'; }
 /* « Ma progression » : ce qui a changé depuis le début et la prochaine étape (pg, écrits par KINÉ, pour un patient comme pour un athlète), le calendrier du
@@ -1137,7 +1254,7 @@ function s3la() { return !E || !ETAT || E.t !== 'g' ? null : E.se ? (ETAT.sem ||
 function choisirSeance(k) { var s = E.se[k]; if (!s) return; V.k = k; E.ex = s.ex; E.mo = s.mo; E.to = s.to; E.ec = s.ec; E.ect = s.ect; E.cg = s.cg; E.du = s.du; }
 /* l'ordre : imposé par le billet (mo : « c » en circuit, « e » exercice par exercice ; un billet d'avant la version 6 l'impose toujours), sinon choisi par
    le patient sur le déroulé (b.mo) */
-function impose3() { return E.mo || (E.lv >= 6 ? '' : 'e'); }
+function impose3() { return E.mo || 'e'; }   /* 2.6, ERG-214 : plus de question au patient ; « en circuit » seulement si le kiné l'a choisi (mo) */
 function mode3() { var b = s3la(); return impose3() || (b && b.mo) || 'e'; }
 /* lot 4 b : les supersets (ss : lié au précédent) et le circuit. Les étapes, dans l'ordre où elles se jouent : un superset alterne ses exercices série par
    série (A1, A2, A1, A2…) ; un circuit fait un tour de tous les exercices ; sinon, exercice par exercice. C'est la seule table d'étapes de la page. */
@@ -1216,7 +1333,7 @@ function tel3Apercu() { var b = s3(), imp = impose3(), md = mode3(), T = Math.ma
   if (E.ect) h += '<h2>Échauffement</h2><div class="carte"><p id="s3-ect" style="white-space:pre-line">' + esc(E.ect) + '</p></div>';
   if (E.mo) h += '<p class="v6-impose" id="s3-impose">' + (imp === 'c' ? 'En circuit, ' + pl(T, 'tour') : 'Exercice par exercice') + (E.lv >= 6 ? ' : choisi par votre kiné' : '') + '</p>';
   else if (!imp) h += '<h2>Comment la faire ?</h2><div class="v6-mode" id="s3-choix" role="group"><button data-act="s3-choix-ordre" data-v="e" aria-pressed="' + (md === 'e') + '">Exercice par exercice</button><button data-act="s3-choix-ordre" data-v="c" aria-pressed="' + (md === 'c') + '">En circuit · ' + pl(T, 'tour') + '</button></div>';
-  h += '<ol class="v6-der" id="s3-deroule">' + E.ex.map(function (x) { return '<li><b>' + esc(x.n) + (x.ck ? '<small>' + esc(x.ck) + '</small>' : '') + '</b><span>' + esc(x.d || '') + '</span></li>'; }).join('') + '</ol>';
+  h += '<ol class="v6-der" id="s3-deroule">' + E.ex.map(function (x, i) { return '<li>' + vignette(i) + '<b>' + esc(x.n) + (x.ck ? '<small>' + esc(x.ck) + '</small>' : '') + '</b><span>' + esc(x.d || '') + '</span></li>'; }).join('') + '</ol>';
   if (!E.mo && !imp) h += '<p class="v6-pt">' + (md === 'c' ? 'Un tour : les ' + n + ' exercices à la suite, une série chacun, puis le repos.' : 'Toutes les séries d’un exercice, puis le suivant.') + '</p>';
   return h + '<button class="btn" data-act="s3-commencer">Commencer</button>' + (E.se ? '<button class="btn lien" data-act="sem-retour">‹ Vos séances</button>' : ''); }
 /* le rond ouvre toute la séance : où on en est, un toucher mène à l'exercice ; les exercices faits au cabinet sont grisés */
@@ -1256,8 +1373,8 @@ function tel3Seance() { var b = s3(), i = b.i, x = E.ex[i], l = b.x[i], n = E.ex
     else h += '<p class="v6-ligne"><span>' + lab + '</span>' + nb3('r', v.r, un === 'm' ? 'Distance' : 'Répétitions') + (kg ? (un === 'm' ? '<span>m ×</span>' : '<span>×</span>') + stp3('k', v.k, 'Charge en kilos') : '<span>' + un + '</span>') + av + '</p>';
     if (x.ck) h += '<p class="v6-ckk" id="s3-ck">De votre kiné : ' + esc(x.ck) + '</p>';
     if (tenue && !v.tf) h += minuteur3(x, v) + actes3(false);
-    else { if (!tenue && (x.q === 'r' || x.q === 'e')) h += '<div class="v6-rir"><em>Encore combien en réserve ?</em><div class="v6-rr" id="s3-rir">' + ['0', '1', '2', '3', '4'].map(function (r) { return '<button data-act="s3-rir" data-v="' + r + '" aria-pressed="' + (v.ir === r) + '">' + (r === '4' ? '4+' : r) + '</button>'; }).join('') + '</div></div>';
-      h += '<div class="v6-gene" id="s3-gene"><em>Une gêne ?</em><button data-act="s3-gene" data-v="" aria-pressed="' + !v.g + '">Non</button><button data-act="s3-gene" data-v="oui" aria-pressed="' + !!v.g + '">Oui</button></div>' + l4Ou(v) + (tenue ? l4Effort(v) : '') + actes3(true); }
+    else { if (!tenue && (x.q === 'r' || x.q === 'e') && l26e1Mode() === 'j') h += l26e1Jauge(v, false); else if (!tenue && (x.q === 'r' || x.q === 'e')) h += '<div class="v6-rir"><em>Encore combien en réserve ?</em><div class="v6-rr" id="s3-rir">' + ['0', '1', '2', '3', '4'].map(function (r) { return '<button data-act="s3-rir" data-v="' + r + '" aria-pressed="' + (v.ir === r) + '">' + (r === '4' ? '4+' : r) + '</button>'; }).join('') + '</div></div>';
+      h += '<div class="v6-gene" id="s3-gene"><em>Une gêne ?</em><button data-act="s3-gene" data-v="" aria-pressed="' + !v.g + '">Non</button><button data-act="s3-gene" data-v="oui" aria-pressed="' + !!v.g + '">Oui</button></div>' + l4Ou(v) + (tenue ? l26e1Jauge(v, true) : '') + actes3(true); }
     if (b.mal && b.mal[i] && !V.saut) h += '<div class="v6-mal" id="s3-mal">Ça fait mal : <button data-act="s3-sauter-tout">Sauter tout l’exercice</button></div>';
     h += t11ePan(i);   /* 2.3.2, lot E */
     if (V.saut) h += '<div class="v6-sautr" id="s3-raisons"><em>Pourquoi ?</em>' + RAISONS.filter(function (r) { return r[0] !== 't'; }).map(function (r) { return '<button data-act="s3-raison" data-v="' + r[0] + '">' + r[1] + '</button>'; }).join('') + '<button class="btn lien" data-act="s3-sauter">Annuler</button></div>';
@@ -1295,8 +1412,8 @@ function l4Liste() { var b = s3();
     return '<button class="v6-ovl' + (f === l.length ? ' fini' : '') + (k === b.i ? ' ici' : '') + (cab ? ' cab' : '') + '" data-act="s3-aller" data-i="' + k + '" title="' + esc(y.n) + '"><span class="t"><b>' + (k + 1) + '. ' + esc(y.n) + '</b><small>' + (cab ? 'fait au cabinet' : esc(y.d || '')) + '</small></span><span class="k">' + (f === l.length ? CK : f + ' / ' + l.length) + '</span></button>'; }).join(''); }
 function l4Cadre(h) { return l4Gym() ? '<div class="l4-cadre" id="l4-cadre"><aside class="l4-col" aria-label="La séance">' + l4Liste() + '</aside><div class="l4-main">' + h + '</div></div>' : h; }
 /* « Où ? » après « Oui », au cabinet seulement (coherence.md, point 8) : les endroits notés au bilan, que le billet porte (go) */
-function l4Ou(v) { var zs = Array.isArray(E.go) ? E.go : []; if (!l4Gym() || !v || !v.g || !zs.length) return '';
-  return '<div class="v6-gene l4-ou" id="l4-ou"><em>Où ?</em>' + zs.map(function (z) { return '<button data-act="l4-ou" data-v="' + esc(z) + '" aria-pressed="' + (v.o === z) + '">' + esc(z) + '</button>'; }).join('') + '</div>'; }
+function l4Ou(v) { var zs = Array.isArray(E.go) ? E.go : []; if (!v || !v.g || !zs.length) return '';   /* 2.6, ERG-212 : au téléphone aussi, trois zones au plus, sur une ligne */
+  return '<div class="v6-gene l4-ou l26e1-ou" id="l4-ou"><em>Où ?</em>' + zs.slice(0, 3).map(function (z) { return '<button data-act="l4-ou" data-v="' + esc(z) + '" aria-pressed="' + (v.o === z) + '">' + esc(z) + '</button>'; }).join('') + '</div>'; }
 /* l'effort d'une tenue, de 0 à 10, en onze blocs (point 12 : au gymnase) ; au téléphone, le minuteur seul */
 function l4Effort(v) { if (!l4Gym() || !v) return ''; var e = typeof v.e === 'number' ? v.e : -1, l = [];
   for (var n = 0; n <= 10; n++) l.push('<button data-act="l4-eff" data-v="' + n + '" class="' + (e >= 0 && n <= e ? 'on' : '') + '" aria-pressed="' + (n === e) + '" aria-label="Effort ' + n + ' sur 10">' + n + '</button>');
@@ -1333,8 +1450,8 @@ function chiffres3(b) { var c = {ex: 0, se: 0, kg: 0, te: 0, pr: ''}; b.x.forEac
 function gardeeDe(b, k) { var l = (Array.isArray(ETAT.faites) ? ETAT.faites : []).filter(function (x) { return x && x.k === k && (E.se || x.d === b.d); }); return l[l.length - 1] || null; }
 function ecranResume3() { var b = s3(), c = chiffres3(b), g = gardeeDe(b, E.se ? V.k : 0), rendu = !!(g && g.env), ath = !!(E.se || E.at), ch = [[c.se, 'série' + (c.se > 1 ? 's' : '')]];
   if (c.kg && c.te) ch.push([c.kg, 'kg soulevés'], [c.te, 's tenues']); else { ch.unshift([c.ex, 'exercice' + (c.ex > 1 ? 's' : '')]); ch.push(c.te ? [c.te, 's tenues'] : [c.kg, 'kg soulevés']); }
-  var h = teteSalle(b) + '<h1 id="v6-resume">' + (rendu ? 'Séance rendue' : 'C’est enregistré') + '</h1>' + (V.pasGarde ? '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' : '<p class="ok">Votre séance est notée sur ce téléphone.</p>');
-  h += chiffresH(ch) + palierH(V.palier || '');
+  var h = teteSalle(b) + '<h1 id="v6-resume">' + (rendu ? 'Séance rendue' : 'C’est enregistré') + '</h1>' + (V.pasGarde ? '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' : '<p class="ok" id="l26e1-garde">Gardé sur ce téléphone.</p>');
+  h += l26e1Sp2(b) ? chiffresH(ch) + palierH(V.palier || '') : l26e1EncSalle(b, c);   /* 2.6, DES-309 et ERG-223 : les encarts (le cardio et la mobilité gardent leurs chiffres) */
   if (rendu) h += '<p id="v6-rendu">Vous pouvez fermer cette page.</p><button class="btn sec" data-act="envoi">La renvoyer</button>';
   else if (ath) h += (V.plusTard ? '<p class="v6-msg" id="v6-plus-tard" role="status">Gardée : elle partira avec votre semaine.</p>' : '') + '<button class="btn" data-act="envoi">Envoyer maintenant</button><button class="btn sec" data-act="sem-plus-tard">Avec ma semaine</button>';
   else h += '<button class="btn" data-act="envoi">Envoyer à mon kiné</button>';
@@ -1350,7 +1467,7 @@ function ecranSemaine() { var t = auj(), d0 = dateDe(E.se[0].d), ouv = V.semOuv,
     var c = '<div class="v6-sj ' + (fa ? 'fait' : e) + '" data-k="' + k + '"><button class="v6-sj-t" data-act="sem-ouvrir" data-k="' + k + '" aria-expanded="' + o + '"><span class="jr">' + maj1(JOURS[d.getDay()].slice(0, 3)) + '<b>' + d.getDate() + '</b></span><span class="tt"><b>' + esc(s.nom || 'Séance') + '</b><small>' + pl(s.ex.length, 'exercice') + (s.du ? ' · ' + esc(s.du) : '') + '</small></span><span class="et">' + (e === 'env' ? 'envoyée' : fa ? 'faite' : e === 'auj' ? 'aujourd’hui' : s.d < t ? 'pas faite' : 'à venir') + '</span></button>';
     if (o) c += '<div class="v6-sj-d">' + (s.cg ? '<div class="v6-consk" style="margin:0 0 8px"><small>Consigne de votre kiné</small>' + esc(s.cg) + '</div>' : '')
       + '<ol class="v6-der">' + s.ex.map(function (y) { return '<li><b>' + esc(y.n) + (y.ck ? '<small>' + esc(y.ck) + '</small>' : '') + '</b><span>' + esc(y.d || '') + '</span></li>'; }).join('') + '</ol>'
-      + '<p class="petit">' + (s.mo === 'c' ? 'En circuit : choisi par votre kiné' : s.mo === 'e' ? 'Exercice par exercice : choisi par votre kiné' : 'Exercice par exercice ou en circuit : à vous de choisir') + '</p>'
+      + '<p class="petit">' + (s.mo === 'c' ? 'En circuit : choisi par votre kiné' : s.mo === 'e' ? 'Exercice par exercice : choisi par votre kiné' : 'Exercice par exercice') + '</p>'
       + (e === 'garde' ? '<div class="v6-sem"><span>Faite, pas encore envoyée</span><button data-act="envoi">Envoyer maintenant</button><button class="v6-doux" data-act="sem-ouvrir" data-k="' + k + '">Avec ma semaine</button></div>' : fa ? '<p class="v6-pt">Envoyée à votre kiné</p>'
         : '<button class="btn" data-act="sem-commencer" data-k="' + k + '">' + (enCours ? 'Reprendre' : e === 'auj' ? 'Commencer' : 'Faire celle-ci maintenant') + '</button>') + '</div>';
     return (k === k2 && k > 0 ? '<p class="v6-sous" id="v6-suivante">La semaine suivante</p>' : '') + c + '</div>'; }).join('') + '</div>';
@@ -1383,7 +1500,7 @@ function panneauCal() { var p = V.calP, d = new Date(), h = '<div class="carte" 
     + '<label class="cal-h">Heure <input type="time" id="cal-h" value="' + esc(V.calH || calZ(d.getHours()) + ':' + calZ(d.getMinutes())) + '"></label>';
   if (p === 'u') { h += '<p class="s3-q">Quantité</p><div class="puces">' + CAL_Q.map(function (o) { return '<button class="puce" data-act="cal-q" data-v="' + o[0] + '" aria-pressed="' + (V.calQ === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>'
       + '<p class="s3-q">Envie</p><div class="ancres"><span>0 · aucune</span><span>impossible à retenir · 3</span></div><div class="cal-e">' + [0, 1, 2, 3].map(function (n) { return '<button data-act="cal-e" data-v="' + n + '" aria-pressed="' + (V.calE === n) + '">' + n + '</button>'; }).join('') + '</div>'
-      + (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="cal-noter">Noter</button>'; }
+      + (V.err ? '<p class="err" role="alert">' + esc(V.err) + '</p>' : '') + '<button class="btn" data-act="cal-noter">Enregistrer</button>'; }
   else h += '<div class="choix">' + (p === 'f' ? CAL_F : CAL_B).map(function (o) { return '<button data-act="cal-' + p + 'v" data-v="' + o[0] + '">' + o[1] + (o[2] ? ' <span class="petit">· ' + o[2] + '</span>' : '') + '</button>'; }).join('') + '</div>';
   return h + '<button class="btn lien" data-act="cal-annuler">Annuler</button></div>'; }
 function ecranCal() { var c = cal(), js = calJournees(), ici = calJournee(Date.now()), k = js.indexOf(ici), jo = E.jo || 3, n = k >= 0 ? k + 1 : js.length + 1;
@@ -1499,7 +1616,7 @@ function ecranEnvoi() { if (!V.code) return '<p>Préparation…</p>';
   /* GT-7 : une fois envoyé, effacer ce qui reste sur le téléphone (un téléphone prêté, une tablette de la famille) */
   /* 1.30-test17, C1, T16-01 : seulement si l'écriture a réussi ; sinon l'alerte « pas gardées » suffit. GF3-6 : pour le calendrier, l'effacement en touche pleine */
   if (!V.pasGarde) h += '<p class="petit" id="envoi-reste">Après l’envoi, ce téléphone garde ' + (E.t === 'c' ? 'les notes de votre calendrier' : E.t === 'q' ? 'vos réponses' : E.t === 's' ? 'le programme et le journal de vos séances' : 'votre séance') + ' et le lien. Sur un appareil partagé, effacez-les.</p>';
-  h += E.t === 'c' ? '<button class="btn sec effacer" id="effacer-notes" data-act="effacer">Effacer mes notes de ce téléphone</button>' : lienEffacer();
+  h += E.t === 'c' ? '<button class="btn l26e1-al effacer" id="effacer-notes" data-act="effacer">Effacer mes notes de ce téléphone</button>' : lienEffacer();
   return h; }
 
 /* AME-166 : ce que la page garde sur le téléphone, ce sont les clés « lecteur:… » du stockage du navigateur (le programme et ce qui a été noté, par envoi ;
@@ -1510,8 +1627,8 @@ function effacer(tout) { var l = tout ? clesLecteur() : E ? ['lecteur:' + E.id].
   try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) {}   /* sans le lien dans l'adresse, rien ne se recrée au rechargement */
   E = null; ETAT = null; V.lien = ''; V.source = ''; V.code = null; V.ecran = 'efface'; V.efface = tout ? 'tout' : 'un'; }
 function ecranEffacer() { var h = '<h1>Effacer mes données de ce téléphone</h1><p>Cela n’efface rien dans le dossier de votre kiné. Ce qui n’a pas encore été envoyé à votre kiné est perdu.</p>';
-  if (E) h += '<div class="carte"><p><b>Ce programme</b> : ' + esc(E.t === 'c' ? 'les notes de votre calendrier mictionnel' : E.t === 'f' ? 'cette fiche conseil' :E.t === 'p' ? 'vos exercices à garder' : E.t === 'q' ? 'vos réponses à ce questionnaire' : E.t === 's' ? 'vos exercices à la maison et le journal de vos séances notées' : 'votre séance et les séries notées') + ', et le programme lui-même.</p><button class="btn" data-act="effacer-un">Effacer ce programme</button></div>';
-  h += '<div class="carte"><p><b>Tout</b> : tous les programmes, réponses et séances que cette page garde sur ce téléphone (' + pl(clesLecteur().length, 'élément') + ').</p><button class="btn sec" data-act="effacer-tout">Tout effacer</button></div>';
+  if (E) h += '<div class="carte"><p><b>Ce programme</b> : ' + esc(E.t === 'c' ? 'les notes de votre calendrier mictionnel' : E.t === 'f' ? 'cette fiche conseil' :E.t === 'p' ? 'vos exercices à garder' : E.t === 'q' ? 'vos réponses à ce questionnaire' : E.t === 's' ? 'vos exercices à la maison et le journal de vos séances notées' : 'votre séance et les séries notées') + ', et le programme lui-même.</p><button class="btn l26e1-al" data-act="effacer-un">Effacer ce programme</button></div>';
+  h += '<div class="carte"><p><b>Tout</b> : tous les programmes, réponses et séances que cette page garde sur ce téléphone.</p><button class="btn l26e1-al" data-act="effacer-tout">Tout effacer</button></div>';
   return h + '<button class="btn lien" data-act="effacer-non">Annuler</button>'; }
 var lienEffacer = function () { return '<button class="btn lien effacer" data-act="effacer">Effacer mes données de ce téléphone</button>'; };
 function diagnostic() { var st = false; try { localStorage.setItem('lecteur:essai', '1'); st = localStorage.getItem('lecteur:essai') === '1'; localStorage.removeItem('lecteur:essai'); } catch (e) { st = false; }
@@ -1537,12 +1654,12 @@ function rendre() { var h = '';
   else if (V.ecran === 'illisible') h = '<h1>Lien incomplet</h1><p>Le lien a été coupé en route. Demandez-le de nouveau à votre kiné, ou scannez le QR code au cabinet.</p>';
   else if (V.ecran === 'refuse') h = '<h1>Lien refusé</h1><p>Ce lien n’a pas la forme de ceux que prépare l’appli de votre kiné : rien n’en est montré. Demandez-le de nouveau à votre kiné, ou scannez le QR code au cabinet.</p>';   /* AME-157 */
   else if (V.ecran === 'effacer') h = ecranEffacer();
-  else if (V.ecran === 'efface') h = '<h1>C’est effacé</h1><p class="ok">' + (V.efface === 'tout' ? 'Cette page ne garde plus rien sur ce téléphone.' : 'Ce programme est effacé de ce téléphone.') + '</p><p>Le lien ou le QR code de votre kiné le rouvre si besoin. Rien n’a changé dans son dossier.</p>';
+  else if (V.ecran === 'efface') h = '<h1>C’est effacé</h1><p class="ok">' + (V.efface === 'ca' ? 'Le retour est parti, cet appareil ne garde plus rien : il est prêt pour le patient suivant.' : V.efface === 'tout' ? 'Cette page ne garde plus rien sur ce téléphone.' : 'Ce programme est effacé de ce téléphone.') + '</p><p>Le lien ou le QR code de votre kiné le rouvre si besoin. Rien n’a changé dans son dossier.</p>';
   else if (V.ecran === 'accueil') h = '<div class="tete"><span>' + esc(E.cab || 'Votre kiné') + '</span></div><h1>' + esc(E.q.map(function (q) { return q.n; }).join(' et ')) + '</h1><div class="carte"><p>' + esc(E.q[0].c || 'Répondez à chaque question, puis montrez ou envoyez vos réponses à votre kiné.') + '</p></div><p class="petit">' + total() + ' questions, environ ' + Math.max(1, Math.round(total() / 5)) + ' min. Vos réponses restent sur ce téléphone, même après l’envoi, jusqu’à ce que vous les effaciez.</p><button class="btn" data-act="commencer">' + ((ETAT.rep[0] || []).length ? 'Reprendre où j’en étais' : 'Commencer') + '</button>';
   else if (V.ecran === 'question') h = ecranQuestion();
   else if (V.ecran === 'fin' && E.t === 'q' && sansReponse().length) h = '<h1>Merci, c’est presque terminé</h1><p>Sans réponse :</p><div class="carte" id="sans-reponse">' + sansReponse().map(function (x) { return '<button class="manque" data-act="aller-q" data-i="' + x.i + '" data-j="' + x.j + '">' + esc(x.q) + (x.f ? '' : ' (nécessaire)') + ' ›</button>'; }).join('') + '</div><button class="btn" data-act="envoi">Envoyer à mon kiné</button>';
   else if (V.ecran === 'fin' && E.t === 'g' && E.lv >= 3) h = ecranResume3();   /* version 6 : le résumé (123), puis l'envoi */
-  else if (V.ecran === 'fin') h = '<h1>Merci, c’est terminé</h1>' + (V.pasGarde ? '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' : '<p class="ok">' + (E.t === 'g' ? 'Votre séance est notée sur ce téléphone.' : 'Vos réponses sont notées sur ce téléphone.') + '</p>') + '<p>Il reste à ' + (E.t === 'g' ? 'la' : 'les') + ' donner à votre kiné : par mail, ou en montrant un code à son ordinateur.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">' + (E.t === 'g' ? 'Revoir ma séance' : 'Revoir mes réponses') + '</button>';
+  else if (V.ecran === 'fin') h = '<h1>C’est enregistré</h1>' + (V.pasGarde ? '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' : '<p class="ok" id="l26e1-garde">Gardé sur ce téléphone.</p>') + '<p>Il reste à ' + (E.t === 'g' ? 'la' : 'les') + ' donner à votre kiné : par mail, ou en montrant un code à son ordinateur.</p><button class="btn" data-act="envoi">Envoyer à mon kiné</button><button class="btn lien" data-act="revoir">' + (E.t === 'g' ? 'Revoir ma séance' : 'Revoir mes réponses') + '</button>';
   else if (V.ecran === 'salle') h = ecranSalle();
   else if (V.ecran === 'salle3') { h = rendreSalle() + interrupteurSon(); eveil(); }
   else if (V.ecran === 'salle3-fin') h = finSalle3();
@@ -1565,7 +1682,7 @@ function rendre() { var h = '';
   if (E && ETAT && V.pasGarde && V.ecran !== 'fin') h = '<p class="pas-garde" id="pas-garde" role="alert">' + motPasGarde() + '</p>' + h;
   if (E && ETAT && V.ailleurs) h = '<p class="petit non-envoye" id="autre-onglet" role="status">Ce lien est aussi ouvert dans un autre onglet : la page a repris ce qui y a été noté de plus récent.</p>' + h;
   V.ailleurs = false;
-  var y = V.garde ? window.scrollY : 0; V.garde = false; l4Classe(); app.innerHTML = h; l25jPoser(); window.scrollTo(0, y); apresRendu(); }
+  var l26e1G = V.garde, y = V.garde ? window.scrollY : 0; V.garde = false; l4Classe(); app.innerHTML = h; l25jPoser(); l26e1Habiller(l26e1G); window.scrollTo(0, y); apresRendu(); }
 /* après le rendu : ce qui joue une fois (le geste d'un dessin, la coche qui se trace, les chiffres qui montent, les barres qui se remplissent) et ce qui
    s'écoute (la colonne au pouce, le curseur) */
 function apresRendu() { var b = s3la(), q = function (s) { return document.querySelector(s); }, deux = function (f) { requestAnimationFrame(function () { requestAnimationFrame(f); }); };
@@ -1813,7 +1930,7 @@ function sp2EcranSemaine() { var t = auj(), d0 = dateDe(E.se[0].d), ouv = V.semO
       var c = '<div class="v6-sj ' + (fa ? 'fait' : e) + '" data-k="' + k + '"><button class="v6-sj-t" data-act="sem-ouvrir" data-k="' + k + '" aria-expanded="' + o + '"><span class="jr' + (s.h ? ' sp2-h' : '') + '">' + (s.h ? '<b>' + esc(sp2Heure(s.h)) + '</b>' : maj1(JOURS[d.getDay()].slice(0, 3)) + '<b>' + d.getDate() + '</b>') + '</span><span class="tt"><span class="sp2-so">' + so + '</span><b>' + esc(s.nom || 'Séance') + '</b><small>' + (s.so === 'c' ? esc(s.du || pl(s.ex.length, 'étape')) : pl(s.ex.length, 'exercice') + (s.du ? ' · ' + esc(s.du) : '')) + '</small></span><span class="et">' + (e === 'env' ? 'envoyée' : fa ? 'faite' : e === 'auj' ? 'aujourd’hui' : s.d < t ? 'pas faite' : 'à venir') + '</span></button>';
       if (o) c += '<div class="v6-sj-d">' + sp2Rappel(k) + (s.cg ? '<div class="v6-consk" style="margin:0 0 8px"><small>De votre kiné</small>' + esc(s.cg) + '</div>' : '')
         + '<ol class="v6-der">' + s.ex.map(function (y) { return '<li><b>' + esc(y.n) + (y.ck ? '<small>' + esc(y.ck) + '</small>' : '') + '</b><span>' + esc(y.d || '') + '</span></li>'; }).join('') + '</ol>'
-        + (s.so === 'c' || s.so === 'm' ? '' : '<p class="petit">' + (s.mo === 'c' ? 'En circuit : choisi par votre kiné' : s.mo === 'e' ? 'Exercice par exercice : choisi par votre kiné' : 'Exercice par exercice ou en circuit : à vous de choisir') + '</p>')
+        + (s.so === 'c' || s.so === 'm' ? '' : '<p class="petit">' + (s.mo === 'c' ? 'En circuit : choisi par votre kiné' : s.mo === 'e' ? 'Exercice par exercice : choisi par votre kiné' : 'Exercice par exercice') + '</p>')
         + (e === 'garde' ? '<div class="v6-sem"><span>Faite, pas encore envoyée</span><button data-act="envoi">Envoyer maintenant</button><button class="v6-doux" data-act="sem-ouvrir" data-k="' + k + '">Avec ma semaine</button></div>' : fa ? '<p class="v6-pt">Envoyée à votre kiné</p>'
           : '<button class="btn" data-act="sem-commencer" data-k="' + k + '">' + (enCours ? 'Reprendre' : e === 'auj' ? 'Commencer' : 'Faire celle-ci maintenant') + '</button>') + '</div>';
       return c + '</div>'; }).join(''); }).join('');
@@ -2369,6 +2486,143 @@ window.addEventListener('storage', function (ev) { if (!E || !ETAT || (ev.key !=
 if ('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWorker.register('sw.js').catch(function () {});
 /* T01 : sur Android, le navigateur propose l'installation ; la page garde l'offre pour son bouton « Installer » */
 window.addEventListener('beforeinstallprompt', function (ev) { ev.preventDefault(); V.installer = ev; if (V.ecran === 'seance') { V.garde = true; rendre(); } });
+/* ===== 2.6, lot E1 (l26e1), page version 10. Le téléphone homogène (piste B) : le bandeau commun (DES-297), le retour en haut à gauche (ERG-205), le bouton
+   principal dans la barre du bas (ERG-206), le menu « ⋯ » (ERG-207) ; posés après chaque rendu, sur ce que l'écran a dessiné (les touches gardent leur
+   data-act : le même moteur). Le téléphone d'abord : la jauge ou le RIR (ERG-211, billet ef), « Où ? » (ERG-212), l'appareil du cabinet effacé après
+   l'envoi (ERG-213, billet ca). Les encarts de fin de séance (DES-309, ERG-223 ; billet ta, tu, da, ns). Les ronds et les mouvements (DES-317, ERG-229).
+   Champs du billet facultatifs : absents, la page fait comme avant ; rien de plus n'est demandé au patient. ===== */
+function l26e1Billet(o, b, non, nb, liste) {
+  if (o.ef != null && o.ef !== '') { if (o.ef !== 'rir' && o.ef !== 'j') non('effort'); b.ef = o.ef; }
+  if (o.ca != null) { if (o.ca !== 1) non('cabinet'); b.ca = 1; }
+  if (o.ta != null) { b.ta = liste(o.ta, 3).map(function (v) { var n = nb(v, 0, 1e7); if (n == null) non('totaux'); return n; }); if (!b.ta.length) delete b.ta; }
+  if (o.tu != null) { if (['kg', 's', 'n'].indexOf(o.tu) < 0) non('unité'); b.tu = o.tu; }
+  if (o.da != null && o.da !== '') b.da = nb(o.da, 0, 10, true);
+  if (o.ns != null && o.ns !== '') b.ns = nb(o.ns, 1, 9999, true);
+  if (o.pe != null) { if (o.pe !== 1) non('périnée'); b.pe = 1; } }   /* pe : un dossier du périnée (« à ma kiné », DES-309 point 8) */
+var L26E1_RET = ['retour-seance', 'sem-retour', 's3-retour', 'progres-retour', 'exo-fiche-revenir', 'precedent', 'cal-retour', 'fin'];
+var L26E1_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+var L26E1_PTS = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>';
+var L26E1_SANS = ['vide', 'ancien', 'maj', 'illisible', 'refuse', 'efface'];
+var L26E1_SANS_BAS = ['cal', 'cal-notes', 'progres', 'fiche', 'entretien', 'effacer', 'exo-fiche', 'crs-moi', 'semaine', 'efface', 'vide', 'refuse', 'illisible', 'maj', 'ancien'];
+var L26E1_CLE = '';
+function l26e1Ici() { return l25jTab() ? 'cet iPad' : 'ce téléphone'; }
+/* le repère à droite du bandeau : la date, « n sur N », « du 25/11 au 29/11 », « Fiche conseil » */
+function l26e1Repere(b2) { if (!E) return ''; if (V.ecran === 'question') return (rang() + 1) + ' sur ' + total(); if (V.ecran === 'fiche') return 'Fiche conseil';
+  if (E.se && E.se.length && (V.ecran === 'semaine' || V.ecran === 'sp2s')) { var d0 = E.se[0].d, d1 = E.se[E.se.length - 1].d; return 'du ' + dCourte(d0) + ' au ' + dCourte(d1 < d0 ? d0 : d1); }
+  if (b2 && /^\d\d\/\d\d$/.test(b2)) return b2; var s = s3la(); return dCourte(s && dateOk(s.d) ? s.d : auj()); }
+function l26e1Habiller(garde) { if (!app) return; var cab = E ? (E.cab || 'Votre kiné') : 'Votre kiné', q = function (s) { return app.querySelector(s); }, qa = function (s) { return [].slice.call(app.querySelectorAll(s)); };
+  /* l'ancienne ligne « cabinet · date » : son contenu passe dans le bandeau ; ce qu'elle disait de plus (« Commencée au cabinet », le questionnaire) en surtitre */
+  var tete = q('.tete'), a = '', b2 = '', ida = '';
+  if (tete) { var sp = tete.querySelectorAll('span'); a = sp[0] ? sp[0].textContent.trim() : ''; b2 = sp[1] ? sp[1].textContent.trim() : ''; ida = sp[0] && sp[0].id || ''; }
+  var sur = V.ecran === 'question' ? a : a && a !== cab ? (a.indexOf(cab + ' · ') === 0 ? maj1(a.slice(cab.length + 3)) : a) : '';
+  /* la ligne .tete reste dans la page, cachée (DES-297 point 5) : ses repères (#s3-cab) gardent leur sens */
+  if (sur) { var ps = document.createElement('p'); ps.className = 'l26e1-sur'; ps.textContent = sur; var bar = q('.barre');
+    if (bar) bar.parentNode.insertBefore(ps, bar.nextSibling); else { var h1 = q('h1'); if (h1) h1.parentNode.insertBefore(ps, h1); else app.insertBefore(ps, app.firstChild); } }
+  /* ERG-205 : le retour, en haut à gauche ; les liens du bas partent */
+  var rets = qa('[data-act]').filter(function (x) { return L26E1_RET.indexOf(x.dataset.act) >= 0 && (x.classList.contains('lien') || x.classList.contains('fx-rev') || x.classList.contains('sec')) && !x.closest('.l26e1-bas'); }), ret = rets[0];
+  /* ERG-207 : le menu « ⋯ » : le tic (écrans de séance), « Ce que ce téléphone sait faire », « Effacer mes données » ; ils quittent le bas de page */
+  var son = q('#v6-son'), eff = qa('.btn.lien.effacer[data-act=effacer]'), ess = q(':scope > details:last-of-type'), lignes = '';
+  if (son) { lignes += '<button id="v6-son" role="switch" data-act="son" aria-checked="' + sonAllume() + '">Tic sonore et vibration<small>' + (sonAllume() ? 'oui' : 'non') + '</small></button>'; son.remove(); }
+  if (ess && E) { ess.classList.add('l26e1-essai'); if (V.l26e1Essai) { ess.classList.add('l26e1-vu'); ess.open = true; } lignes += '<button data-act="l26e1-essai">Ce que ' + l26e1Ici() + ' sait faire</button>'; } else if (ess) ess.classList.add('l26e1-essai');
+  if (eff.length) { lignes += '<button class="l26e1-rouge" data-act="effacer">Effacer mes données de ' + l26e1Ici() + '</button>'; eff.forEach(function (x) { x.remove(); }); }
+  var h = document.createElement('header'); h.className = 'l26e1-h'; h.id = 'l26e1-h';
+  h.innerHTML = (ret ? '<button class="l26e1-ret" id="l26e1-ret" data-act="' + esc(ret.dataset.act) + '" aria-label="Retour">' + L26E1_CHEV + '</button>' : '') + '<b id="l26e1-cab">' + esc(cab) + '</b>'
+    + '<span class="l26e1-ctx" id="l26e1-ctx">' + esc(l26e1Repere(b2)) + '</span>' + (lignes && L26E1_SANS.indexOf(V.ecran) < 0 || (lignes && V.ecran === 'vide') ? '<button class="l26e1-pts" id="l26e1-pts" data-act="l26e1-menu" aria-label="Plus" aria-haspopup="true" aria-expanded="false">' + L26E1_PTS + '</button>' : '');
+  rets.forEach(function (x) { x.remove(); });
+  app.insertBefore(h, app.firstChild);
+  if (lignes && h.querySelector('.l26e1-pts')) { var m = document.createElement('div'); m.className = 'l26e1-menu'; m.id = 'l26e1-menu'; m.hidden = true; m.setAttribute('role', 'menu'); m.innerHTML = lignes; app.appendChild(m); }
+  V.l26e1Essai = false;
+  /* DES-309 point 8, ERG-208 : au périnée (billet pe), « Envoyer à ma kiné » */
+  if (E && E.pe === 1) { var w = document.createTreeWalker(app, NodeFilter.SHOW_TEXT, null), nd; while ((nd = w.nextNode())) if (/à mon kiné/.test(nd.nodeValue)) nd.nodeValue = nd.nodeValue.replace(/à mon kiné/g, 'à ma kiné'); }
+  /* ERG-206 : le bouton principal, et lui seul, dans la barre du bas ; pendant une série, « Valider », « Remplacer », « Sauter » */
+  var prim = null, zone = q('.l4-main') || app;
+  if (L26E1_SANS_BAS.indexOf(V.ecran) < 0 && !(V.ecran === 'salle3' && V.liste)) {
+    if (V.ecran === 'envoi') prim = q('#envoi-mail');
+    else prim = q('#s3-serie > .v6-act') || [].filter.call(zone.children, function (x) { return x.matches('.btn:not(.sec):not(.lien):not(.l26e1-al)') && !/^cal-/.test(x.dataset.act || ''); })[0] || null; }
+  if (prim) { var bas = document.createElement('div'); bas.className = 'l26e1-bas'; bas.id = 'l26e1-bas'; bas.innerHTML = '<div class="l26e1-bas-i"></div>'; bas.firstChild.appendChild(prim); app.appendChild(bas); }
+  app.classList.toggle('l26e1-avec-bas', !!prim);
+  /* ERG-229 : l'écran suivant arrive en fondu ; la jauge des séries glisse ; la série validée se coche et bat une fois */
+  var bb = s3la(), cle = V.ecran + ':' + V.k + ':' + (bb ? bb.i + ':' + (bb.ech ? 1 : 0) + ':' + (V.ecran === 'salle3' ? jCur3(bb.i) : '') + ':' + (V.liste ? 1 : 0) : '') + ':' + (E && E.t === 'q' ? V.i + '.' + V.j : '');
+  app.classList.remove('l26e1-arr'); if (!garde && L26E1_CLE && cle !== L26E1_CLE && !REDUIT) { void app.offsetWidth; app.classList.add('l26e1-arr'); } L26E1_CLE = cle;
+  var an = q('#s3-rond'), pl0 = an && an.querySelector('.pl');
+  if (pl0) { var tout = bb && bb.x.every(function (l) { return l.every(function (s) { return s.f; }); }); an.classList.toggle('l26e1-plein', !!tout); an.classList.toggle('l26e1-zero', !(parseFloat(pl0.getAttribute('stroke-dasharray')) > 0)); var neuf = pl0.getAttribute('stroke-dasharray');
+    if (V.l26e1An && V.l26e1An !== neuf && !REDUIT) { pl0.setAttribute('stroke-dasharray', V.l26e1An); requestAnimationFrame(function () { requestAnimationFrame(function () { pl0.setAttribute('stroke-dasharray', neuf); }); }); } V.l26e1An = neuf; }
+  else V.l26e1An = '';
+  if (V.l26e1Vient && bb && V.ecran === 'salle3') { var li = q('#s3-series li[data-j="' + V.l26e1Vient[1] + '"]'); if (li && bb.i === V.l26e1Vient[0]) li.setAttribute('data-l26e1', 'vient'); } V.l26e1Vient = null; }
+/* le menu : un appui l'ouvre, un appui hors du menu le ferme */
+A['l26e1-menu'] = function (el) { var m = document.getElementById('l26e1-menu'); if (!m) return true; m.hidden = !m.hidden; el.setAttribute('aria-expanded', String(!m.hidden)); return true; };
+A['l26e1-essai'] = function () { V.l26e1Essai = true; V.garde = true; setTimeout(function () { var d = document.querySelector('details.l26e1-essai'); if (d && d.scrollIntoView) d.scrollIntoView({block: 'start'}); }, 0); };
+document.addEventListener('click', function (ev) { var m = document.getElementById('l26e1-menu'); if (!m || m.hidden) return; if (ev.target.closest && (ev.target.closest('#l26e1-menu') || ev.target.closest('#l26e1-pts'))) return; m.hidden = true; var p = document.getElementById('l26e1-pts'); if (p) p.setAttribute('aria-expanded', 'false'); }, true);
+/* ERG-206 point 5 : le clavier ouvert, la barre passe dessous */
+if (window.visualViewport) window.visualViewport.addEventListener('resize', function () { document.documentElement.classList.toggle('l26e1-clavier', window.visualViewport.height < (window.innerHeight || 0) - 120); });
+/* ERG-211 : l'effort au téléphone, le RIR ou la jauge (billet ef ; absent : le RIR pour un athlète, la jauge pour un patient) ; la jauge aussi pour une tenue */
+var L26E1_JG = ['Très facile', 'Facile', 'Moyen', 'Dur', 'Très dur'];
+function l26e1Mode() { return E && (E.ef === 'rir' || E.ef === 'j') ? E.ef : E && (E.at === 1 || E.se) ? 'rir' : 'j'; }
+function l26e1Jauge(v, tenue) { if (!v) return ''; return '<div class="v6-rir"><em>' + (tenue ? 'La tenue était…' : 'Cette série était…') + '</em><div class="v6-rr l26e1-jg" id="s3-jauge" role="group" aria-label="Effort">'
+  + L26E1_JG.map(function (m, k) { return '<button data-act="l26e1-ej" data-v="' + (k + 1) + '" aria-pressed="' + (+v.ej === k + 1) + '">' + m + '</button>'; }).join('') + '</div></div>'; }
+A['l26e1-ej'] = function (el) { prendre3(); var v = brouillon3(), n = +el.dataset.v; if (v && n >= 1 && n <= 5) { if (+v.ej === n) delete v.ej; else v.ej = n; } sauver(); V.garde = true; };
+(function () { var f0 = A['s3-faite']; A['s3-faite'] = function (el) { prendre3(); var b = s3(), v = brouillon3(), i = b.i, j = v ? v.j : -1, ej = v ? +v.ej : 0, r = f0(el), s = j >= 0 && b.x[i] && b.x[i][j];
+  if (s && s.f === 1) { if (ej >= 1 && ej <= 5) { s.ej = ej; delete s.i; sauver(); } V.l26e1Vient = [i, j]; } return r; }; })();
+(function () { var p0 = propre3; propre3 = function (s) { var o = p0(s); if (s && +s.ej >= 1 && +s.ej <= 5) o.ej = +s.ej; return o; }; })();
+(function () { var p0 = pastille3; pastille3 = function (s, j) { var t = p0(s, j); return s && s.f === 1 && !s.c && +s.ej >= 1 && +s.ej <= 5 ? t + ' · ' + L26E1_JG[+s.ej - 1].toLowerCase() : t; }; })();
+/* ERG-213 point 3 : sur un appareil du cabinet (billet ca), la page s'efface d'elle-même après l'envoi du retour */
+function l26e1EffacerCa() { if (!E || E.ca !== 1) return; effacer(true); V.efface = 'ca'; rendre(); }
+(function () { var m0 = marquerRendu; marquerRendu = function () { var r = m0.apply(this, arguments); if (E && E.ca === 1) setTimeout(l26e1EffacerCa, 1500); return r; }; })();
+(function () { var e0 = ecranEnvoi; ecranEnvoi = function () { var h = e0.apply(this, arguments); if (!E || E.ca !== 1 || !V.code) return h;
+  return h + '<div class="carte" id="l26e1-ca"><p><b>Appareil du cabinet</b> : la page s’efface d’elle-même après l’envoi. Montré au Mac ?</p><button class="btn sec" id="l26e1-ca-fin" data-act="l26e1-ca-fin">C’est montré au Mac, effacer</button></div>'; }; })();
+A['l26e1-ca-fin'] = function () { l26e1EffacerCa(); return true; };
+/* DES-309 et ERG-223 : les encarts de « C'est enregistré », seulement du positif */
+var L26E1_IC = {rec: '<path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.6 3.4M17 6h2.5a2.5 2.5 0 0 1-2.6 3.4M12 13v4M8.5 20h7M10 17h4"/>', sg: '<circle cx="12" cy="12" r="8.5"/><path d="M8.2 12.3l2.6 2.6 5-5.4"/>',
+  tf: '<path d="M3.5 12.5l3.5 3.5 7-8"/><path d="M11 15.5l1 1 7.5-8.5"/>', db: '<path d="M12 4v15M6 13l6 6 6-6"/>', rg: '<rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>', pal: '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/>'};
+function l26e1Nb(n) { var s = String(Math.round(n * 10) / 10).split('.'); return s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (s[1] ? ',' + s[1] : ''); }
+function l26e1Petit(e, k) { return '<div class="l26e1-e l26e1-pe l26e1-c' + k + '" data-k="' + e.k + '" id="l26e1-' + e.k + '"><svg viewBox="0 0 24 24" aria-hidden="true">' + L26E1_IC[e.k] + '</svg><small>' + esc(e.t) + '</small>' + (e.v ? '<b>' + esc(e.v) + '</b>' : '') + (e.l ? '<span>' + esc(e.l) + '</span>' : '') + '</div>'; }
+/* les deux premiers vrais, dans l'ordre ; « Tout fait » ne vient pas avec « Sans gêne » si un autre encart est possible */
+function l26e1Choisir(l) { var p = []; l.forEach(function (e) { if (p.length >= 2) return; if (e.k === 'tf' && p.some(function (x) { return x.k === 'sg'; }) && l.some(function (x) { return ['db', 'rg', 'pal'].indexOf(x.k) >= 0; })) return; p.push(e); }); return p; }
+function l26e1Encarts(g, pts, ligne) { var bars = '';
+  if (g.bars && g.bars.length > 1) { var mx = Math.max.apply(null, g.bars) || 1; bars = '<div class="l26e1-bars" id="l26e1-bars" aria-hidden="true">' + g.bars.map(function (v, k) { return '<i class="' + (k === g.bars.length - 1 ? 'l26e1-auj' : '') + '" style="height:' + Math.max(4, Math.round(64 * v / mx)) + 'px"></i>'; }).join('') + '</div>'; }
+  return '<div class="l26e1-enc l26e1-n' + pts.length + '" id="l26e1-enc"><div class="l26e1-e l26e1-gr" id="l26e1-gr"><div class="l26e1-gt"><small>' + esc(g.t) + '</small><b><span data-l26e1n="' + g.n + '">' + l26e1Nb(g.n) + '</span><i>' + esc(g.u) + '</i></b>' + (g.h ? '<p id="l26e1-hausse">' + esc(g.h) + '</p>' : '') + '</div>' + bars + '</div>'
+    + (pts.length ? '<div class="l26e1-pt2' + (pts.length === 1 ? ' l26e1-n1' : '') + '">' + pts.map(function (e, k) { return l26e1Petit(e, k + 1); }).join('') + '</div>' : '') + '</div>' + (ligne ? '<p class="l26e1-lig" id="l26e1-lig">' + esc(ligne) + '</p>' : ''); }
+function l26e1Sp2(b) { var s = E.se && E.se[V.k]; return !!(s && (s.so === 'c' || s.so === 'm')); }
+function l26e1EncSalle(b, c) { var N = 0, nf = 0, gene = false, saut = false, rec = null, dl = [];
+  b.x.forEach(function (l, i) { var x = E.ex[i], kmax = 0; l.forEach(function (s) { if (s.c) return; N++; if (s.f === 1) { nf++; if (s.g) gene = true; kmax = Math.max(kmax, num3(s.k), num3(s.kG), num3(s.kD)); } else if (s.f === 2) saut = true; });
+    var av = num3(x.av); if (x.u !== 's' && x.u !== 'm' && av > 0 && kmax > av && (!rec || kmax - av > rec.d)) rec = {d: kmax - av, k: kmax, n: x.n}; });
+  var g = c.kg > 0 ? {t: 'Total soulevé', n: c.kg, u: 'kg', c: 'kg', m: 'kg'} : c.te > 0 ? {t: 'Temps tenu', n: c.te, u: 's', c: 's', m: 's'} : {t: 'Séries faites', n: c.se, u: c.se > 1 ? 'séries' : 'série', c: 'n', m: 'séries'};
+  var ta = Array.isArray(E.ta) && E.ta.length && E.tu === g.c ? E.ta.slice(-3) : null, der = ta ? ta[ta.length - 1] : null;
+  if (der != null && g.n > der) g.h = l26e1Nb(g.n - der) + ' ' + (g.c === 'n' ? (g.n - der > 1 ? 'séries' : 'série') : g.u) + ' de plus que la dernière fois';
+  if (ta) g.bars = ta.concat([g.n]);
+  var l = [];
+  if (rec) l.push({k: 'rec', t: 'Record', v: kgT(rec.k) + ' kg', l: rec.n + ', +' + kgT(Math.round(rec.d * 100) / 100) + ' kg'});
+  if (nf && !gene) l.push({k: 'sg', t: 'Sans gêne', v: pl(nf, 'série')});
+  if (N && nf === N && !saut) l.push({k: 'tf', t: 'Tout fait', v: pl(nf, 'série') + ' sur ' + N});
+  if (E.da != null && b.p != null && b.p < E.da) l.push({k: 'db', t: 'Douleur en baisse', v: String(b.p), l: E.da + ' la dernière fois'});
+  if (E.ns >= 3) l.push({k: 'rg', t: 'Régularité', v: E.ns + 'e séance'});
+  if (!rec && V.palier && V.palier !== c.pr) l.push({k: 'pal', t: 'Palier', v: V.palier});
+  var lig = [pl(c.ex, 'exercice')].concat(g.c !== 'n' ? [pl(c.se, 'série')] : [], g.c !== 'kg' && c.kg > 0 ? [l26e1Nb(c.kg) + ' kg'] : [], g.c !== 's' && c.te > 0 ? [l26e1Nb(c.te) + ' s tenues'] : []).join(' · ');
+  return l26e1Encarts(g, l26e1Choisir(l), lig); }
+/* le programme maison (et le périnée) : les séances de la semaine, les quatre dernières semaines, les jours de suite, tout fait, le palier */
+function l26e1EncMaison(nf, sem, lun) { var o = joursTenus(), n = E.ex.length, sw = [], jours = Object.keys(o).sort(), s = suite();
+  for (var w = 3; w >= 0; w--) { var c = 0; for (var k = 0; k < 7; k++) if (o[plusJours(lun, -7 * w + k)] === 'f') c++; sw.push(c); }
+  var g = {t: 'Cette semaine', n: sem, u: sem > 1 ? 'séances' : 'séance'}; if (jours.length && jours[0] < lun && sw.slice(0, 3).some(function (v) { return v > 0; })) g.bars = sw;
+  var l = []; if (s >= 2) l.push({k: 'rg', t: 'Jours de suite', v: pl(s, 'jour')}); if (n && nf === n) l.push({k: 'tf', t: 'Tout fait', v: pl(n, 'exercice')}); if (V.palier) l.push({k: 'pal', t: 'Palier', v: V.palier});
+  var p = l.slice(0, 2); return l26e1Encarts(g, p, [pl(nf, 'exercice')].concat(s >= 1 && !p.some(function (e) { return e.t === 'Jours de suite'; }) ? [pl(s, 'jour') + ' de suite'] : []).join(' · ')); }
+/* DES-309 point 7 : le nombre du grand encart monte à l'arrivée (rien si l'appareil demande moins de mouvement) */
+(function () { var m0 = monter; monter = function () { m0.apply(this, arguments); if (REDUIT) return; [].forEach.call(document.querySelectorAll('[data-l26e1n]'), function (el) { var n = +el.dataset.l26e1n, t0 = 0; if (!(n > 0)) return; el.textContent = '0';
+  var pas = function (t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 1200); el.textContent = l26e1Nb(k < 1 ? Math.round(n * (1 - Math.pow(1 - k, 3))) : n); if (k < 1 && el.isConnected) requestAnimationFrame(pas); }; requestAnimationFrame(pas); }); }; })();
+/* ERG-215 : le conseil d'installation, aussi pour « Vos séances » de l'athlète */
+(function () { var s0 = ecranSemaine; ecranSemaine = function () { var h = s0.apply(this, arguments), t = bandeauT01(); return t ? h.replace(/(<h1>Vos séances<\/h1><p class="v6-sous">[^<]*<\/p>)/, '$1' + t) : h; }; })();
+/* le constat de Fable « lien maison / séance de salle » : un lien maison prend la place de la séance de salle sur ce téléphone ; la séance de salle commencée
+   ou faite, pas encore envoyée, se retrouve depuis le programme maison (son lien est gardé avec elle, sur ce téléphone seulement) */
+function l26e1Ouvrir(h) { if (E && E.t === 'g' && ETAT && ETAT.l26e1h !== h) ETAT.l26e1h = h; }
+function l26e1Salles() { var l = []; if (!E || E.t !== 's') return l;
+  clesLecteur().forEach(function (k) { if (CLES_PAGE.indexOf(k) >= 0) return; var o = lire(k); if (!etatOk(o) || o.t !== 'g' || typeof o.l26e1h !== 'string' || !o.l26e1h || o.l26e1h === V.lien) return;
+    var att = (Array.isArray(o.faites) && o.faites.some(function (x) { return x && !x.env; })) || (!o.fini && o.s3 && o.s3.ech && Array.isArray(o.s3.x) && o.s3.x.some(function (z) { return z.some(function (s) { return s.f; }); }));
+    if (att) l.push({h: o.l26e1h, d: dateOk(o.le) ? o.le : auj(), fini: !!o.fini || (Array.isArray(o.faites) && o.faites.length > 0)}); });
+  return l.sort(function (a, b) { return a.d < b.d ? 1 : -1; }).slice(0, 3); }
+(function () { var s0 = ecranSeance; ecranSeance = function () { var h = s0.apply(this, arguments), l = l26e1Salles(); if (!l.length) return h;
+  var x = l.map(function (s, k) { return '<button class="l26e1-salle" data-act="l26e1-salle" data-k="' + k + '"><span>Votre séance de salle du ' + dCourte(s.d) + '<small>' + (s.fini ? 'Faite, pas encore envoyée' : 'Commencée, pas encore envoyée') + '</small></span><span aria-hidden="true">›</span></button>'; }).join('');
+  return h.replace('<button class="v6-pil" id="v6-vers-progres"', '<div id="l26e1-salles">' + x + '</div><button class="v6-pil" id="v6-vers-progres"'); }; })();
+A['l26e1-salle'] = function (el) { var s = l26e1Salles()[+el.dataset.k]; if (!s) return; location.hash = s.h; return true; };
+/* ===== fin du lot E1 de la 2.6 ===== */
 /* R10 : un numéro de version commun aux fichiers. Juste après un dépôt, l'hébergeur peut servir index.html neuf et commun.js ancien : la page vide ses
    copies gardées et se recharge une fois ; si le mélange dure, elle s'ouvre quand même (le Codec n'a pas changé) et le diagnostic le dit. */
 (function () { var deja = true; try { deja = sessionStorage.getItem('lecteur:recharge') === '1'; sessionStorage.setItem('lecteur:recharge', '1'); } catch (e) {}
